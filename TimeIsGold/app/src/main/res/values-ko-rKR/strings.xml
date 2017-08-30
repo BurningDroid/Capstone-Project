@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">시간은 금이라구 친구</string>
+    <string name="welcome">환영합니다!</string>
+    <string name="just_start">인증없이 시작하기</string>
+</resources>
