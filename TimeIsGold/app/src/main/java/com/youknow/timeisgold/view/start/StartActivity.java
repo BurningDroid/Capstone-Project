@@ -23,7 +23,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import butterknife.BindView;
@@ -39,6 +41,8 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
     SignInButton mBtnGoogleSignIn;
     @BindView(R.id.btn_just_start)
     Button mBtnJustStart;
+    @BindView(R.id.progress_bar)
+    ProgressBar mProgressBar;
 
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth;
@@ -90,14 +94,15 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
 
     @OnClick(R.id.btn_sign_in)
     public void onClickGoogleSignIn() {
-        Log.d(TAG, "[TIG] onClick Googld SignIn");
+        mProgressBar.setVisibility(View.VISIBLE);
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     @OnClick(R.id.btn_just_start)
     public void onClickJustStart() {
-        Log.d(TAG, "[TIG] onClick just start");
+        mPresenter.justStart();
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
@@ -109,6 +114,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            mProgressBar.setVisibility(View.GONE);
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "[TIG] signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();

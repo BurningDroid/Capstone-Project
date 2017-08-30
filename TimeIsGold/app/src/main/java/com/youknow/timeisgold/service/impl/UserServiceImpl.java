@@ -41,9 +41,7 @@ public class UserServiceImpl implements UserService {
     public void createUser(User user) {
         mUserDataSource.saveUser(user);
 
-        SharedPreferences.Editor editor = mContext.getSharedPreferences(mContext.getString(R.string.pref_setting), MODE_PRIVATE).edit();
-        editor.putBoolean(mContext.getString(R.string.pref_first_time), false);
-        editor.apply();
+
     }
 
     @Override

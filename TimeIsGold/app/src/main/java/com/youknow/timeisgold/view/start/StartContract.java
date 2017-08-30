@@ -14,5 +14,7 @@ public interface StartContract {
 
     interface Presenter {
         void createUser(FirebaseUser user);
+
+        void justStart();
     }
 }

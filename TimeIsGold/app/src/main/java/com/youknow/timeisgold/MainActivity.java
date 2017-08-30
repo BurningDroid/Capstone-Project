@@ -1,5 +1,6 @@
 package com.youknow.timeisgold;
 
+import com.youknow.timeisgold.utils.SharedPrefUtil;
 import com.youknow.timeisgold.view.start.StartActivity;
 
 import android.content.Intent;
@@ -9,14 +10,14 @@ import android.support.v7.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
+    private final static boolean NOT_INITIALIZED = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences pref = getSharedPreferences(getString(R.string.pref_setting), MODE_PRIVATE);
-        boolean isFirstTime = pref.getBoolean(getString(R.string.pref_first_time), true);
-        if (isFirstTime) {
+        if (NOT_INITIALIZED == SharedPrefUtil.getInstance(this).isInitialized()) {
             startActivity(new Intent(this, StartActivity.class));
             finish();
         }

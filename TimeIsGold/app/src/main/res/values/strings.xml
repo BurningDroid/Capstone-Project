@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Time is Gold</string>
     <string name="pref_setting" translatable="false">pref_setting</string>
-    <string name="pref_first_time" translatable="false">pref_first_time</string>
+    <string name="pref_initialize" translatable="false">pref_first_time</string>
     <string name="welcome">WELCOME!</string>
     <string name="just_start">Just Start</string>
 </resources>
