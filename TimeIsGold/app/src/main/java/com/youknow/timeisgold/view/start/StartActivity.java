@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import com.youknow.timeisgold.MainActivity;
+import com.youknow.timeisgold.view.MainActivity;
 import com.youknow.timeisgold.R;
 
 import android.content.Intent;

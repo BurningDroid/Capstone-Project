@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/statistics">
+        <menu>
+            <item
+                    android:id="@+id/nav_today"
+                    android:icon="@drawable/ic_view_day"
+                    android:title="@string/today" />
+            <item
+                    android:id="@+id/nav_yesterday"
+                    android:icon="@drawable/ic_view_day"
+                    android:title="@string/yesterday" />
+            <item
+                    android:id="@+id/nav_week"
+                    android:icon="@drawable/ic_view_week"
+                    android:title="@string/week" />
+            <item
+                    android:id="@+id/nav_month"
+                    android:icon="@drawable/ic_view_month"
+                    android:title="@string/month" />
+        </menu>
+    </item>
+
+    <group android:checkableBehavior="single">
+        <item
+                android:id="@+id/nav_activity"
+                android:icon="@drawable/ic_add_activity_black"
+                android:title="@string/activity" />
+        <item
+                android:id="@+id/nav_history"
+                android:icon="@drawable/ic_activity_history"
+                android:title="@string/history" />
+        <item
+                android:id="@+id/nav_category_management"
+                android:icon="@drawable/ic_category"
+                android:title="@string/category_management" />
+        <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_settings"
+                android:title="@string/settings" />
+        <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_info"
+                android:title="@string/about" />
+    </group>
+
+</menu>

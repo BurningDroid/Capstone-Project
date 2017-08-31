@@ -3,4 +3,13 @@
     <string name="app_name">시간은 금이라구 친구</string>
     <string name="welcome">환영합니다!</string>
     <string name="just_start">인증없이 시작하기</string>
+    <string name="activity">활동 추가</string>
+    <string name="history">이력</string>
+    <string name="statistics">통계</string>
+    <string name="today">오늘</string>
+    <string name="yesterday">어제</string>
+    <string name="week">주</string>
+    <string name="month">월</string>
+    <string name="category_management">카테고리 관리</string>
+    <string name="settings">설정</string>
 </resources>
