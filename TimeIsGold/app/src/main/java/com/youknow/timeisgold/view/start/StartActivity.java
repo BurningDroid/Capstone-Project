@@ -103,6 +103,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
     public void onClickJustStart() {
         mPresenter.justStart();
         startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
