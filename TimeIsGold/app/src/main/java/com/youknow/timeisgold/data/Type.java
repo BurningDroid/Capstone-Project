@@ -5,8 +5,10 @@ package com.youknow.timeisgold.data;
  */
 
 public enum Type {
-    VALUABLENESS,
+    LIFE,
+    WORK,
+    SELF_IMPROVEMENT,
     REFRESH,
-    SLEEP,
-    WASTE
+    WASTE,
+    ETC
 }

@@ -8,15 +8,13 @@ import lombok.Data;
 @Data
 public class Activity {
     long id;
-    String icon;
     boolean isFavorite;
-    Type type;
     long startTime;
     long endTime;
     long spendTime;
-    String category;
-    String title;
-    String tag;
     String desc;
-
+    String categoryName;
+    String categoryColor;
+    String categoryIcon;
+    String categoryType;
 }
