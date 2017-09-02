@@ -1,9 +1,11 @@
 package com.youknow.timeisgold;
 
 import com.youknow.timeisgold.data.source.ActivityDataSource;
+import com.youknow.timeisgold.data.source.CategoryDataSource;
 import com.youknow.timeisgold.data.source.UserDataSource;
 import com.youknow.timeisgold.data.source.firebase.FirebaseUserDataSource;
 import com.youknow.timeisgold.data.source.local.LocalActivityDataSource;
+import com.youknow.timeisgold.data.source.local.LocalCategoryDataSource;
 import com.youknow.timeisgold.service.ActivityService;
 import com.youknow.timeisgold.service.UserService;
 import com.youknow.timeisgold.service.impl.ActivityServiceImpl;
@@ -24,6 +26,10 @@ public class Injection {
         return LocalActivityDataSource.getInstance(context);
     }
 
+    public static CategoryDataSource provideCategoryDataSource(Context context) {
+        return LocalCategoryDataSource.getInstance(context);
+    }
+
     public static UserService provideUserService(Context context) {
         return UserServiceImpl.getInstance(context);
     }
@@ -31,4 +37,5 @@ public class Injection {
     public static ActivityService provideActivityService() {
         return ActivityServiceImpl.getInstance();
     }
+
 }

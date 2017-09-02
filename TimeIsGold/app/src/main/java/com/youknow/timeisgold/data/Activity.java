@@ -13,8 +13,5 @@ public class Activity {
     long endTime;
     long spendTime;
     String desc;
-    String categoryName;
-    String categoryColor;
-    String categoryIcon;
-    String categoryType;
+    long categoryId;
 }

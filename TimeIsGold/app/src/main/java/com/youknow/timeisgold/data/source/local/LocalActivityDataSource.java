@@ -36,7 +36,6 @@ public class LocalActivityDataSource implements ActivityDataSource {
 
     @Override
     public void saveActivity(Activity activity) {
-        Uri uri;
         ContentValues newValues = new ContentValues();
         newValues.put(ActivityContract.Activities.START_TIME, activity.getStartTime());
         if (activity.getEndTime() > 0) {
@@ -44,12 +43,9 @@ public class LocalActivityDataSource implements ActivityDataSource {
             newValues.put(ActivityContract.Activities.SPEND_TIME, activity.getSpendTime());
         }
         newValues.put(ActivityContract.Activities.DESC, activity.getDesc());
-        newValues.put(ActivityContract.Activities.CATEGORY_NAME, activity.getCategoryName());
-        newValues.put(ActivityContract.Activities.CATEGORY_ICON, activity.getCategoryIcon());
-        newValues.put(ActivityContract.Activities.CATEGORY_COLOR, activity.getCategoryColor());
-        newValues.put(ActivityContract.Activities.CATEGORY_TYPE, activity.getCategoryType());
+        newValues.put(ActivityContract.Activities.CATEGORY_ID, activity.getCategoryId());
 
-        uri = mContext.getContentResolver().insert(ActivityContract.Activities.buildDirUri(), newValues);
+        Uri uri = mContext.getContentResolver().insert(ActivityContract.Activities.buildDirUri(), newValues);
         Log.d(TAG, "[TIG] saveActivity - " + ContentUris.parseId(uri));
     }
 
@@ -69,10 +65,7 @@ public class LocalActivityDataSource implements ActivityDataSource {
             boolean isFavorite = (cursor.getInt(cursor.getColumnIndex(ActivityContract.Activities.IS_FAVORITE)) == 0) ? false : true;
             activity.setFavorite(isFavorite);
             activity.setDesc(cursor.getString(cursor.getColumnIndex(ActivityContract.Activities.DESC)));
-            activity.setCategoryName(cursor.getString(cursor.getColumnIndex(ActivityContract.Activities.CATEGORY_NAME)));
-            activity.setCategoryIcon(cursor.getString(cursor.getColumnIndex(ActivityContract.Activities.CATEGORY_ICON)));
-            activity.setCategoryColor(cursor.getString(cursor.getColumnIndex(ActivityContract.Activities.CATEGORY_COLOR)));
-            activity.setCategoryType(cursor.getString(cursor.getColumnIndex(ActivityContract.Activities.CATEGORY_TYPE)));
+            activity.setCategoryId(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.CATEGORY_ID)));
         }
 
         return activity;

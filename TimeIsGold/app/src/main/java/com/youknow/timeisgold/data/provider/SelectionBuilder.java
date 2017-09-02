@@ -1,4 +1,4 @@
-package com.youknow.timeisgold.data.source.local.provider;
+package com.youknow.timeisgold.data.provider;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -43,8 +43,7 @@ public class SelectionBuilder {
     public SelectionBuilder where(String selection, String... selectionArgs) {
         if (TextUtils.isEmpty(selection)) {
             if (selectionArgs != null && selectionArgs.length > 0) {
-                throw new IllegalArgumentException(
-                        "Valid selection required when including arguments=");
+                throw new IllegalArgumentException("Valid selection required when including arguments=");
             }
 
             // Shortcut when clause is empty

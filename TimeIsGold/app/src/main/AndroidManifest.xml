@@ -22,6 +22,12 @@
                 android:name=".view.start.StartActivity"
                 android:screenOrientation="portrait"
                 android:theme="@style/Theme.AppCompat.NoActionBar" />
+
+        <provider
+                android:name=".data.provider.ActivityProvider"
+                android:authorities="com.youknow.timeisgold"
+                android:enabled="true"
+                android:exported="false"></provider>
     </application>
 
 </manifest>

@@ -1,7 +1,8 @@
-package com.youknow.timeisgold.data.source.local.provider;
+package com.youknow.timeisgold.data.provider;
 
 import com.youknow.timeisgold.data.database.ActivityContract;
-import com.youknow.timeisgold.data.database.ActivityDatabase;
+import com.youknow.timeisgold.data.database.CommonDatabase;
+import com.youknow.timeisgold.data.database.CategoryContract;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -21,24 +22,26 @@ import java.util.List;
 
 public class ActivityProvider extends ContentProvider {
 
-    private SQLiteOpenHelper mOpenHelper;
-
     private static final int ACTIVITIES = 0;
     private static final int ACTIVITIES__ID = 1;
-
+    private static final int CATEGORIES = 2;
+    private static final int CATEGORIES__ID = 3;
     private static UriMatcher sUriMatcher = buildUriMatcher();
+    private SQLiteOpenHelper mOpenHelper;
 
     private static UriMatcher buildUriMatcher() {
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
         final String authority = ActivityContract.CONTENT_AUTHORITY;
         matcher.addURI(authority, "activities", ACTIVITIES);
         matcher.addURI(authority, "activities/#", ACTIVITIES__ID);
+        matcher.addURI(authority, "categories", CATEGORIES);
+        matcher.addURI(authority, "categories/#", CATEGORIES__ID);
         return matcher;
     }
 
     @Override
     public boolean onCreate() {
-        mOpenHelper = new ActivityDatabase(getContext());
+        mOpenHelper = new CommonDatabase(getContext());
         return true;
     }
 
@@ -63,6 +66,10 @@ public class ActivityProvider extends ContentProvider {
                 return ActivityContract.Activities.CONTENT_TYPE;
             case ACTIVITIES__ID:
                 return ActivityContract.Activities.CONTENT_ITEM_TYPE;
+            case CATEGORIES:
+                return CategoryContract.Categories.CONTENT_TYPE;
+            case CATEGORIES__ID:
+                return CategoryContract.Categories.CONTENT_ITEM_TYPE;
             default:
                 throw new UnsupportedOperationException("unknown uri: " + uri);
         }
@@ -78,6 +85,11 @@ public class ActivityProvider extends ContentProvider {
                 final long _id = db.insertOrThrow(ActivityContract.TABLE_NAME, null, values);
                 getContext().getContentResolver().notifyChange(uri, null);
                 return ActivityContract.Activities.buildItemUri(_id);
+            }
+            case CATEGORIES: {
+                final long _id = db.insertOrThrow(CategoryContract.TABLE_NAME, null, values);
+                getContext().getContentResolver().notifyChange(uri, null);
+                return CategoryContract.Categories.buildItemUri(_id);
             }
             default: {
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -117,6 +129,13 @@ public class ActivityProvider extends ContentProvider {
             case ACTIVITIES__ID: {
                 final String _id = paths.get(1);
                 return builder.table(ActivityContract.TABLE_NAME).where(ActivityContract.Activities._ID + "=?", _id);
+            }
+            case CATEGORIES: {
+                return builder.table(CategoryContract.TABLE_NAME);
+            }
+            case CATEGORIES__ID: {
+                final String _id = paths.get(1);
+                return builder.table(CategoryContract.TABLE_NAME).where(CategoryContract.Categories._ID + "=?", _id);
             }
             default: {
                 throw new UnsupportedOperationException("Unknown uri: " + uri);

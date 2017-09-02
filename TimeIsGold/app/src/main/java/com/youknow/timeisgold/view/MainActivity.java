@@ -11,12 +11,21 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.youknow.timeisgold.R;
 import com.youknow.timeisgold.utils.SharedPrefUtil;
+import com.youknow.timeisgold.view.about.AboutFragment;
+import com.youknow.timeisgold.view.activity.CategoryGridFragment;
+import com.youknow.timeisgold.view.activity.CategoryPresenter;
+import com.youknow.timeisgold.view.categorymgmt.CategoryMgmtFragment;
+import com.youknow.timeisgold.view.history.HistoryFragment;
+import com.youknow.timeisgold.view.settings.SettingsFragment;
 import com.youknow.timeisgold.view.start.StartActivity;
+import com.youknow.timeisgold.view.statistics.StatisticsFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -118,25 +127,33 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
+        Fragment fragment = null;
 
         if (id == R.id.nav_today) {
-
+            fragment = new StatisticsFragment();
         } else if (id == R.id.nav_yesterday) {
-
+            fragment = new StatisticsFragment();
         } else if (id == R.id.nav_week) {
-
+            fragment = new StatisticsFragment();
         } else if (id == R.id.nav_month) {
-
+            fragment = new StatisticsFragment();
         } else if (id == R.id.nav_activity) {
-
+            fragment = new CategoryGridFragment();
+            ((CategoryGridFragment) fragment).setPresenter(CategoryPresenter.getInstance(this));
         } else if (id == R.id.nav_history) {
-
+            fragment = new HistoryFragment();
         } else if (id == R.id.nav_category_management) {
-
+            fragment = new CategoryMgmtFragment();
         } else if (id == R.id.nav_settings) {
-
+            fragment = new SettingsFragment();
         } else if (id == R.id.nav_about) {
+            fragment = new AboutFragment();
+        }
 
+        if (fragment != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fragment_container, fragment);
+            ft.commit();
         }
 
         mDrawer.closeDrawer(GravityCompat.START);

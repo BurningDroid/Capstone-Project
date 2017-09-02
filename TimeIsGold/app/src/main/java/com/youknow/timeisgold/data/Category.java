@@ -7,8 +7,21 @@ import lombok.Data;
  */
 @Data
 public class Category {
+
+    long id;
     String name;
-    String color;
-    String icon;
+    int color;
+    int icon;
     Type type;
+
+    public Category() {
+    }
+
+    public Category(String name, int color, int icon, Type type) {
+        this.name = name;
+        this.color = color;
+        this.icon = icon;
+        this.type = type;
+    }
+
 }
