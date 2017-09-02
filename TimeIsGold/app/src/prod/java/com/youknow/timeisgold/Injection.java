@@ -20,8 +20,8 @@ public class Injection {
         return FirebaseUserDataSource.getInstance();
     }
 
-    public static ActivityDataSource provideActivityDataSource() {
-        return LocalActivityDataSource.getInstance();
+    public static ActivityDataSource provideActivityDataSource(Context context) {
+        return LocalActivityDataSource.getInstance(context);
     }
 
     public static UserService provideUserService(Context context) {
