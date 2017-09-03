@@ -14,4 +14,17 @@
     <string name="settings">설정</string>
     <string name="signout">로그아웃</string>
     <string name="select_an_activity">활동을 선택하세요</string>
+    <string name="life">일상</string>
+    <string name="work">일</string>
+    <string name="self_improvement">자기개발</string>
+    <string name="refresh">휴식</string>
+    <string name="waste">낭비 시간</string>
+    <string name="etc">기타</string>
+    <string name="type">활동 유형</string>
+    <string name="name">이름</string>
+    <string name="color">색상</string>
+    <string name="icon">아이콘</string>
+    <string name="select_category_color">카테고리 색상을 선택하세요.</string>
+    <string name="select_category_icon">카테고리 아이콘을 선택하세요.</string>
+    <string name="category_is_saved">카테고리를 성공적으로 저장되었습니다.</string>
 </resources>

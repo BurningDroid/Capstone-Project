@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="colors" translatable="false">
+        <item>0xff33b5e5</item>
+        <item>0xffaa66cc</item>
+        <item>0xff99cc00</item>
+        <item>0xffffbb33</item>
+        <item>0xffff4444</item>
+        <item>0xff0099cc</item>
+        <item>0xff9933cc</item>
+        <item>0xff669900</item>
+        <item>0xffff8800</item>
+        <item>0xffcc0000</item>
+        <item>0xffffffff</item>
+        <item>0xffeeeeee</item>
+        <item>0xffcccccc</item>
+        <item>0xff888888</item>
+    </integer-array>
+</resources>

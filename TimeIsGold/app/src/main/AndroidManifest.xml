@@ -27,7 +27,10 @@
                 android:name=".data.provider.ActivityProvider"
                 android:authorities="com.youknow.timeisgold"
                 android:enabled="true"
-                android:exported="false"></provider>
+                android:exported="false" />
+
+        <activity
+                android:name=".view.category.addedit.AddEditCategoryActivity"></activity>
     </application>
 
 </manifest>

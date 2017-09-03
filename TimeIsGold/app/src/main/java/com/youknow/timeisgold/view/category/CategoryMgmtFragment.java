@@ -1,4 +1,4 @@
-package com.youknow.timeisgold.view.categorymgmt;
+package com.youknow.timeisgold.view.category;
 
 
 import android.os.Bundle;

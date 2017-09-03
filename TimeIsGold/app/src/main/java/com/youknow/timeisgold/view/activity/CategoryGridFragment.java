@@ -1,20 +1,20 @@
 package com.youknow.timeisgold.view.activity;
 
 
+import com.youknow.timeisgold.R;
+import com.youknow.timeisgold.data.Category;
+import com.youknow.timeisgold.view.category.addedit.AddEditCategoryActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.youknow.timeisgold.R;
-import com.youknow.timeisgold.data.Category;
-import com.youknow.timeisgold.view.activity.details.CategoryDetailsFragment;
 
 import java.util.List;
 
@@ -28,6 +28,7 @@ import butterknife.OnClick;
 public class CategoryGridFragment extends Fragment implements CategoryContract.View {
 
     private static final String TAG = CategoryGridFragment.class.getSimpleName();
+
     @BindView(R.id.fab_add_category)
     FloatingActionButton mFabAddCategory;
     @BindView(R.id.rv_category)
@@ -63,15 +64,13 @@ public class CategoryGridFragment extends Fragment implements CategoryContract.V
     public void onStart() {
         super.onStart();
         List<Category> categoryList = mPresenter.getAllCategory();
-        Log.d(TAG, "[TIG] categoryList.size: " + categoryList.size());
         mAdapter.setCategoryList(categoryList);
     }
 
     @OnClick(R.id.fab_add_category)
     public void onClickAddCategory() {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(getId(), new CategoryDetailsFragment());
-        ft.commit();
+        Intent intent = new Intent(getContext(), AddEditCategoryActivity.class);
+        startActivity(intent);
     }
 
     public void setPresenter(CategoryContract.Presenter presenter) {
