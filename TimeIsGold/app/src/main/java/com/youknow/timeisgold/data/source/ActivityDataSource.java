@@ -8,8 +8,13 @@ import com.youknow.timeisgold.data.Activity;
 
 public interface ActivityDataSource {
 
-    void saveActivity(Activity activity);
+    void createActivity(Activity activity);
+
+    void updateActivity(Activity activity);
+
     Activity getActivity(long id);
+
     void deleteActivity(long id);
 
+    Activity getRunningActivity();
 }

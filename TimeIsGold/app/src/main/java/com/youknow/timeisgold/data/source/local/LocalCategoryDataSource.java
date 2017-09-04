@@ -45,6 +45,8 @@ public class LocalCategoryDataSource implements CategoryDataSource {
         newValues.put(CategoryContract.Categories.COLOR, category.getColor());
         newValues.put(CategoryContract.Categories.ICON, category.getIcon());
         newValues.put(CategoryContract.Categories.TYPE, category.getType().name());
+        int isFavorite = category.isFavorite() ? 1 : 0;
+        newValues.put(CategoryContract.Categories.IS_FAVORITE, isFavorite);
 
         Uri uri = mContext.getContentResolver().insert(CategoryContract.Categories.buildDirUri(), newValues);
         Log.d(TAG, "[TIG] saveCategory - " + ContentUris.parseId(uri));
@@ -64,6 +66,8 @@ public class LocalCategoryDataSource implements CategoryDataSource {
             category.setColor(cursor.getInt(cursor.getColumnIndex(CategoryContract.Categories.COLOR)));
             category.setIcon(cursor.getInt(cursor.getColumnIndex(CategoryContract.Categories.ICON)));
             category.setType(Type.valueOf(cursor.getString(cursor.getColumnIndex(CategoryContract.Categories.TYPE))));
+            boolean isFavorite = (cursor.getInt(cursor.getColumnIndex(CategoryContract.Categories.IS_FAVORITE)) == 0) ? false : true;
+            category.setFavorite(isFavorite);
         }
 
         return category;
@@ -83,6 +87,8 @@ public class LocalCategoryDataSource implements CategoryDataSource {
                 category.setColor(cursor.getInt(cursor.getColumnIndex(CategoryContract.Categories.COLOR)));
                 category.setIcon(cursor.getInt(cursor.getColumnIndex(CategoryContract.Categories.ICON)));
                 category.setType(Type.valueOf(cursor.getString(cursor.getColumnIndex(CategoryContract.Categories.TYPE))));
+                boolean isFavorite = (cursor.getInt(cursor.getColumnIndex(CategoryContract.Categories.IS_FAVORITE)) == 0) ? false : true;
+                category.setFavorite(isFavorite);
                 categories.add(category);
             }
         }

@@ -23,6 +23,11 @@ class CategoryAdapter extends android.support.v7.widget.RecyclerView.Adapter<Cat
     private static final int TYPE_ITEM = 1;
 
     private List<Category> mCategoryList = new ArrayList<>();
+    private CategoryListener mListener;
+
+    public CategoryAdapter(CategoryListener categoryListener) {
+        mListener = categoryListener;
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -36,6 +41,7 @@ class CategoryAdapter extends android.support.v7.widget.RecyclerView.Adapter<Cat
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (!isHeader(position)) {
             Category category = mCategoryList.get(position);
+            holder.category = category;
             holder.bg.setBackgroundColor(category.getColor());
             holder.ivIcon.setImageResource(category.getIcon());
             holder.tvName.setText(category.getName());
@@ -68,8 +74,13 @@ class CategoryAdapter extends android.support.v7.widget.RecyclerView.Adapter<Cat
         notifyDataSetChanged();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    interface CategoryListener {
+        void onClickCategory(Category category);
+    }
 
+    public class ViewHolder extends RecyclerView.ViewHolder {
+
+        Category category;
         View bg;
         ImageView ivIcon;
         TextView tvName;
@@ -81,6 +92,12 @@ class CategoryAdapter extends android.support.v7.widget.RecyclerView.Adapter<Cat
             ivIcon = (ImageView) itemView.findViewById(R.id.iv_category_icon);
             tvName = (TextView) itemView.findViewById(R.id.tv_category_name);
             tvType = (TextView) itemView.findViewById(R.id.tv_category_type);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.onClickCategory(category);
+                }
+            });
         }
     }
 }

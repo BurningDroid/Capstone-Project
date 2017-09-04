@@ -18,7 +18,7 @@ public class ActivityContract {
 
     interface Columns {
         String _ID = "_id";
-        String IS_FAVORITE = "is_favorite";
+        String IS_RUNNING = "is_running";
         String START_TIME = "start_time";
         String END_TIME = "end_time";
         String SPEND_TIME = "spend_time";

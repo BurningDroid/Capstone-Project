@@ -3,6 +3,8 @@ package com.youknow.timeisgold.view.activity;
 
 import com.youknow.timeisgold.R;
 import com.youknow.timeisgold.data.Category;
+import com.youknow.timeisgold.view.activity.CategoryAdapter.CategoryListener;
+import com.youknow.timeisgold.view.activity.details.CategoryDetailsActivity;
 import com.youknow.timeisgold.view.category.addedit.AddEditCategoryActivity;
 
 import android.content.Intent;
@@ -11,7 +13,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ import butterknife.OnClick;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CategoryGridFragment extends Fragment implements CategoryContract.View {
+public class CategoryGridFragment extends Fragment implements CategoryContract.View, CategoryListener {
 
     private static final String TAG = CategoryGridFragment.class.getSimpleName();
 
@@ -47,7 +48,7 @@ public class CategoryGridFragment extends Fragment implements CategoryContract.V
         View root = inflater.inflate(R.layout.fragment_category_grid, container, false);
         ButterKnife.bind(this, root);
 
-        mAdapter = new CategoryAdapter();
+        mAdapter = new CategoryAdapter(this);
         mLayoutManager = new GridLayoutManager(getContext(), 2);
         mLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
@@ -76,5 +77,12 @@ public class CategoryGridFragment extends Fragment implements CategoryContract.V
     public void setPresenter(CategoryContract.Presenter presenter) {
         mPresenter = presenter;
         mPresenter.setView(this);
+    }
+
+    @Override
+    public void onClickCategory(Category category) {
+        Intent intent = new Intent(getContext(), CategoryDetailsActivity.class);
+        intent.putExtra(getString(R.string.key_category), category);
+        startActivity(intent);
     }
 }

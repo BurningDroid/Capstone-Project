@@ -3,7 +3,7 @@
     <string name="app_name">시간은 금이라구 친구</string>
     <string name="welcome">환영합니다!</string>
     <string name="just_start">인증없이 시작하기</string>
-    <string name="activity">활동 추가</string>
+    <string name="start_activity">새로운 활동 시작</string>
     <string name="history">이력</string>
     <string name="statistics">통계</string>
     <string name="today">오늘</string>
@@ -27,4 +27,7 @@
     <string name="select_category_color">카테고리 색상을 선택하세요.</string>
     <string name="select_category_icon">카테고리 아이콘을 선택하세요.</string>
     <string name="category_is_saved">카테고리를 성공적으로 저장되었습니다.</string>
+    <string name="desc">상세 내용</string>
+    <string name="started_at">시작 시간: %1$s</string>
+    <string name="summary">요약</string>
 </resources>

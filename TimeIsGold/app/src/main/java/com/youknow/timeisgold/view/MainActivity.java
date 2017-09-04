@@ -10,10 +10,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.youknow.timeisgold.R;
+import com.youknow.timeisgold.data.Activity;
 import com.youknow.timeisgold.utils.SharedPrefUtil;
 import com.youknow.timeisgold.view.about.AboutFragment;
 import com.youknow.timeisgold.view.activity.CategoryGridFragment;
 import com.youknow.timeisgold.view.activity.CategoryPresenter;
+import com.youknow.timeisgold.view.activity.details.CategoryDetailsActivity;
 import com.youknow.timeisgold.view.category.CategoryMgmtFragment;
 import com.youknow.timeisgold.view.history.HistoryFragment;
 import com.youknow.timeisgold.view.settings.SettingsFragment;
@@ -40,8 +42,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener, MainContractor.View {
 
     private final static boolean NOT_INITIALIZED = false;
 
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity
     NavigationView mNavigationView;
 
     GoogleApiClient mGoogleApiClient;
+    MainContractor.Presenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+        mPresenter = MainPresenter.getInstance(this);
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -137,9 +140,16 @@ public class MainActivity extends AppCompatActivity
             fragment = new StatisticsFragment();
         } else if (id == R.id.nav_month) {
             fragment = new StatisticsFragment();
-        } else if (id == R.id.nav_activity) {
-            fragment = new CategoryGridFragment();
-            ((CategoryGridFragment) fragment).setPresenter(CategoryPresenter.getInstance(this));
+        } else if (id == R.id.nav_start_activity) {
+            Activity activity = mPresenter.getRunningActivity();
+            if (activity != null) {
+                Intent intent = new Intent(this, CategoryDetailsActivity.class);
+                intent.putExtra(getString(R.string.key_activity), activity);
+                startActivity(intent);
+            } else {
+                fragment = new CategoryGridFragment();
+                ((CategoryGridFragment) fragment).setPresenter(CategoryPresenter.getInstance(this));
+            }
         } else if (id == R.id.nav_history) {
             fragment = new HistoryFragment();
         } else if (id == R.id.nav_category_management) {

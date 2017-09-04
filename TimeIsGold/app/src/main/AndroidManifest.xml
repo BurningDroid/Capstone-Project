@@ -29,8 +29,8 @@
                 android:enabled="true"
                 android:exported="false" />
 
-        <activity
-                android:name=".view.category.addedit.AddEditCategoryActivity"></activity>
+        <activity android:name=".view.category.addedit.AddEditCategoryActivity" />
+        <activity android:name=".view.activity.details.CategoryDetailsActivity" />
     </application>
 
 </manifest>

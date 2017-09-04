@@ -24,9 +24,9 @@
 
     <group android:checkableBehavior="single">
         <item
-                android:id="@+id/nav_activity"
+                android:id="@+id/nav_start_activity"
                 android:icon="@drawable/ic_add_activity_black"
-                android:title="@string/activity" />
+                android:title="@string/start_activity" />
         <item
                 android:id="@+id/nav_history"
                 android:icon="@drawable/ic_activity_history"

@@ -29,7 +29,7 @@ public class CommonDatabase extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + ActivityContract.TABLE_NAME + " ("
                 + ActivityContract.Columns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + ActivityContract.Columns.IS_FAVORITE + " INTEGER NOT NULL DEFAULT 0,"
+                + ActivityContract.Columns.IS_RUNNING + " INTEGER NOT NULL,"
                 + ActivityContract.Columns.START_TIME + " INTEGER NOT NULL,"
                 + ActivityContract.Columns.END_TIME + " INTEGER,"
                 + ActivityContract.Columns.SPEND_TIME + " INTEGER,"
@@ -43,7 +43,8 @@ public class CommonDatabase extends SQLiteOpenHelper {
                 + CategoryContract.Columns.NAME + " TEXT NOT NULL,"
                 + CategoryContract.Columns.COLOR + " INTEGER NOT NULL,"
                 + CategoryContract.Columns.ICON + " INTEGER NOT NULL,"
-                + CategoryContract.Columns.TYPE + " TEXT NOT NULL"
+                + CategoryContract.Columns.TYPE + " TEXT NOT NULL,"
+                + CategoryContract.Columns.IS_FAVORITE + " INTEGER NOT NULL DEFAULT 0"
                 + ")"
         );
 

@@ -22,6 +22,7 @@ public class CategoryContract {
         String COLOR = "color";
         String ICON = "icon";
         String TYPE = "type";
+        String IS_FAVORITE = "is_favorite";
     }
 
     public static class Categories implements Columns {
