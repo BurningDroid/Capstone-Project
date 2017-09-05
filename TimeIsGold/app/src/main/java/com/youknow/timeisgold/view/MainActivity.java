@@ -16,7 +16,6 @@ import com.youknow.timeisgold.view.about.AboutFragment;
 import com.youknow.timeisgold.view.activity.CategoryGridFragment;
 import com.youknow.timeisgold.view.activity.CategoryPresenter;
 import com.youknow.timeisgold.view.activity.details.CategoryDetailsActivity;
-import com.youknow.timeisgold.view.category.CategoryMgmtFragment;
 import com.youknow.timeisgold.view.history.HistoryFragment;
 import com.youknow.timeisgold.view.settings.SettingsFragment;
 import com.youknow.timeisgold.view.start.StartActivity;
@@ -152,8 +151,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         } else if (id == R.id.nav_history) {
             fragment = new HistoryFragment();
-        } else if (id == R.id.nav_category_management) {
-            fragment = new CategoryMgmtFragment();
         } else if (id == R.id.nav_settings) {
             fragment = new SettingsFragment();
         } else if (id == R.id.nav_about) {

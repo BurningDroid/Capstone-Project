@@ -11,9 +11,5 @@
         <item>0xff669900</item>
         <item>0xffff8800</item>
         <item>0xffcc0000</item>
-        <item>0xffffffff</item>
-        <item>0xffeeeeee</item>
-        <item>0xffcccccc</item>
-        <item>0xff888888</item>
     </integer-array>
 </resources>

@@ -7,6 +7,7 @@ import com.youknow.timeisgold.data.source.ActivityDataSource;
 import com.youknow.timeisgold.data.source.CategoryDataSource;
 
 import android.content.Context;
+import android.os.SystemClock;
 
 /**
  * Created by Aaron on 04/09/2017.
@@ -47,15 +48,17 @@ public class CategoryDetailsPresenter implements CategoryDetailsContract.Present
         activity.setDesc("");
         activity.setRunning(true);
         activity.setStartTime(System.currentTimeMillis());
+        activity.setRelStartTime(SystemClock.elapsedRealtime());
         mActivityDataSource.createActivity(activity);
 
-        mView.showRunningState(category, activity.getStartTime());
+        mView.showRunningState(activity);
     }
 
     @Override
     public void stopActivity(Activity activity) {
         activity.setEndTime(System.currentTimeMillis());
-        activity.setSpendTime(activity.getEndTime() - activity.getStartTime());
+        activity.setRelEndTime(SystemClock.elapsedRealtime());
+        activity.setRelElapsedTime(activity.getRelEndTime() - activity.getRelStartTime());
         activity.setRunning(false);
         mActivityDataSource.updateActivity(activity);
         mView.finish();

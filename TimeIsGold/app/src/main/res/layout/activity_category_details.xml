@@ -60,9 +60,8 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/header" />
 
-
-    <TextView
-            android:id="@+id/tv_spend_time"
+    <Chronometer
+            android:id="@+id/chron_elapsed_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -81,7 +80,7 @@
             android:text="@string/started_at"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_spend_time" />
+            app:layout_constraintTop_toBottomOf="@+id/chron_elapsed_time" />
 
     <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_operator"

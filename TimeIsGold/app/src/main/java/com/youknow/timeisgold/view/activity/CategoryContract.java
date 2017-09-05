@@ -18,5 +18,7 @@ public interface CategoryContract {
         void setView(CategoryContract.View view);
 
         List<Category> getAllCategory();
+
+        boolean hasRunningActivity();
     }
 }

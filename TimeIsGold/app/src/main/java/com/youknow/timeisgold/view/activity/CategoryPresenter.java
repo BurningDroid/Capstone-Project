@@ -2,6 +2,7 @@ package com.youknow.timeisgold.view.activity;
 
 import com.youknow.timeisgold.Injection;
 import com.youknow.timeisgold.data.Category;
+import com.youknow.timeisgold.data.source.ActivityDataSource;
 import com.youknow.timeisgold.data.source.CategoryDataSource;
 
 import android.content.Context;
@@ -19,6 +20,7 @@ public class CategoryPresenter implements CategoryContract.Presenter {
     private CategoryContract.View mView;
     private Context mContext;
     private CategoryDataSource mCategoryDataSource;
+    private ActivityDataSource mActivityDataSource;
 
     private CategoryPresenter(Context context) {
         mContext = context;
@@ -36,11 +38,17 @@ public class CategoryPresenter implements CategoryContract.Presenter {
     public void setView(CategoryContract.View view) {
         mView = view;
         mCategoryDataSource = Injection.provideCategoryDataSource(mContext);
+        mActivityDataSource = Injection.provideActivityDataSource(mContext);
     }
 
     @Override
     public List<Category> getAllCategory() {
         return mCategoryDataSource.getAllCategory();
+    }
+
+    @Override
+    public boolean hasRunningActivity() {
+        return mActivityDataSource.getRunningActivity() != null;
     }
 
 }

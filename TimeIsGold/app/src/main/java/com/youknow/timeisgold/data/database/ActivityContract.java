@@ -21,7 +21,9 @@ public class ActivityContract {
         String IS_RUNNING = "is_running";
         String START_TIME = "start_time";
         String END_TIME = "end_time";
-        String SPEND_TIME = "spend_time";
+        String REL_START_TIME = "rel_start_time";
+        String REL_END_TIME = "rel_end_time";
+        String REL_ELAPSED_TIME = "rel_elapsed_time";
         String DESC = "desc";
         String CATEGORY_ID = "category_id";
     }

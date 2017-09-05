@@ -10,7 +10,7 @@ import com.youknow.timeisgold.data.Category;
 public interface CategoryDetailsContract {
     interface View {
 
-        void showRunningState(Category category, long startTime);
+        void showRunningState(Activity activity);
 
         void finish();
 

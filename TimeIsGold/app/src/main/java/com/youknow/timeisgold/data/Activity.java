@@ -15,7 +15,9 @@ public class Activity implements Parcelable {
     boolean isRunning;
     long startTime;
     long endTime;
-    long spendTime;
+    long relStartTime;
+    long relEndTime;
+    long relElapsedTime;
     String desc;
     long categoryId;
 
@@ -32,7 +34,9 @@ public class Activity implements Parcelable {
         dest.writeByte(this.isRunning ? (byte) 1 : (byte) 0);
         dest.writeLong(this.startTime);
         dest.writeLong(this.endTime);
-        dest.writeLong(this.spendTime);
+        dest.writeLong(this.relStartTime);
+        dest.writeLong(this.relEndTime);
+        dest.writeLong(this.relElapsedTime);
         dest.writeString(this.desc);
         dest.writeLong(this.categoryId);
     }
@@ -42,12 +46,14 @@ public class Activity implements Parcelable {
         this.isRunning = in.readByte() != 0;
         this.startTime = in.readLong();
         this.endTime = in.readLong();
-        this.spendTime = in.readLong();
+        this.relStartTime = in.readLong();
+        this.relEndTime = in.readLong();
+        this.relElapsedTime = in.readLong();
         this.desc = in.readString();
         this.categoryId = in.readLong();
     }
 
-    public static final Parcelable.Creator<Activity> CREATOR = new Parcelable.Creator<Activity>() {
+    public static final Creator<Activity> CREATOR = new Creator<Activity>() {
         @Override
         public Activity createFromParcel(Parcel source) {
             return new Activity(source);

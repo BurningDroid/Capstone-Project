@@ -1,4 +1,4 @@
-package com.youknow.timeisgold.view.category.addedit;
+package com.youknow.timeisgold.view.activity.addedit;
 
 import com.youknow.timeisgold.Injection;
 import com.youknow.timeisgold.data.Category;

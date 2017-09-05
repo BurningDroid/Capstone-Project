@@ -5,7 +5,7 @@ import com.youknow.timeisgold.R;
 import com.youknow.timeisgold.data.Category;
 import com.youknow.timeisgold.view.activity.CategoryAdapter.CategoryListener;
 import com.youknow.timeisgold.view.activity.details.CategoryDetailsActivity;
-import com.youknow.timeisgold.view.category.addedit.AddEditCategoryActivity;
+import com.youknow.timeisgold.view.activity.addedit.AddEditCategoryActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +13,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -45,6 +47,7 @@ public class CategoryGridFragment extends Fragment implements CategoryContract.V
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d(TAG, "[TIG] onCreateView");
         View root = inflater.inflate(R.layout.fragment_category_grid, container, false);
         ButterKnife.bind(this, root);
 
@@ -81,8 +84,13 @@ public class CategoryGridFragment extends Fragment implements CategoryContract.V
 
     @Override
     public void onClickCategory(Category category) {
-        Intent intent = new Intent(getContext(), CategoryDetailsActivity.class);
-        intent.putExtra(getString(R.string.key_category), category);
-        startActivity(intent);
+        if (mPresenter.hasRunningActivity()) {
+            Toast.makeText(getContext(), getString(R.string.there_is_an_already_running_activity), Toast.LENGTH_SHORT).show();
+        } else {
+            Intent intent = new Intent(getContext(), CategoryDetailsActivity.class);
+            intent.putExtra(getString(R.string.key_category), category);
+            Log.d(TAG, "[TIG] onClickCategory: " + category);
+            startActivity(intent);
+        }
     }
 }

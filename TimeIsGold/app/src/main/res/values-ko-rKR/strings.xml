@@ -30,4 +30,8 @@
     <string name="desc">상세 내용</string>
     <string name="started_at">시작 시간: %1$s</string>
     <string name="summary">요약</string>
+    <string name="there_is_an_already_running_activity">이미 진행 중인 활동이 있습니다.</string>
+    <string name="stop_activity_confirm_message">현재 진행 중인 활동을 종료하시겠습니까?</string>
+    <string name="ended_at">종료 시간: %1$s</string>
+    <string name="ok">확인</string>
 </resources>

@@ -41,5 +41,9 @@
     <string name="key_activity" translatable="false">key_activity</string>
     <string name="started_at">Started At: %1$s</string>
     <string name="summary">Summary</string>
+    <string name="there_is_an_already_running_activity">There is an already running activity.</string>
+    <string name="stop_activity_confirm_message">Are you sure you want to quit the current activity?</string>
+    <string name="ended_at">Ended At: %1$s</string>
+    <string name="ok">Ok</string>
 
 </resources>

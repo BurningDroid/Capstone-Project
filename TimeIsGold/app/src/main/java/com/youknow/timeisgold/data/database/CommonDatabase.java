@@ -32,7 +32,9 @@ public class CommonDatabase extends SQLiteOpenHelper {
                 + ActivityContract.Columns.IS_RUNNING + " INTEGER NOT NULL,"
                 + ActivityContract.Columns.START_TIME + " INTEGER NOT NULL,"
                 + ActivityContract.Columns.END_TIME + " INTEGER,"
-                + ActivityContract.Columns.SPEND_TIME + " INTEGER,"
+                + ActivityContract.Columns.REL_START_TIME + " INTEGER NOT NULL,"
+                + ActivityContract.Columns.REL_END_TIME + " INTEGER,"
+                + ActivityContract.Columns.REL_ELAPSED_TIME + " INTEGER,"
                 + ActivityContract.Columns.DESC + " TEXT,"
                 + ActivityContract.Columns.CATEGORY_ID + " INTEGER NOT NULL"
                 + ")"
@@ -59,18 +61,18 @@ public class CommonDatabase extends SQLiteOpenHelper {
 
     private void insertDefaultCategory(SQLiteDatabase db) {
         List<Category> defaultCategories = new ArrayList<>();
-        defaultCategories.add(new Category("Work", 0xffef5350, R.drawable.ic_category_work, Type.WORK));
-        defaultCategories.add(new Category("Study", 0xffba68c8, R.drawable.ic_category_study, Type.SELF_IMPROVEMENT));
-        defaultCategories.add(new Category("Moving", 0xff536dfe, R.drawable.ic_category_move, Type.ETC));
-        defaultCategories.add(new Category("Tea time", 0xff90caf9, R.drawable.ic_category_tea_time, Type.REFRESH));
-        defaultCategories.add(new Category("SNS", 0xff00b8d4, R.drawable.ic_category_sns, Type.WASTE));
-        defaultCategories.add(new Category("Game", 0xff4db6ac, R.drawable.ic_category_game, Type.WASTE));
-        defaultCategories.add(new Category("Sleep", 0xff66bb6a, R.drawable.ic_category_sleep, Type.LIFE));
-        defaultCategories.add(new Category("Eating", 0xff689f38, R.drawable.ic_category_eating, Type.LIFE));
-        defaultCategories.add(new Category("Exercise", 0xff9e9d24, R.drawable.ic_category_exercise, Type.LIFE));
-        defaultCategories.add(new Category("Shopping", 0xffffd600, R.drawable.ic_category_shopping, Type.LIFE));
-        defaultCategories.add(new Category("Cleaning", 0xffffab00, R.drawable.ic_category_cleaning, Type.LIFE));
-        defaultCategories.add(new Category("Shower", 0xffbcaaa4, R.drawable.ic_category_shower, Type.LIFE));
+        defaultCategories.add(new Category("Work", 0xff33b5e5, R.drawable.ic_category_work, Type.WORK));
+        defaultCategories.add(new Category("Study", 0xffaa66cc, R.drawable.ic_category_study, Type.SELF_IMPROVEMENT));
+        defaultCategories.add(new Category("Moving", 0xff99cc00, R.drawable.ic_category_move, Type.ETC));
+        defaultCategories.add(new Category("Tea time", 0xffffbb33, R.drawable.ic_category_tea_time, Type.REFRESH));
+        defaultCategories.add(new Category("SNS", 0xffff4444, R.drawable.ic_category_sns, Type.WASTE));
+        defaultCategories.add(new Category("Game", 0xff0099cc, R.drawable.ic_category_game, Type.WASTE));
+        defaultCategories.add(new Category("Sleep", 0xff9933cc, R.drawable.ic_category_sleep, Type.LIFE));
+        defaultCategories.add(new Category("Eating", 0xff669900, R.drawable.ic_category_eating, Type.LIFE));
+        defaultCategories.add(new Category("Exercise", 0xffff8800, R.drawable.ic_category_exercise, Type.LIFE));
+        defaultCategories.add(new Category("Shopping", 0xffcc0000, R.drawable.ic_category_shopping, Type.LIFE));
+        defaultCategories.add(new Category("Cleaning", 0xff33b5e5, R.drawable.ic_category_cleaning, Type.LIFE));
+        defaultCategories.add(new Category("Shower", 0xffaa66cc, R.drawable.ic_category_shower, Type.LIFE));
 
         for (Category category : defaultCategories) {
             ContentValues values = new ContentValues();

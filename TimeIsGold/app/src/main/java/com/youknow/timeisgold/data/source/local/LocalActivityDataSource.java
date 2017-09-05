@@ -63,7 +63,9 @@ public class LocalActivityDataSource implements ActivityDataSource {
             activity.setRunning(isRunning);
             activity.setStartTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.START_TIME)));
             activity.setEndTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.END_TIME)));
-            activity.setSpendTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.SPEND_TIME)));
+            activity.setRelStartTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.REL_START_TIME)));
+            activity.setRelEndTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.REL_END_TIME)));
+            activity.setRelElapsedTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.REL_ELAPSED_TIME)));
             activity.setDesc(cursor.getString(cursor.getColumnIndex(ActivityContract.Activities.DESC)));
             activity.setCategoryId(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.CATEGORY_ID)));
         }
@@ -89,7 +91,9 @@ public class LocalActivityDataSource implements ActivityDataSource {
             activity.setRunning(isRunning);
             activity.setStartTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.START_TIME)));
             activity.setEndTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.END_TIME)));
-            activity.setSpendTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.SPEND_TIME)));
+            activity.setRelStartTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.REL_START_TIME)));
+            activity.setRelEndTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.REL_END_TIME)));
+            activity.setRelElapsedTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.REL_ELAPSED_TIME)));
             activity.setDesc(cursor.getString(cursor.getColumnIndex(ActivityContract.Activities.DESC)));
             activity.setCategoryId(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.CATEGORY_ID)));
         }
@@ -101,11 +105,13 @@ public class LocalActivityDataSource implements ActivityDataSource {
     private ContentValues getValueActivity(Activity activity) {
         ContentValues newValues = new ContentValues();
         newValues.put(ActivityContract.Activities.START_TIME, activity.getStartTime());
+        newValues.put(ActivityContract.Activities.REL_START_TIME, activity.getRelStartTime());
         int isRunning = activity.isRunning() ? 1 : 0;
         newValues.put(ActivityContract.Activities.IS_RUNNING, isRunning);
         if (activity.getEndTime() > 0) {
             newValues.put(ActivityContract.Activities.END_TIME, activity.getEndTime());
-            newValues.put(ActivityContract.Activities.SPEND_TIME, activity.getSpendTime());
+            newValues.put(ActivityContract.Activities.REL_END_TIME, activity.getRelEndTime());
+            newValues.put(ActivityContract.Activities.REL_ELAPSED_TIME, activity.getRelElapsedTime());
         }
         newValues.put(ActivityContract.Activities.DESC, activity.getDesc());
         newValues.put(ActivityContract.Activities.CATEGORY_ID, activity.getCategoryId());
