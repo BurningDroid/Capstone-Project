@@ -104,6 +104,9 @@ public class LocalActivityDataSource implements ActivityDataSource {
 
     private ContentValues getValueActivity(Activity activity) {
         ContentValues newValues = new ContentValues();
+        if(activity.getId() > 0) {
+            newValues.put(ActivityContract.Activities._ID, activity.getId());
+        }
         newValues.put(ActivityContract.Activities.START_TIME, activity.getStartTime());
         newValues.put(ActivityContract.Activities.REL_START_TIME, activity.getRelStartTime());
         int isRunning = activity.isRunning() ? 1 : 0;

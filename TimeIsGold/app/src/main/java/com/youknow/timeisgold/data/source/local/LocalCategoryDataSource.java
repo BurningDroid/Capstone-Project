@@ -55,6 +55,9 @@ public class LocalCategoryDataSource implements CategoryDataSource {
 
     private ContentValues getValueCategory(Category category) {
         ContentValues newValues = new ContentValues();
+        if (category.getId() > 0) {
+            newValues.put(CategoryContract.Categories._ID, category.getId());
+        }
         newValues.put(CategoryContract.Categories.NAME, category.getName());
         newValues.put(CategoryContract.Categories.COLOR, category.getColor());
         newValues.put(CategoryContract.Categories.ICON, category.getIcon());
@@ -62,7 +65,6 @@ public class LocalCategoryDataSource implements CategoryDataSource {
         int isFavorite = category.isFavorite() ? 1 : 0;
         newValues.put(CategoryContract.Categories.IS_FAVORITE, isFavorite);
 
-        Uri uri = mContext.getContentResolver().insert(CategoryContract.Categories.buildDirUri(), newValues);
         return newValues;
     }
 
