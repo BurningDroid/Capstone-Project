@@ -15,6 +15,8 @@ public interface CategoryDetailsContract {
         void finish();
 
         void onLoadedCategory(Category category);
+
+        void deleteDone();
     }
 
     interface Presenter {
@@ -28,5 +30,7 @@ public interface CategoryDetailsContract {
         void stopActivity(Activity activity);
 
         void saveCategory(Category category);
+
+        void deleteCategory(Category category);
     }
 }

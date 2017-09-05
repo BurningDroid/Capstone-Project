@@ -48,30 +48,18 @@ public class LocalCategoryDataSource implements CategoryDataSource {
     @Override
     public void updateCategory(Category category) {
         String[] args = new String[]{String.valueOf(category.getId())};
+        String clause = CategoryContract.Categories._ID + " = ?";
         ContentValues contentValues = getValueCategory(category);
-        mContext.getContentResolver().update(CategoryContract.Categories.buildDirUri(), contentValues, CategoryContract.Categories._ID + " = ?", args);
+        mContext.getContentResolver().update(CategoryContract.Categories.buildDirUri(), contentValues, clause, args);
         Log.d(TAG, "[TIG] updateActivity - " + category);
-    }
-
-    private ContentValues getValueCategory(Category category) {
-        ContentValues newValues = new ContentValues();
-        if (category.getId() > 0) {
-            newValues.put(CategoryContract.Categories._ID, category.getId());
-        }
-        newValues.put(CategoryContract.Categories.NAME, category.getName());
-        newValues.put(CategoryContract.Categories.COLOR, category.getColor());
-        newValues.put(CategoryContract.Categories.ICON, category.getIcon());
-        newValues.put(CategoryContract.Categories.TYPE, category.getType().name());
-        int isFavorite = category.isFavorite() ? 1 : 0;
-        newValues.put(CategoryContract.Categories.IS_FAVORITE, isFavorite);
-
-        return newValues;
     }
 
     @Override
     public Category getCategory(long id) {
+        String[] args = new String[]{String.valueOf(0)};
+        String clause = CategoryContract.Categories.IS_DELETED + " = ?";
         Category category = null;
-        Cursor cursor = mContext.getContentResolver().query(CategoryContract.Categories.buildItemUri(id), null, null, null, null);
+        Cursor cursor = mContext.getContentResolver().query(CategoryContract.Categories.buildItemUri(id), null, clause, args, null);
         if (cursor == null || cursor.getCount() < 1) {
             Log.e(TAG, "[TIG] getCategory - id[" + id + "] is null");
         } else {
@@ -84,6 +72,7 @@ public class LocalCategoryDataSource implements CategoryDataSource {
             category.setType(Type.valueOf(cursor.getString(cursor.getColumnIndex(CategoryContract.Categories.TYPE))));
             boolean isFavorite = (cursor.getInt(cursor.getColumnIndex(CategoryContract.Categories.IS_FAVORITE)) == 0) ? false : true;
             category.setFavorite(isFavorite);
+            category.setDeleted(false);
         }
 
         Log.d(TAG, "[TIG] getCategory - " + id + ": " + category);
@@ -92,8 +81,10 @@ public class LocalCategoryDataSource implements CategoryDataSource {
 
     @Override
     public List<Category> getAllCategory() {
+        String[] args = new String[]{String.valueOf(0)};
+        String clause = CategoryContract.Categories.IS_DELETED + " = ?";
         List<Category> categories = new ArrayList<>();
-        Cursor cursor = mContext.getContentResolver().query(CategoryContract.Categories.buildDirUri(), null, null, null, null);
+        Cursor cursor = mContext.getContentResolver().query(CategoryContract.Categories.buildDirUri(), null, clause, args, CategoryContract.Categories.IS_FAVORITE + " DESC");
         if (cursor == null || cursor.getCount() < 1) {
             Log.e(TAG, "[TIG] getAllCategory - size is zero");
         } else {
@@ -106,6 +97,7 @@ public class LocalCategoryDataSource implements CategoryDataSource {
                 category.setType(Type.valueOf(cursor.getString(cursor.getColumnIndex(CategoryContract.Categories.TYPE))));
                 boolean isFavorite = (cursor.getInt(cursor.getColumnIndex(CategoryContract.Categories.IS_FAVORITE)) == 0) ? false : true;
                 category.setFavorite(isFavorite);
+                category.setDeleted(false);
                 categories.add(category);
 
                 Log.d(TAG, "[TIG] getAllCategory: " + category);
@@ -116,7 +108,26 @@ public class LocalCategoryDataSource implements CategoryDataSource {
     }
 
     @Override
-    public void deleteCategory(long id) {
+    public void deleteCategory(Category category) {
+        category.setDeleted(true);
+        updateCategory(category);
+    }
 
+    private ContentValues getValueCategory(Category category) {
+        ContentValues newValues = new ContentValues();
+        if (category.getId() > 0) {
+            newValues.put(CategoryContract.Categories._ID, category.getId());
+            Log.d(TAG, "[TIG] update id: " + newValues.get(CategoryContract.Categories._ID));
+        }
+        newValues.put(CategoryContract.Categories.NAME, category.getName());
+        newValues.put(CategoryContract.Categories.COLOR, category.getColor());
+        newValues.put(CategoryContract.Categories.ICON, category.getIcon());
+        newValues.put(CategoryContract.Categories.TYPE, category.getType().name());
+        int isFavorite = category.isFavorite() ? 1 : 0;
+        newValues.put(CategoryContract.Categories.IS_FAVORITE, isFavorite);
+        int isDeleted = category.isDeleted() ? 1 : 0;
+        newValues.put(CategoryContract.Categories.IS_DELETED, isDeleted);
+
+        return newValues;
     }
 }

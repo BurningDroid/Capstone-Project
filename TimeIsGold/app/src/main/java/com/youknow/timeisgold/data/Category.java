@@ -17,6 +17,7 @@ public class Category implements Parcelable {
     int icon;
     Type type;
     boolean isFavorite;
+    boolean isDeleted;
 
     public Category() {
     }
@@ -27,6 +28,7 @@ public class Category implements Parcelable {
         this.icon = icon;
         this.type = type;
         this.isFavorite = true;
+        this.isDeleted = false;
     }
 
     @Override
@@ -42,6 +44,7 @@ public class Category implements Parcelable {
         dest.writeInt(this.icon);
         dest.writeInt(this.type == null ? -1 : this.type.ordinal());
         dest.writeByte(this.isFavorite ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.isDeleted ? (byte) 1 : (byte) 0);
     }
 
     protected Category(Parcel in) {
@@ -52,6 +55,7 @@ public class Category implements Parcelable {
         int tmpType = in.readInt();
         this.type = tmpType == -1 ? null : Type.values()[tmpType];
         this.isFavorite = in.readByte() != 0;
+        this.isDeleted = in.readByte() != 0;
     }
 
     public static final Creator<Category> CREATOR = new Creator<Category>() {

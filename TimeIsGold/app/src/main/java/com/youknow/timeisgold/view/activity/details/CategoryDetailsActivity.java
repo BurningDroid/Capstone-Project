@@ -4,6 +4,7 @@ import com.youknow.timeisgold.R;
 import com.youknow.timeisgold.data.Activity;
 import com.youknow.timeisgold.data.Category;
 import com.youknow.timeisgold.utils.DateFormatUtil;
+import com.youknow.timeisgold.view.activity.addedit.AddEditCategoryActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,12 +15,14 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Date;
 
@@ -91,10 +94,26 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.category_option_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            case R.id.action_edit:
+                Intent intent = new Intent(this, AddEditCategoryActivity.class);
+                intent.putExtra(getString(R.string.key_category), mCategory);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.action_delete:
+                mPresenter.deleteCategory(mCategory);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -161,6 +180,12 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
         mTvCategoryName.setText(category.getName());
         mHeader.setBackgroundColor(category.getColor());
         mToolbar.setBackgroundColor(category.getColor());
+    }
+
+    @Override
+    public void deleteDone() {
+        Toast.makeText(this, getString(R.string.delete_category_done), Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     @Override

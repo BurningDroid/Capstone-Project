@@ -46,7 +46,8 @@ public class CommonDatabase extends SQLiteOpenHelper {
                 + CategoryContract.Columns.COLOR + " INTEGER NOT NULL,"
                 + CategoryContract.Columns.ICON + " INTEGER NOT NULL,"
                 + CategoryContract.Columns.TYPE + " TEXT NOT NULL,"
-                + CategoryContract.Columns.IS_FAVORITE + " INTEGER NOT NULL DEFAULT 0"
+                + CategoryContract.Columns.IS_FAVORITE + " INTEGER NOT NULL DEFAULT 1,"
+                + CategoryContract.Columns.IS_DELETED + " INTEGER NOT NULL DEFAULT 0"
                 + ")"
         );
 

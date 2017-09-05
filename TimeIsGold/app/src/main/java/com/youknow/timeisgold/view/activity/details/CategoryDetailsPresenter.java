@@ -70,6 +70,12 @@ public class CategoryDetailsPresenter implements CategoryDetailsContract.Present
     }
 
     @Override
+    public void deleteCategory(Category category) {
+        mCategoryDataSource.deleteCategory(category);
+        mView.deleteDone();
+    }
+
+    @Override
     public void getCategory(long categoryId) {
         Category category = mCategoryDataSource.getCategory(categoryId);
         mView.onLoadedCategory(category);

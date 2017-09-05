@@ -23,6 +23,7 @@ public class CategoryContract {
         String ICON = "icon";
         String TYPE = "type";
         String IS_FAVORITE = "is_favorite";
+        String IS_DELETED = "is_deleted";
     }
 
     public static class Categories implements Columns {

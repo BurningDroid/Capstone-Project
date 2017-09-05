@@ -18,5 +18,5 @@ public interface CategoryDataSource {
 
     List<Category> getAllCategory();
 
-    void deleteCategory(long id);
+    void deleteCategory(Category category);
 }
