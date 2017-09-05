@@ -9,8 +9,14 @@ import java.util.List;
  */
 
 public interface CategoryDataSource {
-    void saveCategory(Category category);
+
+    void createCategory(Category category);
+
+    void updateCategory(Category category);
+
     Category getCategory(long id);
+
     List<Category> getAllCategory();
+
     void deleteCategory(long id);
 }

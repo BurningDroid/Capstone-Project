@@ -8,6 +8,7 @@ import com.youknow.timeisgold.utils.DateFormatUtil;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +19,6 @@ import android.view.View;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Date;
@@ -37,12 +37,14 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
     ImageView mIvIcon;
     @BindView(R.id.tv_category_name)
     TextView mTvCategoryName;
+    @BindView(R.id.iv_favorite)
+    ImageView mIvFavorite;
     @BindView(R.id.et_desc)
     EditText mEtDesc;
     @BindView(R.id.fab_operator)
     FloatingActionButton mFabOperator;
     @BindView(R.id.header)
-    LinearLayout mHeader;
+    ConstraintLayout mHeader;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     ActionBar mActionBar;
@@ -98,6 +100,19 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
         return super.onOptionsItemSelected(item);
     }
 
+    @OnClick(R.id.iv_favorite)
+    public void onClickFavorite() {
+        if (mCategory.isFavorite()) {
+            mCategory.setFavorite(false);
+            mIvFavorite.setImageResource(R.drawable.ic_no_favorite);
+        } else {
+            mCategory.setFavorite(true);
+            mIvFavorite.setImageResource(R.drawable.ic_favorite);
+        }
+
+        mPresenter.saveCategory(mCategory);
+    }
+
     @OnClick(R.id.fab_operator)
     public void onClickStart() {
         if (mActivity != null && mActivity.isRunning()) {
@@ -118,6 +133,8 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
     }
 
     private void showReadyState(Category category) {
+        int favorite = category.isFavorite() ? R.drawable.ic_favorite : R.drawable.ic_no_favorite;
+        mIvFavorite.setImageResource(favorite);
         mFabOperator.setImageResource(R.drawable.ic_start);
         mTvStartTime.setVisibility(View.GONE);
         mElapsedTime.setVisibility(View.GONE);
@@ -138,6 +155,8 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
     @Override
     public void onLoadedCategory(Category category) {
         mCategory = category;
+        int favorite = category.isFavorite() ? R.drawable.ic_favorite : R.drawable.ic_no_favorite;
+        mIvFavorite.setImageResource(favorite);
         mIvIcon.setImageResource(category.getIcon());
         mTvCategoryName.setText(category.getName());
         mHeader.setBackgroundColor(category.getColor());

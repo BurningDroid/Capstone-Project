@@ -37,7 +37,7 @@ public class AddEditCategoryPresenter implements AddEditCategoryContract.Present
 
     @Override
     public void saveCategory(Category category) {
-        mCategoryDataSource.saveCategory(category);
+        mCategoryDataSource.createCategory(category);
         mView.finish();
     }
 }

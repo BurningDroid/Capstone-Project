@@ -26,5 +26,7 @@ public interface CategoryDetailsContract {
         void startActivity(Category category);
 
         void stopActivity(Activity activity);
+
+        void saveCategory(Category category);
     }
 }

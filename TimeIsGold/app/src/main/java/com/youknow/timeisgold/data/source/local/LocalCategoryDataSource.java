@@ -39,7 +39,21 @@ public class LocalCategoryDataSource implements CategoryDataSource {
     }
 
     @Override
-    public void saveCategory(Category category) {
+    public void createCategory(Category category) {
+        ContentValues contentValues = getValueCategory(category);
+        Uri uri = mContext.getContentResolver().insert(CategoryContract.Categories.buildDirUri(), contentValues);
+        Log.d(TAG, "[TIG] createActivity - " + ContentUris.parseId(uri) + ", " + category);
+    }
+
+    @Override
+    public void updateCategory(Category category) {
+        String[] args = new String[]{String.valueOf(category.getId())};
+        ContentValues contentValues = getValueCategory(category);
+        mContext.getContentResolver().update(CategoryContract.Categories.buildDirUri(), contentValues, CategoryContract.Categories._ID + " = ?", args);
+        Log.d(TAG, "[TIG] updateActivity - " + category);
+    }
+
+    private ContentValues getValueCategory(Category category) {
         ContentValues newValues = new ContentValues();
         newValues.put(CategoryContract.Categories.NAME, category.getName());
         newValues.put(CategoryContract.Categories.COLOR, category.getColor());
@@ -49,7 +63,7 @@ public class LocalCategoryDataSource implements CategoryDataSource {
         newValues.put(CategoryContract.Categories.IS_FAVORITE, isFavorite);
 
         Uri uri = mContext.getContentResolver().insert(CategoryContract.Categories.buildDirUri(), newValues);
-        Log.d(TAG, "[TIG] saveCategory - " + ContentUris.parseId(uri));
+        return newValues;
     }
 
     @Override
@@ -70,6 +84,7 @@ public class LocalCategoryDataSource implements CategoryDataSource {
             category.setFavorite(isFavorite);
         }
 
+        Log.d(TAG, "[TIG] getCategory - " + id + ": " + category);
         return category;
     }
 
@@ -90,6 +105,8 @@ public class LocalCategoryDataSource implements CategoryDataSource {
                 boolean isFavorite = (cursor.getInt(cursor.getColumnIndex(CategoryContract.Categories.IS_FAVORITE)) == 0) ? false : true;
                 category.setFavorite(isFavorite);
                 categories.add(category);
+
+                Log.d(TAG, "[TIG] getAllCategory: " + category);
             }
         }
 

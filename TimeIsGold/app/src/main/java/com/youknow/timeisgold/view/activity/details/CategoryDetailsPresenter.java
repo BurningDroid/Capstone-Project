@@ -65,6 +65,11 @@ public class CategoryDetailsPresenter implements CategoryDetailsContract.Present
     }
 
     @Override
+    public void saveCategory(Category category) {
+        mCategoryDataSource.updateCategory(category);
+    }
+
+    @Override
     public void getCategory(long categoryId) {
         Category category = mCategoryDataSource.getCategory(categoryId);
         mView.onLoadedCategory(category);
