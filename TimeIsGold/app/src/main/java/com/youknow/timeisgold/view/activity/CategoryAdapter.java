@@ -46,6 +46,8 @@ class CategoryAdapter extends android.support.v7.widget.RecyclerView.Adapter<Cat
             holder.ivIcon.setImageResource(category.getIcon());
             holder.tvName.setText(category.getName());
             holder.tvType.setText(category.getType().name());
+            int visibility = category.isFavorite() ? View.VISIBLE : View.GONE;
+            holder.ivFavorite.setVisibility(visibility);
         }
     }
 
@@ -85,6 +87,7 @@ class CategoryAdapter extends android.support.v7.widget.RecyclerView.Adapter<Cat
         ImageView ivIcon;
         TextView tvName;
         TextView tvType;
+        ImageView ivFavorite;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -92,6 +95,8 @@ class CategoryAdapter extends android.support.v7.widget.RecyclerView.Adapter<Cat
             ivIcon = (ImageView) itemView.findViewById(R.id.iv_category_icon);
             tvName = (TextView) itemView.findViewById(R.id.tv_category_name);
             tvType = (TextView) itemView.findViewById(R.id.tv_category_type);
+            ivFavorite = (ImageView) itemView.findViewById(R.id.iv_favorite);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
