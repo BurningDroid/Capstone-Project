@@ -4,6 +4,7 @@ import com.youknow.timeisgold.R;
 import com.youknow.timeisgold.data.Category;
 import com.youknow.timeisgold.data.Type;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
@@ -51,12 +52,14 @@ public class AddEditCategoryActivity extends AppCompatActivity implements AddEdi
     @BindView(R.id.fab_save_category)
     FloatingActionButton mFabSaveCategory;
 
+    ArrayAdapter mAdapter;
     AddEditCategoryContract.Presenter mPresenter;
 
     String mName;
     int mColor = 0xff33b5e5;
     int mIcon = R.drawable.ic_category_eating;
     Type mType;
+    Category mCategory = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +74,8 @@ public class AddEditCategoryActivity extends AppCompatActivity implements AddEdi
         mActionBar = getSupportActionBar();
         mActionBar.setDisplayHomeAsUpEnabled(true);
 
-        SpinnerAdapter adapter = new ArrayAdapter<Type>(this, R.layout.support_simple_spinner_dropdown_item, Type.values());
-        mSpnCategoryType.setAdapter(adapter);
+        mAdapter = new ArrayAdapter<Type>(this, R.layout.support_simple_spinner_dropdown_item, Type.values());
+        mSpnCategoryType.setAdapter(mAdapter);
         colorSelected(mColor);
         mEtCategoryName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -84,6 +87,12 @@ public class AddEditCategoryActivity extends AppCompatActivity implements AddEdi
                 return false;
             }
         });
+
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra(getString(R.string.key_category))) {
+            mCategory = intent.getParcelableExtra(getString(R.string.key_category));
+            showEditView();
+        }
     }
 
     @OnClick(R.id.iv_category_color)
@@ -101,7 +110,16 @@ public class AddEditCategoryActivity extends AppCompatActivity implements AddEdi
         mName = mEtCategoryName.getText().toString();
         mType = (Type) mSpnCategoryType.getSelectedItem();
 
-        mPresenter.saveCategory(new Category(mName, mColor, mIcon, mType));
+        if (mCategory == null) {
+            mCategory = new Category(mName, mColor, mIcon, mType);
+            mPresenter.createCategory(mCategory);
+        } else {
+            mCategory.setName(mName);
+            mCategory.setColor(mColor);
+            mCategory.setIcon(mIcon);
+            mCategory.setType(mType);
+            mPresenter.updateCategory(mCategory);
+        }
     }
 
     @Override
@@ -130,4 +148,12 @@ public class AddEditCategoryActivity extends AppCompatActivity implements AddEdi
         dialog.show(getSupportFragmentManager(), "");
     }
 
+    private void showEditView() {
+        setTitle(getString(R.string.action_edit));
+        categorySelected(mCategory.getIcon());
+        colorSelected(mCategory.getColor());
+        mEtCategoryName.setText(mCategory.getName());
+        mTvCategoryName.setText(mCategory.getName());
+        mSpnCategoryType.setSelection(mAdapter.getPosition(mCategory.getType()));
+    }
 }

@@ -16,6 +16,8 @@ public interface AddEditCategoryContract {
 
         void setView(View view);
 
-        void saveCategory(Category category);
+        void createCategory(Category category);
+
+        void updateCategory(Category category);
     }
 }

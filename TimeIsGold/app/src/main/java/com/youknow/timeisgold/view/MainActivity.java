@@ -147,7 +147,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
             } else {
                 fragment = new CategoryGridFragment();
-                ((CategoryGridFragment) fragment).setPresenter(CategoryPresenter.getInstance(this));
             }
         } else if (id == R.id.nav_history) {
             fragment = new HistoryFragment();

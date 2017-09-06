@@ -4,11 +4,12 @@ package com.youknow.timeisgold.view.activity;
 import com.youknow.timeisgold.R;
 import com.youknow.timeisgold.data.Category;
 import com.youknow.timeisgold.view.activity.CategoryAdapter.CategoryListener;
-import com.youknow.timeisgold.view.activity.details.CategoryDetailsActivity;
 import com.youknow.timeisgold.view.activity.addedit.AddEditCategoryActivity;
+import com.youknow.timeisgold.view.activity.details.CategoryDetailsActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -42,7 +43,13 @@ public class CategoryGridFragment extends Fragment implements CategoryContract.V
     private CategoryContract.Presenter mPresenter;
 
     public CategoryGridFragment() {
-        // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mPresenter = CategoryPresenter.getInstance(getContext());
+        mPresenter.setView(this);
     }
 
     @Override
@@ -75,11 +82,6 @@ public class CategoryGridFragment extends Fragment implements CategoryContract.V
     public void onClickAddCategory() {
         Intent intent = new Intent(getContext(), AddEditCategoryActivity.class);
         startActivity(intent);
-    }
-
-    public void setPresenter(CategoryContract.Presenter presenter) {
-        mPresenter = presenter;
-        mPresenter.setView(this);
     }
 
     @Override
