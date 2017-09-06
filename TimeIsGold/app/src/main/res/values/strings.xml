@@ -47,5 +47,6 @@
     <string name="action_edit">Edit</string>
     <string name="action_delete">Delete</string>
     <string name="delete_category_done">Category is deleted successfully.</string>
+    <string name="chart_unit_hour">Unit: Hour</string>
 
 </resources>

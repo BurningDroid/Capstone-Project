@@ -2,6 +2,8 @@ package com.youknow.timeisgold.data.source;
 
 import com.youknow.timeisgold.data.Activity;
 
+import java.util.List;
+
 /**
  * Created by Aaron on 31/08/2017.
  */
@@ -17,4 +19,6 @@ public interface ActivityDataSource {
     void deleteActivity(long id);
 
     Activity getRunningActivity();
+
+    List<Activity> getActivities(long categoryId, long startDate);
 }

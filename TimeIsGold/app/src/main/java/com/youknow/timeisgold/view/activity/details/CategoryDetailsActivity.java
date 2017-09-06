@@ -1,9 +1,16 @@
 package com.youknow.timeisgold.view.activity.details;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.youknow.timeisgold.R;
 import com.youknow.timeisgold.data.Activity;
 import com.youknow.timeisgold.data.Category;
-import com.youknow.timeisgold.utils.DateFormatUtil;
+import com.youknow.timeisgold.utils.DateTimeUtil;
 import com.youknow.timeisgold.view.activity.addedit.AddEditCategoryActivity;
 
 import android.content.Intent;
@@ -44,6 +51,8 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
     ImageView mIvFavorite;
     @BindView(R.id.et_desc)
     EditText mEtDesc;
+    @BindView(R.id.bar_chart)
+    BarChart mBarChart;
     @BindView(R.id.fab_operator)
     FloatingActionButton mFabOperator;
     @BindView(R.id.header)
@@ -81,6 +90,7 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
         if (intent != null) {
             if (intent.hasExtra(getString(R.string.key_category))) {
                 mCategory = intent.getParcelableExtra(getString(R.string.key_category));
+                mPresenter.get7dayData(mCategory);
                 showReadyState(mCategory);
                 onLoadedCategory(mCategory);
             } else if (intent.hasExtra(getString(R.string.key_activity))) {
@@ -157,6 +167,7 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
         mFabOperator.setImageResource(R.drawable.ic_start);
         mTvStartTime.setVisibility(View.GONE);
         mElapsedTime.setVisibility(View.GONE);
+        mBarChart.setVisibility(View.VISIBLE);
         mElapsedTime.stop();
     }
 
@@ -166,8 +177,9 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
         mFabOperator.setImageResource(R.drawable.ic_stop);
         mTvStartTime.setVisibility(View.VISIBLE);
         mElapsedTime.setVisibility(View.VISIBLE);
+        mBarChart.setVisibility(View.GONE);
 
-        mTvStartTime.setText(getString(R.string.started_at, DateFormatUtil.DATE_TIME_FORMAT.format(new Date(activity.getStartTime()))));
+        mTvStartTime.setText(getString(R.string.started_at, DateTimeUtil.DATE_TIME_FORMAT.format(new Date(activity.getStartTime()))));
         mElapsedTime.setBase(activity.getRelStartTime());
         mElapsedTime.start();
     }
@@ -187,6 +199,35 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
     public void deleteDone() {
         Toast.makeText(this, getString(R.string.delete_category_done), Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    @Override
+    public void onLoadedChartData(final String[] labels, BarData data) {
+
+        if (labels == null || data == null) {
+            mBarChart.setVisibility(View.GONE);
+            return;
+        }
+
+        IAxisValueFormatter formatter = new IAxisValueFormatter() {
+
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return labels[(int) value];
+            }
+
+        };
+
+        XAxis xAxis = mBarChart.getXAxis();
+        xAxis.setGranularity(1f);
+        xAxis.setValueFormatter(formatter);
+
+        mBarChart.getDescription().setEnabled(false);
+        mBarChart.setData(data);
+        mBarChart.getAxisRight().setEnabled(false);
+        mBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        mBarChart.setFitBars(true);
+        mBarChart.invalidate();
     }
 
     @Override

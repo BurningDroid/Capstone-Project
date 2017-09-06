@@ -1,7 +1,10 @@
 package com.youknow.timeisgold.view.activity.details;
 
+import com.github.mikephil.charting.data.BarData;
 import com.youknow.timeisgold.data.Activity;
 import com.youknow.timeisgold.data.Category;
+
+import java.util.Set;
 
 /**
  * Created by Aaron on 04/09/2017.
@@ -17,6 +20,8 @@ public interface CategoryDetailsContract {
         void onLoadedCategory(Category category);
 
         void deleteDone();
+
+        void onLoadedChartData(String[] labels, BarData data);
     }
 
     interface Presenter {
@@ -32,5 +37,7 @@ public interface CategoryDetailsContract {
         void saveCategory(Category category);
 
         void deleteCategory(Category category);
+
+        void get7dayData(Category category);
     }
 }

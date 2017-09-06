@@ -11,6 +11,9 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Aaron on 31/08/2017.
  */
@@ -83,8 +86,9 @@ public class LocalActivityDataSource implements ActivityDataSource {
     @Override
     public Activity getRunningActivity() {
         Activity activity = null;
+        String clause = ActivityContract.Activities.IS_RUNNING + " = ?";
         String[] args = new String[]{"1"};
-        Cursor cursor = mContext.getContentResolver().query(ActivityContract.Activities.buildDirUri(), null, ActivityContract.Activities.IS_RUNNING + " = ?", args, null);
+        Cursor cursor = mContext.getContentResolver().query(ActivityContract.Activities.buildDirUri(), null, clause, args, null);
         if (cursor != null && cursor.getCount() > 0) {
             cursor.moveToFirst();
             activity = new Activity();
@@ -102,6 +106,34 @@ public class LocalActivityDataSource implements ActivityDataSource {
 
         Log.d(TAG, "[TIG] getRunningActivity - " + activity);
         return activity;
+    }
+
+    @Override
+    public List<Activity> getActivities(long categoryId, long startDate) {
+        List<Activity> activityList = new ArrayList<>();
+
+        String clause = ActivityContract.Activities.IS_RUNNING + " = ? AND " + ActivityContract.Activities.CATEGORY_ID + " = ? AND " + ActivityContract.Activities.START_TIME + " >= ?";
+        String[] args = new String[]{"0", String.valueOf(categoryId), String.valueOf(startDate)};
+        Cursor cursor = mContext.getContentResolver().query(ActivityContract.Activities.buildDirUri(), null, clause, args, null);
+        if (cursor != null && cursor.getCount() > 0) {
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                Activity activity = new Activity();
+                activity.setId(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities._ID)));
+                boolean isRunning = cursor.getInt(cursor.getColumnIndex(ActivityContract.Activities.IS_RUNNING)) == 0 ? false : true;
+                activity.setRunning(isRunning);
+                activity.setStartTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.START_TIME)));
+                activity.setEndTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.END_TIME)));
+                activity.setRelStartTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.REL_START_TIME)));
+                activity.setRelEndTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.REL_END_TIME)));
+                activity.setRelElapsedTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.REL_ELAPSED_TIME)));
+                activity.setDesc(cursor.getString(cursor.getColumnIndex(ActivityContract.Activities.DESC)));
+                activity.setCategoryId(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.CATEGORY_ID)));
+                activityList.add(activity);
+                Log.d(TAG, "[TIG] getActivities - " + activity);
+            }
+        }
+
+        return activityList;
     }
 
     private ContentValues getValueActivity(Activity activity) {

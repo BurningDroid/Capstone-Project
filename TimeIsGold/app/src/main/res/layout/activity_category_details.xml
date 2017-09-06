@@ -61,7 +61,8 @@
                 android:src="@drawable/ic_no_favorite"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_category_name"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_category_name" />
+                app:layout_constraintBottom_toBottomOf="@+id/tv_category_name"
+                android:layout_marginEnd="16dp" />
 
     </android.support.constraint.ConstraintLayout>
 
@@ -76,6 +77,15 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/header" />
+
+    <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/bar_chart"
+            android:layout_width="0dp"
+            android:layout_height="172dp"
+            android:layout_margin="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_desc"/>
 
     <Chronometer
             android:id="@+id/chron_elapsed_time"

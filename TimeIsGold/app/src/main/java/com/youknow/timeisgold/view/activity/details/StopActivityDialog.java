@@ -3,13 +3,12 @@ package com.youknow.timeisgold.view.activity.details;
 import com.youknow.timeisgold.R;
 import com.youknow.timeisgold.data.Activity;
 import com.youknow.timeisgold.data.Category;
-import com.youknow.timeisgold.utils.DateFormatUtil;
+import com.youknow.timeisgold.utils.DateTimeUtil;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
@@ -40,9 +39,9 @@ public class StopActivityDialog extends DialogFragment {
         TextView tvElapsedTime = (TextView) rootView.findViewById(R.id.tv_elapsed_time);
         TextView tvCategoryName = (TextView) rootView.findViewById(R.id.tv_category_name);
 
-        tvStartTime.setText(getString(R.string.started_at, DateFormatUtil.DATE_TIME_FORMAT.format(activity.getStartTime())));
-        tvEndTime.setText(getString(R.string.ended_at, DateFormatUtil.DATE_TIME_FORMAT.format(activity.getEndTime())));
-        tvElapsedTime.setText(DateFormatUtil.getElapsedTime(activity.getRelElapsedTime()));
+        tvStartTime.setText(getString(R.string.started_at, DateTimeUtil.DATE_TIME_FORMAT.format(activity.getStartTime())));
+        tvEndTime.setText(getString(R.string.ended_at, DateTimeUtil.DATE_TIME_FORMAT.format(activity.getEndTime())));
+        tvElapsedTime.setText(DateTimeUtil.getElapsedTime(activity.getRelElapsedTime()));
         tvCategoryName.setText(category.getName());
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
