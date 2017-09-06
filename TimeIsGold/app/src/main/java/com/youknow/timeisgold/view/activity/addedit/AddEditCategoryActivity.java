@@ -11,7 +11,10 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -95,6 +98,26 @@ public class AddEditCategoryActivity extends AppCompatActivity implements AddEdi
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.add_edit_category_option_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            case R.id.action_delete:
+                mPresenter.deleteCategory(mCategory);
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     @OnClick(R.id.iv_category_color)
     public void onClickCategoryColor() {
         showDialog(new ColorDialog());
@@ -139,9 +162,11 @@ public class AddEditCategoryActivity extends AppCompatActivity implements AddEdi
     }
 
     @Override
-    public void finish() {
+    public void finish(String message) {
         super.finish();
-        Toast.makeText(this, getString(R.string.category_is_saved), Toast.LENGTH_SHORT).show();
+        if (!TextUtils.isEmpty(message)) {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void showDialog(DialogFragment dialog) {

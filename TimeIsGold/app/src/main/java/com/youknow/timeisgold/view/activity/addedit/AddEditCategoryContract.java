@@ -9,7 +9,8 @@ import com.youknow.timeisgold.data.Category;
 public interface AddEditCategoryContract {
     interface View {
 
-        void finish();
+        void finish(String message);
+
     }
 
     interface Presenter {
@@ -19,5 +20,7 @@ public interface AddEditCategoryContract {
         void createCategory(Category category);
 
         void updateCategory(Category category);
+
+        void deleteCategory(Category category);
     }
 }

@@ -35,10 +35,12 @@ public class LocalActivityDataSource implements ActivityDataSource {
     }
 
     @Override
-    public void createActivity(Activity activity) {
+    public long createActivity(Activity activity) {
+        Log.d(TAG, "[TIG] createActivity - " + activity.getId());
         ContentValues contentValues = getValueActivity(activity);
         Uri uri = mContext.getContentResolver().insert(ActivityContract.Activities.buildDirUri(), contentValues);
         Log.d(TAG, "[TIG] createActivity - " + ContentUris.parseId(uri) + ", " + activity);
+        return ContentUris.parseId(uri);
     }
 
     @Override

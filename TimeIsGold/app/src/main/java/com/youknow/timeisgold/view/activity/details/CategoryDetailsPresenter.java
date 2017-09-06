@@ -49,8 +49,9 @@ public class CategoryDetailsPresenter implements CategoryDetailsContract.Present
         activity.setRunning(true);
         activity.setStartTime(System.currentTimeMillis());
         activity.setRelStartTime(SystemClock.elapsedRealtime());
-        mActivityDataSource.createActivity(activity);
 
+        long activityId = mActivityDataSource.createActivity(activity);
+        activity.setId(activityId);
         mView.showRunningState(activity);
     }
 
