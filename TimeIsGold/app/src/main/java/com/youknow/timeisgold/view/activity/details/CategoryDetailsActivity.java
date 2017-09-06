@@ -162,6 +162,7 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
 
     @Override
     public void showRunningState(Activity activity) {
+        mActivity = activity;
         mFabOperator.setImageResource(R.drawable.ic_stop);
         mTvStartTime.setVisibility(View.VISIBLE);
         mElapsedTime.setVisibility(View.VISIBLE);
