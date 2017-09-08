@@ -31,7 +31,6 @@ class CategoryAdapter extends android.support.v7.widget.RecyclerView.Adapter<Cat
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         int layout = (viewType == TYPE_HEADER) ? R.layout.category_header : R.layout.category_grid_item;
         View v = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
         return new ViewHolder(v);

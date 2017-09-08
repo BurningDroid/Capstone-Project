@@ -13,7 +13,9 @@ import android.net.Uri;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Aaron on 02/09/2017.
@@ -24,6 +26,7 @@ public class LocalCategoryDataSource implements CategoryDataSource {
     private static final String TAG = LocalCategoryDataSource.class.getSimpleName();
     private static LocalCategoryDataSource INSTANCE;
 
+    private Map<Long, Category> mCategoryMap = new HashMap<>();
     private Context mContext;
 
     private LocalCategoryDataSource(Context context) {
@@ -42,7 +45,10 @@ public class LocalCategoryDataSource implements CategoryDataSource {
     public void createCategory(Category category) {
         ContentValues contentValues = getValueCategory(category);
         Uri uri = mContext.getContentResolver().insert(CategoryContract.Categories.buildDirUri(), contentValues);
-        Log.d(TAG, "[TIG] createActivity - " + ContentUris.parseId(uri) + ", " + category);
+        category.setId(ContentUris.parseId(uri));
+
+        Log.d(TAG, "[TIG] createActivity - " + category.getId() + ", " + category);
+        mCategoryMap.put(category.getId(), category);
     }
 
     @Override
@@ -52,10 +58,16 @@ public class LocalCategoryDataSource implements CategoryDataSource {
         ContentValues contentValues = getValueCategory(category);
         mContext.getContentResolver().update(CategoryContract.Categories.buildDirUri(), contentValues, clause, args);
         Log.d(TAG, "[TIG] updateActivity - " + category);
+
+        mCategoryMap.put(category.getId(), category);
     }
 
     @Override
     public Category getCategory(long id) {
+        if (mCategoryMap.containsKey(id)) {
+            return mCategoryMap.get(id);
+        }
+
         String[] args = new String[]{String.valueOf(0)};
         String clause = CategoryContract.Categories.IS_DELETED + " = ?";
         Category category = null;
@@ -76,6 +88,7 @@ public class LocalCategoryDataSource implements CategoryDataSource {
         }
 
         Log.d(TAG, "[TIG] getCategory - " + id + ": " + category);
+        mCategoryMap.put(category.getId(), category);
         return category;
     }
 
@@ -100,6 +113,7 @@ public class LocalCategoryDataSource implements CategoryDataSource {
                 category.setDeleted(false);
                 categories.add(category);
 
+                mCategoryMap.put(category.getId(), category);
                 Log.d(TAG, "[TIG] getAllCategory: " + category);
             }
         }
@@ -111,6 +125,7 @@ public class LocalCategoryDataSource implements CategoryDataSource {
     public void deleteCategory(Category category) {
         category.setDeleted(true);
         updateCategory(category);
+        mCategoryMap.remove(category.getId());
     }
 
     private ContentValues getValueCategory(Category category) {

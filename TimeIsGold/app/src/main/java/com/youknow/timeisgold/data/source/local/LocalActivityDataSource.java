@@ -136,9 +136,38 @@ public class LocalActivityDataSource implements ActivityDataSource {
         return activityList;
     }
 
+    @Override
+    public List<Activity> getAllActivity() {
+        List<Activity> activityList = new ArrayList<>();
+
+        String clause = ActivityContract.Activities.IS_RUNNING + " = ?";
+        String[] args = new String[]{"0"};
+
+        Cursor cursor = mContext.getContentResolver().query(ActivityContract.Activities.buildDirUri(), null, clause, args, null);
+        if (cursor != null && cursor.getCount() > 0) {
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                Activity activity = new Activity();
+                activity.setId(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities._ID)));
+                boolean isRunning = cursor.getInt(cursor.getColumnIndex(ActivityContract.Activities.IS_RUNNING)) == 0 ? false : true;
+                activity.setRunning(isRunning);
+                activity.setStartTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.START_TIME)));
+                activity.setEndTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.END_TIME)));
+                activity.setRelStartTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.REL_START_TIME)));
+                activity.setRelEndTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.REL_END_TIME)));
+                activity.setRelElapsedTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.REL_ELAPSED_TIME)));
+                activity.setDesc(cursor.getString(cursor.getColumnIndex(ActivityContract.Activities.DESC)));
+                activity.setCategoryId(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.CATEGORY_ID)));
+                activityList.add(activity);
+                Log.d(TAG, "[TIG] getActivities - " + activity);
+            }
+        }
+
+        return activityList;
+    }
+
     private ContentValues getValueActivity(Activity activity) {
         ContentValues newValues = new ContentValues();
-        if(activity.getId() > 0) {
+        if (activity.getId() > 0) {
             newValues.put(ActivityContract.Activities._ID, activity.getId());
         }
         newValues.put(ActivityContract.Activities.START_TIME, activity.getStartTime());

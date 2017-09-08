@@ -19,6 +19,7 @@ public class DateTimeUtil {
     public static final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd");
     public static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm:ss");
+    public static final SimpleDateFormat TIME_FORMAT_SHORT = new SimpleDateFormat("HH:mm");
     public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
 
     public static String getElapsedTime(long elapsedTime) {
@@ -27,7 +28,23 @@ public class DateTimeUtil {
         mm = (elapsedTime - hh * 60 * 60 * 1000) / 1000 / 60;
         ss = ((elapsedTime - hh * 60 * 60 * 1000) - mm * 60 * 1000) / 1000;
 
-        return hh + ":" + mm + ":" + ss;
+        if (hh == 0) {
+            return mm + " min " + ss + "sec";
+        } else {
+            return hh + " hour " + mm + " min " + ss + "sec";
+        }
+    }
+
+    public static String getElapsedTimeShort(long elapsedTime) {
+        long hh, mm, ss;
+        hh = elapsedTime / 1000 / 60 / 60;
+        mm = (elapsedTime - hh * 60 * 60 * 1000) / 1000 / 60;
+
+        if (hh == 0) {
+            return mm + " min";
+        } else {
+            return hh + " hour " + mm + " min";
+        }
     }
 
     public static float getElapsedHour(long elapsedTime) {
@@ -56,6 +73,10 @@ public class DateTimeUtil {
 
         Log.d(TAG, "[TIG] getDateMap[" + day + "]: " + dateMap.keySet());
         return dateMap;
+    }
+
+    public static String getTime(long startTime, long endTime) {
+        return TIME_FORMAT_SHORT.format(new Date(startTime)) + " ~ " + TIME_FORMAT_SHORT.format(new Date(endTime));
     }
 
 }

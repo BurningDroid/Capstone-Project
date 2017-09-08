@@ -21,4 +21,6 @@ public interface ActivityDataSource {
     Activity getRunningActivity();
 
     List<Activity> getActivities(long categoryId, long startDate);
+
+    List<Activity> getAllActivity();
 }
