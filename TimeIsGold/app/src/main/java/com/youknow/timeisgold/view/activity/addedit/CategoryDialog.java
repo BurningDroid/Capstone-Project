@@ -150,6 +150,7 @@ public class CategoryDialog extends DialogFragment {
             }
 
             ivCategory.setImageResource(categories[position]);
+            ivCategory.setColorFilter(R.color.colorPrimary);
             ivCategory.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

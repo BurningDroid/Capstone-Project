@@ -13,15 +13,12 @@ import java.util.Set;
 public interface CategoryDetailsContract {
     interface View {
 
-        void showRunningState(Activity activity);
-
         void finish();
 
         void onLoadedCategory(Category category);
 
         void deleteDone();
 
-        void onLoadedChartData(String[] labels, BarData data);
     }
 
     interface Presenter {
@@ -30,14 +27,9 @@ public interface CategoryDetailsContract {
 
         void getCategory(long categoryId);
 
-        void startActivity(Category category);
-
-        void stopActivity(Activity activity);
-
         void saveCategory(Category category);
 
         void deleteCategory(Category category);
 
-        void get7dayData(Category category);
     }
 }

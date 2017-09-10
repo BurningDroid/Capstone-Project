@@ -4,6 +4,7 @@ import com.youknow.timeisgold.R;
 import com.youknow.timeisgold.data.Activity;
 import com.youknow.timeisgold.data.Category;
 import com.youknow.timeisgold.utils.DateTimeUtil;
+import com.youknow.timeisgold.view.activity.details.starter.StarterFragment;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -21,11 +22,15 @@ import android.widget.TextView;
 
 public class StopActivityDialog extends DialogFragment {
 
-    interface StopActivityListener {
+    public interface StopActivityListener {
         void stopActivity(Activity activity);
     }
 
     StopActivityListener mListener;
+
+    public void setListener(StopActivityListener listener) {
+        mListener = listener;
+    }
 
     @NonNull
     @Override
@@ -41,7 +46,7 @@ public class StopActivityDialog extends DialogFragment {
 
         tvStartTime.setText(getString(R.string.started_at, DateTimeUtil.DATE_TIME_FORMAT.format(activity.getStartTime())));
         tvEndTime.setText(getString(R.string.ended_at, DateTimeUtil.DATE_TIME_FORMAT.format(activity.getEndTime())));
-        tvElapsedTime.setText(DateTimeUtil.getElapsedTime(activity.getRelElapsedTime()));
+        tvElapsedTime.setText(DateTimeUtil.getElapsedTimeShort(activity.getRelElapsedTime()));
         tvCategoryName.setText(category.getName());
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -56,9 +61,4 @@ public class StopActivityDialog extends DialogFragment {
         return builder.create();
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mListener = (StopActivityListener) context;
-    }
 }

@@ -1,43 +1,30 @@
 package com.youknow.timeisgold.view.activity.details;
 
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.youknow.timeisgold.R;
 import com.youknow.timeisgold.data.Activity;
 import com.youknow.timeisgold.data.Category;
-import com.youknow.timeisgold.utils.DateTimeUtil;
 import com.youknow.timeisgold.view.activity.addedit.AddEditCategoryActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.*;
+import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Chronometer;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CategoryDetailsActivity extends AppCompatActivity implements CategoryDetailsContract.View, StopActivityDialog.StopActivityListener {
+public class CategoryDetailsActivity extends AppCompatActivity implements CategoryDetailsContract.View {
 
     private static final String TAG = CategoryDetailsActivity.class.getSimpleName();
 
@@ -49,23 +36,15 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
     TextView mTvCategoryName;
     @BindView(R.id.iv_favorite)
     ImageView mIvFavorite;
-    @BindView(R.id.et_desc)
-    EditText mEtDesc;
-    @BindView(R.id.bar_chart)
-    BarChart mBarChart;
-    @BindView(R.id.fab_operator)
-    FloatingActionButton mFabOperator;
     @BindView(R.id.header)
     ConstraintLayout mHeader;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     ActionBar mActionBar;
-
-    // Running State
-    @BindView(R.id.chron_elapsed_time)
-    Chronometer mElapsedTime;
-    @BindView(R.id.tv_start_time)
-    TextView mTvStartTime;
+    @BindView(R.id.tab_dots)
+    TabLayout mTabLayout;
+    @BindView(R.id.activity_viewpager)
+    ViewPager mViewPager;
 
     Category mCategory;
     Activity mActivity;
@@ -90,17 +69,17 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
         if (intent != null) {
             if (intent.hasExtra(getString(R.string.key_category))) {
                 mCategory = intent.getParcelableExtra(getString(R.string.key_category));
-                mPresenter.get7dayData(mCategory);
-                showReadyState(mCategory);
                 onLoadedCategory(mCategory);
             } else if (intent.hasExtra(getString(R.string.key_activity))) {
                 mActivity = intent.getParcelableExtra(getString(R.string.key_activity));
-                if (mActivity.isRunning()) {
-                    mPresenter.getCategory(mActivity.getCategoryId());
-                    showRunningState(mActivity);
-                }
+                mPresenter.getCategory(mActivity.getCategoryId());
             }
         }
+
+        PagerAdapter pagerAdapter = new StarterPagerAdapter(this, getSupportFragmentManager(), mCategory, mActivity);
+        mViewPager.setAdapter(pagerAdapter);
+        mViewPager.setCurrentItem(0);
+        mTabLayout.setupWithViewPager(mViewPager, true);
     }
 
     @Override
@@ -142,48 +121,6 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
         mPresenter.saveCategory(mCategory);
     }
 
-    @OnClick(R.id.fab_operator)
-    public void onClickStart() {
-        if (mActivity != null && mActivity.isRunning()) {
-            Log.d(TAG, "[TIG] stop the running activity");
-            mActivity.setEndTime(System.currentTimeMillis());
-            mActivity.setRelEndTime(SystemClock.elapsedRealtime());
-            mActivity.setRelElapsedTime(mActivity.getRelEndTime() - mActivity.getRelStartTime());
-
-            StopActivityDialog dialog = new StopActivityDialog();
-            Bundle bundle = new Bundle();
-            bundle.putParcelable(getString(R.string.key_activity), mActivity);
-            bundle.putParcelable(getString(R.string.key_category), mCategory);
-            dialog.setArguments(bundle);
-            dialog.show(getSupportFragmentManager(), "");
-        } else {
-            mPresenter.startActivity(mCategory);
-        }
-    }
-
-    private void showReadyState(Category category) {
-        int favorite = category.isFavorite() ? R.drawable.ic_favorite : R.drawable.ic_no_favorite;
-        mIvFavorite.setImageResource(favorite);
-        mFabOperator.setImageResource(R.drawable.ic_start);
-        mTvStartTime.setVisibility(View.GONE);
-        mElapsedTime.setVisibility(View.GONE);
-        mBarChart.setVisibility(View.VISIBLE);
-        mElapsedTime.stop();
-    }
-
-    @Override
-    public void showRunningState(Activity activity) {
-        mActivity = activity;
-        mFabOperator.setImageResource(R.drawable.ic_stop);
-        mTvStartTime.setVisibility(View.VISIBLE);
-        mElapsedTime.setVisibility(View.VISIBLE);
-        mBarChart.setVisibility(View.GONE);
-
-        mTvStartTime.setText(getString(R.string.started_at, DateTimeUtil.DATE_TIME_FORMAT.format(new Date(activity.getStartTime()))));
-        mElapsedTime.setBase(activity.getRelStartTime());
-        mElapsedTime.start();
-    }
-
     @Override
     public void onLoadedCategory(Category category) {
         mCategory = category;
@@ -201,38 +138,4 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
         finish();
     }
 
-    @Override
-    public void onLoadedChartData(final String[] labels, BarData data) {
-
-        if (labels == null || data == null) {
-            mBarChart.setVisibility(View.GONE);
-            return;
-        }
-
-        IAxisValueFormatter formatter = new IAxisValueFormatter() {
-
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                return labels[(int) value];
-            }
-
-        };
-
-        XAxis xAxis = mBarChart.getXAxis();
-        xAxis.setGranularity(1f);
-        xAxis.setValueFormatter(formatter);
-
-        mBarChart.getDescription().setEnabled(false);
-        mBarChart.setData(data);
-        mBarChart.getAxisRight().setEnabled(false);
-        mBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        mBarChart.setFitBars(true);
-        mBarChart.invalidate();
-    }
-
-    @Override
-    public void stopActivity(Activity activity) {
-        mActivity.setDesc(mEtDesc.getText().toString());
-        mPresenter.stopActivity(activity);
-    }
 }
