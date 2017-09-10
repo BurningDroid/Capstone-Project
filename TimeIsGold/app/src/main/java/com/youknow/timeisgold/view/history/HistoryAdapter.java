@@ -41,6 +41,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         holder.ivCategoryIcon.setImageResource(history.getIcon());
         holder.tvCategoryType.setText(history.getType().name());
         holder.tvCategoryName.setText(history.getName());
+        holder.tvActivityDesc.setText(history.getDesc());
         holder.tvElapsedTime.setText(DateTimeUtil.getElapsedTimeShort(history.getElapsedTime()));
         holder.tvTime.setText(DateTimeUtil.getTime(history.getStartTime(), history.getEndTime()));
     }
@@ -67,6 +68,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         ImageView ivCategoryIcon;
         TextView tvCategoryType;
         TextView tvCategoryName;
+        TextView tvActivityDesc;
         TextView tvElapsedTime;
         TextView tvTime;
 
@@ -76,6 +78,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
             ivCategoryIcon = (ImageView) itemView.findViewById(R.id.iv_category_icon);
             tvCategoryType = (TextView) itemView.findViewById(R.id.tv_category_type);
             tvCategoryName = (TextView) itemView.findViewById(R.id.tv_category_name);
+            tvActivityDesc = (TextView) itemView.findViewById(R.id.tv_activity_desc);
             tvElapsedTime = (TextView) itemView.findViewById(R.id.tv_elapsed_time);
             tvTime = (TextView) itemView.findViewById(R.id.tv_time);
 

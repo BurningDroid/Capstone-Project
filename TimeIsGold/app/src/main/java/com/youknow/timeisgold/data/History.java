@@ -9,6 +9,7 @@ import lombok.Data;
 public class History {
     long activityId;
     String name;
+    String desc;
     int color;
     int icon;
     Type type;
@@ -21,6 +22,7 @@ public class History {
         startTime = activity.getStartTime();
         endTime = activity.getEndTime();
         elapsedTime = activity.getRelElapsedTime();
+        desc = activity.getDesc();
     }
 
     public void setCategory(Category category) {

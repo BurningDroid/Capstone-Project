@@ -58,4 +58,10 @@ public class HistoryPresenter implements HistoryContract.Presenter {
 
         return histories;
     }
+
+    @Override
+    public void clearHistory() {
+        mActivityDataSource.deleteActivity();
+        mView.showEmptyHistory();
+    }
 }

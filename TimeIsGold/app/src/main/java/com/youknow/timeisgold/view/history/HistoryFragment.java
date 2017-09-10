@@ -9,8 +9,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -22,6 +27,10 @@ import butterknife.ButterKnife;
  */
 public class HistoryFragment extends Fragment implements HistoryContract.View, HistoryAdapter.HistoryListener {
 
+    @BindView(R.id.iv_empty_info)
+    ImageView mIvEmptyInfo;
+    @BindView(R.id.tv_empty_info)
+    TextView mTvEmptyInfo;
     @BindView(R.id.rv_history)
     RecyclerView mRvHistory;
     HistoryAdapter mAdapter;
@@ -36,6 +45,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View, H
         super.onCreate(savedInstanceState);
         mPresenter = HistoryPresenter.getInstance(getContext());
         mPresenter.setView(this);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -49,14 +59,44 @@ public class HistoryFragment extends Fragment implements HistoryContract.View, H
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.history_option_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_clear_all:
+                DeleteConfirmDialog dialog = new DeleteConfirmDialog();
+                dialog.setPresenter(mPresenter);
+                dialog.show(getFragmentManager(), "");
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         List<History> historyList = mPresenter.getAllHistory();
-        mAdapter.setHistoryList(historyList);
+        if (historyList.isEmpty()) {
+            showEmptyHistory();
+        } else {
+            mAdapter.setHistoryList(historyList);
+        }
     }
 
     @Override
     public void onClickHistory(History history) {
 
+    }
+
+    @Override
+    public void showEmptyHistory() {
+        mRvHistory.setVisibility(View.GONE);
+        mIvEmptyInfo.setVisibility(View.VISIBLE);
+        mTvEmptyInfo.setVisibility(View.VISIBLE);
     }
 }

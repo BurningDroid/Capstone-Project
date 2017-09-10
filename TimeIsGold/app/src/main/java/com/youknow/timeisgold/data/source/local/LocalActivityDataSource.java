@@ -84,6 +84,11 @@ public class LocalActivityDataSource implements ActivityDataSource {
     }
 
     @Override
+    public void deleteActivity() {
+        mContext.getContentResolver().delete(ActivityContract.Activities.buildDirUri(), null, null);
+    }
+
+    @Override
     public Activity getRunningActivity() {
         Activity activity = null;
         String clause = ActivityContract.Activities.IS_RUNNING + " = ?";
@@ -143,7 +148,7 @@ public class LocalActivityDataSource implements ActivityDataSource {
         String clause = ActivityContract.Activities.IS_RUNNING + " = ?";
         String[] args = new String[]{"0"};
 
-        Cursor cursor = mContext.getContentResolver().query(ActivityContract.Activities.buildDirUri(), null, clause, args, null);
+        Cursor cursor = mContext.getContentResolver().query(ActivityContract.Activities.buildDirUri(), null, clause, args, ActivityContract.Activities.START_TIME + " DESC");
         if (cursor != null && cursor.getCount() > 0) {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 Activity activity = new Activity();

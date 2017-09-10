@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface HistoryContract {
     interface View {
-
+        void showEmptyHistory();
     }
 
     interface Presenter {
@@ -18,5 +18,8 @@ public interface HistoryContract {
         void setView(View view);
 
         List<History> getAllHistory();
+
+        void clearHistory();
+
     }
 }

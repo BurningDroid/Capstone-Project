@@ -30,8 +30,8 @@
             android:textSize="12sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/refresh"
-            android:layout_marginStart="80dp" />
+            tools:text="@string/refresh"/>
+
     <TextView
             android:id="@+id/tv_category_name"
             android:layout_width="wrap_content"
@@ -42,6 +42,16 @@
             app:layout_constraintLeft_toLeftOf="@+id/tv_category_type"
             app:layout_constraintTop_toBottomOf="@+id/tv_category_type"
             tools:text="@string/work" />
+
+    <TextView
+            android:id="@+id/tv_activity_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryLight"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_category_type"
+            app:layout_constraintTop_toBottomOf="@+id/tv_category_name"
+            tools:text="Android Nanodegree Study" />
 
     <TextView
             android:id="@+id/tv_elapsed_time"

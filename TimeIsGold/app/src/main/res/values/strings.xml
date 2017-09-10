@@ -51,5 +51,8 @@
     <string name="start_time">Start time</string>
     <string name="end_time">End time</string>
     <string name="error_incorrect_time">Change the start time to be before the end of the activity.</string>
+    <string name="action_clear_all">Clear All</string>
+    <string name="delete_activity_confirm_message">Are you sure you want to delete the all history?</string>
+    <string name="there_are_no_history">There are no history.</string>
 
 </resources>

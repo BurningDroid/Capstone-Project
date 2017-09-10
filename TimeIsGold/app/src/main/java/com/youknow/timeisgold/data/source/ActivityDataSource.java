@@ -18,9 +18,12 @@ public interface ActivityDataSource {
 
     void deleteActivity(long id);
 
+    void deleteActivity();
+
     Activity getRunningActivity();
 
     List<Activity> getActivities(long categoryId, long startDate);
 
     List<Activity> getAllActivity();
+
 }
