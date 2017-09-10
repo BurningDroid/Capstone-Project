@@ -48,5 +48,8 @@
     <string name="action_delete">Delete</string>
     <string name="delete_category_done">Category is deleted successfully.</string>
     <string name="chart_unit_hour">Unit: Hour</string>
+    <string name="start_time">Start time</string>
+    <string name="end_time">End time</string>
+    <string name="error_incorrect_time">Change the start time to be before the end of the activity.</string>
 
 </resources>

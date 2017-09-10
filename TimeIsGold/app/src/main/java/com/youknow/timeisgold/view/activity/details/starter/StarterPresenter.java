@@ -65,7 +65,7 @@ public class StarterPresenter implements StarterContract.Presenter {
 
         Map<String, Float> dataMap = DateTimeUtil.getDateMap(7);
         for (Activity activity : activityList) {
-            String date = DateTimeUtil.DATE_FORMAT.format(new Date(activity.getStartTime()));
+            String date = DateTimeUtil.DATE_FORMAT_SHORT.format(new Date(activity.getStartTime()));
             if (dataMap.containsKey(date)) {
                 Log.d(TAG, "[TIG] getElapsedTime: " + DateTimeUtil.getElapsedTime(activity.getRelElapsedTime()) + ", " + DateTimeUtil.getElapsedHour(activity.getRelElapsedTime()));
                 float hour = DateTimeUtil.getElapsedHour(activity.getRelElapsedTime()) + dataMap.get(date);

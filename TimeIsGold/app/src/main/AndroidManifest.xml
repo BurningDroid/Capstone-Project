@@ -30,8 +30,7 @@
                 android:exported="false" />
 
         <activity android:name=".view.activity.addedit.AddEditCategoryActivity" />
-        <activity android:name=".view.activity.details.CategoryDetailsActivity"
-                android:parentActivityName=".view.MainActivity"/>
+        <activity android:name=".view.activity.details.CategoryDetailsActivity" android:parentActivityName=".view.MainActivity"/>
     </application>
 
 </manifest>

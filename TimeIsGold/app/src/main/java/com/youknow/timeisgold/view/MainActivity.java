@@ -80,6 +80,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (NOT_INITIALIZED == SharedPrefUtil.getInstance(this).isInitialized()) {
             startActivity(new Intent(this, StartActivity.class));
             finish();
+            return;
+        }
+
+        Activity activity = mPresenter.getRunningActivity();
+        if (activity != null) {
+            Intent intent = new Intent(this, CategoryDetailsActivity.class);
+            intent.putExtra(getString(R.string.key_activity), activity);
+            startActivity(intent);
+            finish();
+            return;
         }
 
         setSupportActionBar(mToolbar);
@@ -114,6 +124,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             TextView tvName = (TextView) headerLayout.findViewById(R.id.tv_name);
             tvName.setText(user.getDisplayName());
         }
+
+        mNavigationView.getMenu().getItem(1).setChecked(true);
+        onNavigationItemSelected(mNavigationView.getMenu().getItem(1));
     }
 
     @Override
@@ -140,14 +153,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_month) {
             fragment = new StatisticsFragment();
         } else if (id == R.id.nav_start_activity) {
-            Activity activity = mPresenter.getRunningActivity();
-            if (activity != null) {
-                Intent intent = new Intent(this, CategoryDetailsActivity.class);
-                intent.putExtra(getString(R.string.key_activity), activity);
-                startActivity(intent);
-            } else {
-                fragment = new CategoryGridFragment();
-            }
+            fragment = new CategoryGridFragment();
         } else if (id == R.id.nav_history) {
             fragment = new HistoryFragment();
         } else if (id == R.id.nav_settings) {

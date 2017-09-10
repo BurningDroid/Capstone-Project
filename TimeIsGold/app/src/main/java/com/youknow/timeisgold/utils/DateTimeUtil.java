@@ -17,7 +17,8 @@ public class DateTimeUtil {
     private static final String TAG = DateTimeUtil.class.getSimpleName();
 
     public static final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd");
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    public static final SimpleDateFormat DATE_FORMAT_SHORT = new SimpleDateFormat("MM/dd");
     public static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm:ss");
     public static final SimpleDateFormat TIME_FORMAT_SHORT = new SimpleDateFormat("HH:mm");
     public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
@@ -68,7 +69,7 @@ public class DateTimeUtil {
         Map<String, Float> dateMap = new TreeMap<>();
         for (int i = day + 1; i <= 0; i++) {
             calendar.add(Calendar.DATE, 1);
-            dateMap.put(DATE_FORMAT.format(new Date(calendar.getTimeInMillis())), 0f);
+            dateMap.put(DATE_FORMAT_SHORT.format(new Date(calendar.getTimeInMillis())), 0f);
         }
 
         Log.d(TAG, "[TIG] getDateMap[" + day + "]: " + dateMap.keySet());
@@ -79,4 +80,38 @@ public class DateTimeUtil {
         return TIME_FORMAT_SHORT.format(new Date(startTime)) + " ~ " + TIME_FORMAT_SHORT.format(new Date(endTime));
     }
 
+    public static int getCurrentHour() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+
+        return calendar.get(Calendar.HOUR_OF_DAY);
+    }
+
+    public static int getCurrentMinute() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+
+        return calendar.get(Calendar.MINUTE);
+    }
+
+    public static int getCurrentYear() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+
+        return calendar.get(Calendar.YEAR);
+    }
+
+    public static int getCurrentMonth() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+
+        return calendar.get(Calendar.MONTH);
+    }
+
+    public static int getCurrentDay() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+
+        return calendar.get(Calendar.DAY_OF_MONTH);
+    }
 }

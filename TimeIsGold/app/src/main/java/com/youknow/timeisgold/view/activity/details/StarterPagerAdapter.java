@@ -33,20 +33,24 @@ public class StarterPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Fragment fragment;
+        Bundle args = new Bundle();
 
         switch (position) {
             case 0:
                 fragment = new StarterFragment();
-                Bundle args = new Bundle();
                 args.putParcelable(mContext.getString(R.string.key_activity), mActivity);
                 args.putParcelable(mContext.getString(R.string.key_category), mCategory);
-                fragment.setArguments(args);
                 break;
             case 1:
                 fragment = new ManualInputFragment();
+                args.putParcelable(mContext.getString(R.string.key_category), mCategory);
                 break;
             default:
                 fragment = null;
+        }
+
+        if (fragment != null) {
+            fragment.setArguments(args);
         }
 
         return fragment;
