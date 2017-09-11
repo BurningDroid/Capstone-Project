@@ -14,7 +14,6 @@ import com.youknow.timeisgold.data.Activity;
 import com.youknow.timeisgold.utils.SharedPrefUtil;
 import com.youknow.timeisgold.view.about.AboutFragment;
 import com.youknow.timeisgold.view.activity.CategoryGridFragment;
-import com.youknow.timeisgold.view.activity.CategoryPresenter;
 import com.youknow.timeisgold.view.activity.details.CategoryDetailsActivity;
 import com.youknow.timeisgold.view.history.HistoryFragment;
 import com.youknow.timeisgold.view.settings.SettingsFragment;
@@ -146,12 +145,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.nav_today) {
             fragment = new StatisticsFragment();
+            Bundle args = new Bundle();
+            args.putInt(getString(R.string.key_statistics_day), 0);
+            fragment.setArguments(args);
         } else if (id == R.id.nav_yesterday) {
             fragment = new StatisticsFragment();
+            Bundle args = new Bundle();
+            args.putInt(getString(R.string.key_statistics_day), 1);
+            fragment.setArguments(args);
         } else if (id == R.id.nav_week) {
             fragment = new StatisticsFragment();
+            Bundle args = new Bundle();
+            args.putInt(getString(R.string.key_statistics_day), 7);
+            fragment.setArguments(args);
         } else if (id == R.id.nav_month) {
             fragment = new StatisticsFragment();
+            Bundle args = new Bundle();
+            args.putInt(getString(R.string.key_statistics_day), 30);
+            fragment.setArguments(args);
         } else if (id == R.id.nav_start_activity) {
             fragment = new CategoryGridFragment();
         } else if (id == R.id.nav_history) {
