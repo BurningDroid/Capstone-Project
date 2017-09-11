@@ -42,6 +42,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener, MainContractor.View {
 
+    private final static String TAG = MainActivity.class.getSimpleName();
     private final static boolean NOT_INITIALIZED = false;
 
     FirebaseAuth mAuth;
@@ -164,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             args.putInt(getString(R.string.key_statistics_day), 30);
             fragment.setArguments(args);
         } else if (id == R.id.nav_start_activity) {
-            fragment = new CategoryGridFragment();
+            fragment = CategoryGridFragment.newInstance();
         } else if (id == R.id.nav_history) {
             fragment = new HistoryFragment();
         } else if (id == R.id.nav_settings) {

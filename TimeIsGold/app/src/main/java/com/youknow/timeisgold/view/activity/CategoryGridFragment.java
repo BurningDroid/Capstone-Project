@@ -9,6 +9,7 @@ import com.youknow.timeisgold.view.activity.details.CategoryDetailsActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -33,6 +34,8 @@ public class CategoryGridFragment extends Fragment implements CategoryContract.V
 
     private static final String TAG = CategoryGridFragment.class.getSimpleName();
 
+    private static CategoryGridFragment INSTANCE;
+
     @BindView(R.id.fab_add_category)
     FloatingActionButton mFabAddCategory;
     @BindView(R.id.rv_category)
@@ -41,8 +44,17 @@ public class CategoryGridFragment extends Fragment implements CategoryContract.V
     CategoryAdapter mAdapter;
 
     private CategoryContract.Presenter mPresenter;
+    private Parcelable mLayoutManagerSavedState;
 
     public CategoryGridFragment() {
+    }
+
+    public static Fragment newInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new CategoryGridFragment();
+        }
+
+        return INSTANCE;
     }
 
     @Override
@@ -54,7 +66,6 @@ public class CategoryGridFragment extends Fragment implements CategoryContract.V
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d(TAG, "[TIG] onCreateView");
         View root = inflater.inflate(R.layout.fragment_category_grid, container, false);
         ButterKnife.bind(this, root);
 
@@ -76,6 +87,25 @@ public class CategoryGridFragment extends Fragment implements CategoryContract.V
         super.onStart();
         List<Category> categoryList = mPresenter.getAllCategory();
         mAdapter.setCategoryList(categoryList);
+
+        if (mLayoutManagerSavedState != null) {
+            Log.d(TAG, "[TIG] onStart - onRestoreInstanceState");
+            mRvCategory.getLayoutManager().onRestoreInstanceState(mLayoutManagerSavedState);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(TAG, mRvCategory.getLayoutManager().onSaveInstanceState());
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState != null) {
+            mLayoutManagerSavedState = savedInstanceState.getParcelable(TAG);
+        }
     }
 
     @OnClick(R.id.fab_add_category)
@@ -95,4 +125,5 @@ public class CategoryGridFragment extends Fragment implements CategoryContract.V
             startActivity(intent);
         }
     }
+
 }
