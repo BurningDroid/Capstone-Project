@@ -5,11 +5,9 @@ import com.youknow.timeisgold.data.Type;
 import com.youknow.timeisgold.data.database.CategoryContract;
 import com.youknow.timeisgold.data.source.CategoryDataSource;
 
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.net.Uri;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -44,10 +42,9 @@ public class LocalCategoryDataSource implements CategoryDataSource {
     @Override
     public void createCategory(Category category) {
         ContentValues contentValues = getValueCategory(category);
-        Uri uri = mContext.getContentResolver().insert(CategoryContract.Categories.buildDirUri(), contentValues);
-        category.setId(ContentUris.parseId(uri));
+        mContext.getContentResolver().insert(CategoryContract.Categories.buildDirUri(), contentValues);
 
-        Log.d(TAG, "[TIG] createActivity - " + category.getId() + ", " + category);
+        Log.d(TAG, "[TIG][datasource][local]  createCategory - " + category.getId() + ", " + category);
         mCategoryMap.put(category.getId(), category);
     }
 
@@ -57,7 +54,7 @@ public class LocalCategoryDataSource implements CategoryDataSource {
         String clause = CategoryContract.Categories._ID + " = ?";
         ContentValues contentValues = getValueCategory(category);
         mContext.getContentResolver().update(CategoryContract.Categories.buildDirUri(), contentValues, clause, args);
-        Log.d(TAG, "[TIG] updateActivity - " + category);
+        Log.d(TAG, "[TIG][datasource][local]  updateCategory - " + category);
 
         mCategoryMap.put(category.getId(), category);
     }
@@ -73,7 +70,7 @@ public class LocalCategoryDataSource implements CategoryDataSource {
         Category category = null;
         Cursor cursor = mContext.getContentResolver().query(CategoryContract.Categories.buildItemUri(id), null, clause, args, null);
         if (cursor == null || cursor.getCount() < 1) {
-            Log.e(TAG, "[TIG] getCategory - id[" + id + "] is null");
+            Log.e(TAG, "[TIG][datasource][local]  getCategory - id[" + id + "] is null");
         } else {
             cursor.moveToFirst();
             category = new Category();
@@ -87,7 +84,7 @@ public class LocalCategoryDataSource implements CategoryDataSource {
             category.setDeleted(false);
         }
 
-        Log.d(TAG, "[TIG] getCategory - " + id + ": " + category);
+        Log.d(TAG, "[TIG][datasource][local]  getCategory - " + id + ": " + category);
         mCategoryMap.put(category.getId(), category);
         return category;
     }
@@ -99,7 +96,7 @@ public class LocalCategoryDataSource implements CategoryDataSource {
         List<Category> categories = new ArrayList<>();
         Cursor cursor = mContext.getContentResolver().query(CategoryContract.Categories.buildDirUri(), null, clause, args, CategoryContract.Categories.IS_FAVORITE + " DESC");
         if (cursor == null || cursor.getCount() < 1) {
-            Log.e(TAG, "[TIG] getAllCategory - size is zero");
+            Log.e(TAG, "[TIG][datasource][local]  getAllCategory - size is zero");
         } else {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 Category category = new Category();
@@ -114,7 +111,7 @@ public class LocalCategoryDataSource implements CategoryDataSource {
                 categories.add(category);
 
                 mCategoryMap.put(category.getId(), category);
-                Log.d(TAG, "[TIG] getAllCategory: " + category);
+                Log.d(TAG, "[TIG][datasource][local]  getAllCategory: " + category);
             }
         }
 
@@ -123,17 +120,14 @@ public class LocalCategoryDataSource implements CategoryDataSource {
 
     @Override
     public void deleteCategory(Category category) {
-        category.setDeleted(true);
+        Log.d(TAG, "[TIG][datasource][local] deleteCategory - " + category);
         updateCategory(category);
         mCategoryMap.remove(category.getId());
     }
 
     private ContentValues getValueCategory(Category category) {
         ContentValues newValues = new ContentValues();
-        if (category.getId() > 0) {
-            newValues.put(CategoryContract.Categories._ID, category.getId());
-            Log.d(TAG, "[TIG] update id: " + newValues.get(CategoryContract.Categories._ID));
-        }
+        newValues.put(CategoryContract.Categories._ID, category.getId());
         newValues.put(CategoryContract.Categories.NAME, category.getName());
         newValues.put(CategoryContract.Categories.COLOR, category.getColor());
         newValues.put(CategoryContract.Categories.ICON, category.getIcon());

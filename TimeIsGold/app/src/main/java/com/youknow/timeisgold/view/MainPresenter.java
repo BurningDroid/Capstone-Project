@@ -2,7 +2,8 @@ package com.youknow.timeisgold.view;
 
 import com.youknow.timeisgold.Injection;
 import com.youknow.timeisgold.data.Activity;
-import com.youknow.timeisgold.data.source.ActivityDataSource;
+import com.youknow.timeisgold.service.ActivityService;
+import com.youknow.timeisgold.service.UserService;
 
 import android.content.Context;
 
@@ -15,11 +16,13 @@ public class MainPresenter implements MainContractor.Presenter {
     private static MainPresenter INSTANCE;
 
     private MainContractor.View mView;
-    private ActivityDataSource mActivityDataSource;
+    private UserService mUserService;
+    private ActivityService mActivityService;
 
     private MainPresenter(Context context) {
         mView = (MainContractor.View) context;
-        mActivityDataSource = Injection.provideActivityDataSource(context);
+        mUserService = Injection.provideUserService(context);
+        mActivityService = Injection.provideActivityService(context);
     }
 
     public static MainPresenter getInstance(Context context) {
@@ -31,7 +34,19 @@ public class MainPresenter implements MainContractor.Presenter {
     }
 
     @Override
-    public Activity getRunningActivity() {
-        return mActivityDataSource.getRunningActivity();
+    public void getRunningActivity() {
+        mActivityService.getRunningActivity(new ActivityService.OnLoadedActivityListener() {
+            @Override
+            public void onLoadedActivity(Activity activity) {
+                if (activity != null) {
+                    mView.loadCategoryDetails(activity);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void signOut() {
+        mUserService.signOut();
     }
 }

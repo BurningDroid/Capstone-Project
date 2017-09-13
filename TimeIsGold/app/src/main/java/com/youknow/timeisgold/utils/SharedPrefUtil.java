@@ -15,6 +15,7 @@ public class SharedPrefUtil {
 
     private static SharedPrefUtil INSTANCE;
     private Context mContext;
+    private String mUserId;
 
     private SharedPrefUtil(Context context) {
         mContext = context;
@@ -37,5 +38,35 @@ public class SharedPrefUtil {
     public boolean isInitialized() {
         SharedPreferences pref = mContext.getSharedPreferences(mContext.getString(R.string.pref_setting), MODE_PRIVATE);
         return pref.getBoolean(mContext.getString(R.string.pref_initialize), false);
+    }
+
+    public void authenticate(String userId) {
+        mUserId = userId;
+        SharedPreferences.Editor editor = mContext.getSharedPreferences(mContext.getString(R.string.pref_setting), MODE_PRIVATE).edit();
+        editor.putString(mContext.getString(R.string.pref_user_id), userId);
+        editor.apply();
+    }
+
+    public boolean isAuthenticated() {
+        if (mUserId == null) {
+            SharedPreferences pref = mContext.getSharedPreferences(mContext.getString(R.string.pref_setting), MODE_PRIVATE);
+            mUserId = pref.getString(mContext.getString(R.string.pref_user_id), null);
+        }
+
+        return (mUserId != null) ? true : false;
+    }
+
+    public void signOut() {
+        mUserId = null;
+        mContext.getSharedPreferences(mContext.getString(R.string.pref_setting), MODE_PRIVATE).edit().clear().apply();
+    }
+
+    public String getUserId() {
+        if (mUserId == null) {
+            SharedPreferences pref = mContext.getSharedPreferences(mContext.getString(R.string.pref_setting), MODE_PRIVATE);
+            mUserId = pref.getString(mContext.getString(R.string.pref_user_id), null);
+        }
+
+        return mUserId;
     }
 }

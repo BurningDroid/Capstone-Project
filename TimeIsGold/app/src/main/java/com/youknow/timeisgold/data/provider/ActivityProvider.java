@@ -82,12 +82,12 @@ public class ActivityProvider extends ContentProvider {
         final int match = sUriMatcher.match(uri);
         switch (match) {
             case ACTIVITIES: {
-                final long _id = db.insertOrThrow(ActivityContract.TABLE_NAME, null, values);
+                final long _id = db.insertWithOnConflict(ActivityContract.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_IGNORE);
                 getContext().getContentResolver().notifyChange(uri, null);
                 return ActivityContract.Activities.buildItemUri(_id);
             }
             case CATEGORIES: {
-                final long _id = db.insertOrThrow(CategoryContract.TABLE_NAME, null, values);
+                final long _id = db.insertWithOnConflict(CategoryContract.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_IGNORE);
                 getContext().getContentResolver().notifyChange(uri, null);
                 return CategoryContract.Categories.buildItemUri(_id);
             }

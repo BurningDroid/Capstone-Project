@@ -3,6 +3,7 @@ package com.youknow.timeisgold.view.activity.details.manual;
 import com.youknow.timeisgold.Injection;
 import com.youknow.timeisgold.data.Activity;
 import com.youknow.timeisgold.data.source.ActivityDataSource;
+import com.youknow.timeisgold.service.ActivityService;
 
 import android.content.Context;
 
@@ -16,11 +17,11 @@ public class ManualInputPresenter implements ManualInputContract.Presenter {
 
     ManualInputContract.View mView;
     private Context mContext;
-    private ActivityDataSource mActivityDataSource;
+    private ActivityService mActivityService;
 
     private ManualInputPresenter(Context context) {
         mContext = context;
-        mActivityDataSource = Injection.provideActivityDataSource(mContext);
+        mActivityService = Injection.provideActivityService(mContext);
     }
 
     public static ManualInputContract.Presenter getInstance(Context context) {
@@ -32,7 +33,7 @@ public class ManualInputPresenter implements ManualInputContract.Presenter {
 
     @Override
     public void createNewActivity(Activity activity) {
-        mActivityDataSource.createActivity(activity);
+        mActivityService.createActivity(activity);
         mView.finish();
     }
 

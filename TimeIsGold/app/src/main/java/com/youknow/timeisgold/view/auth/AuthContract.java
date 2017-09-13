@@ -1,4 +1,4 @@
-package com.youknow.timeisgold.view.start;
+package com.youknow.timeisgold.view.auth;
 
 import com.google.firebase.auth.FirebaseUser;
 
@@ -6,14 +6,15 @@ import com.google.firebase.auth.FirebaseUser;
  * Created by Aaron on 31/08/2017.
  */
 
-public interface StartContract {
+public interface AuthContract {
 
     interface View {
 
+        void authComplete(String message);
     }
 
     interface Presenter {
-        void createUser(FirebaseUser user);
+        void authenticate(FirebaseUser user);
 
         void justStart();
     }

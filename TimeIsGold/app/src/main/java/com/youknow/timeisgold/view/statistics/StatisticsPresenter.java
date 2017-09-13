@@ -18,7 +18,7 @@ public class StatisticsPresenter implements StatisticsContract.Presenter {
 
     private StatisticsPresenter(Context context) {
         mContext = context;
-        mActivityDataSource = Injection.provideActivityDataSource(context);
+        mActivityDataSource = Injection.provideLocalActivityDataSource(context);
     }
 
     public static StatisticsContract.Presenter getInstance(Context context) {

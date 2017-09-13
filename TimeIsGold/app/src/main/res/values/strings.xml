@@ -3,6 +3,8 @@
 
     <string name="pref_setting" translatable="false">pref_setting</string>
     <string name="pref_initialize" translatable="false">pref_first_time</string>
+    <string name="pref_user_id" translatable="false">pref_user_id</string>
+
     <string name="welcome">WELCOME!</string>
     <string name="just_start">Just Start</string>
     <string name="title_activity_main">MainActivity</string>

@@ -11,14 +11,19 @@ import java.util.List;
 public interface CategoryContract {
     interface View {
 
+        void loadCategories(List<Category> categories);
+
+        void loadCategoryDetails(Category category);
+
+        void showMessage(String message);
     }
 
     interface Presenter {
 
         void setView(CategoryContract.View view);
 
-        List<Category> getAllCategory();
+        void getAllCategory();
 
-        boolean hasRunningActivity();
+        void hasRunningActivity(Category category);
     }
 }

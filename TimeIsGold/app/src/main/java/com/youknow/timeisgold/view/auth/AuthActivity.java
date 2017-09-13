@@ -1,4 +1,4 @@
-package com.youknow.timeisgold.view.start;
+package com.youknow.timeisgold.view.auth;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -32,9 +32,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class StartActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, StartContract.View {
+public class AuthActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, AuthContract.View {
 
-    private static final String TAG = StartActivity.class.getSimpleName();
+    private static final String TAG = AuthActivity.class.getSimpleName();
     private static final int RC_SIGN_IN = 25;
 
     @BindView(R.id.btn_sign_in)
@@ -46,7 +46,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
 
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth;
-    private StartContract.Presenter mPresenter;
+    private AuthContract.Presenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +66,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                 .build();
 
         mAuth = FirebaseAuth.getInstance();
-        mPresenter = new StartPresenter(this);
+        mPresenter = new AuthPresenter(this);
     }
 
     @Override
@@ -119,15 +119,11 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "[TIG] signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            mPresenter.createUser(user);
-                            Toast.makeText(StartActivity.this, "Welcome " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
-
-                            startActivity(new Intent(StartActivity.this, MainActivity.class));
-                            finish();
+                            mPresenter.authenticate(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "[TIG] signInWithCredential:failure", task.getException());
-                            Toast.makeText(StartActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AuthActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                         }
 
                         // ...
@@ -135,4 +131,11 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                 });
     }
 
+    @Override
+    public void authComplete(String message) {
+        mProgressBar.setProgress(View.GONE);
+        Toast.makeText(AuthActivity.this, message, Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(AuthActivity.this, MainActivity.class));
+        finish();
+    }
 }

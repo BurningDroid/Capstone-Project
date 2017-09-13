@@ -39,10 +39,10 @@ public class LocalActivityDataSource implements ActivityDataSource {
 
     @Override
     public long createActivity(Activity activity) {
-        Log.d(TAG, "[TIG] createActivity - " + activity.getId());
+        Log.d(TAG, "[TIG] saveActivity - " + activity.getId());
         ContentValues contentValues = getValueActivity(activity);
         Uri uri = mContext.getContentResolver().insert(ActivityContract.Activities.buildDirUri(), contentValues);
-        Log.d(TAG, "[TIG] createActivity - " + ContentUris.parseId(uri) + ", " + activity);
+        Log.d(TAG, "[TIG] saveActivity - " + ContentUris.parseId(uri) + ", " + activity);
         return ContentUris.parseId(uri);
     }
 
@@ -79,12 +79,7 @@ public class LocalActivityDataSource implements ActivityDataSource {
     }
 
     @Override
-    public void deleteActivity(long id) {
-
-    }
-
-    @Override
-    public void deleteActivity() {
+    public void deleteActivities() {
         mContext.getContentResolver().delete(ActivityContract.Activities.buildDirUri(), null, null);
     }
 

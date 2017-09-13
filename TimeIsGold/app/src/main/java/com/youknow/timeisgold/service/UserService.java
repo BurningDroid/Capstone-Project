@@ -8,6 +8,17 @@ import com.youknow.timeisgold.data.source.UserDataSource;
  */
 
 public interface UserService {
-    void createUser(User user);
+    boolean isAuthenticated();
+
+    void authenticate(User user, AuthListner callback);
+
+    void signOut();
+
     void getUser(String id, UserDataSource.OnLoadedUserListener callback);
+
+    String getUserId();
+
+    interface AuthListner {
+        void done();
+    }
 }

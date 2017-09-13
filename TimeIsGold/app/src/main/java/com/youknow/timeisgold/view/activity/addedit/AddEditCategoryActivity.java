@@ -134,7 +134,7 @@ public class AddEditCategoryActivity extends AppCompatActivity implements AddEdi
         mType = (Type) mSpnCategoryType.getSelectedItem();
 
         if (mCategory == null) {
-            mCategory = new Category(mName, mColor, mIcon, mType);
+            mCategory = new Category(System.currentTimeMillis(), mName, mColor, mIcon, mType);
             mPresenter.createCategory(mCategory);
         } else {
             mCategory.setName(mName);

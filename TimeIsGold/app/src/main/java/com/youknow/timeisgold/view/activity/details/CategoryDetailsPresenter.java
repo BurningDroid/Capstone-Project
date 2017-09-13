@@ -2,7 +2,7 @@ package com.youknow.timeisgold.view.activity.details;
 
 import com.youknow.timeisgold.Injection;
 import com.youknow.timeisgold.data.Category;
-import com.youknow.timeisgold.data.source.CategoryDataSource;
+import com.youknow.timeisgold.service.CategoryService;
 
 import android.content.Context;
 
@@ -17,11 +17,11 @@ public class CategoryDetailsPresenter implements CategoryDetailsContract.Present
 
     private CategoryDetailsContract.View mView;
     private Context mContext;
-    private CategoryDataSource mCategoryDataSource;
+    private CategoryService mCategoryService;
 
     private CategoryDetailsPresenter(Context context) {
         mContext = context;
-        mCategoryDataSource = Injection.provideCategoryDataSource(context);
+        mCategoryService = Injection.provideCategoryService(context);
     }
 
     public static CategoryDetailsPresenter getInstance(Context context) {
@@ -39,19 +39,23 @@ public class CategoryDetailsPresenter implements CategoryDetailsContract.Present
 
     @Override
     public void saveCategory(Category category) {
-        mCategoryDataSource.updateCategory(category);
+        mCategoryService.updateCategory(category);
     }
 
     @Override
     public void deleteCategory(Category category) {
-        mCategoryDataSource.deleteCategory(category);
+        mCategoryService.deleteCategory(category);
         mView.deleteDone();
     }
 
     @Override
     public void getCategory(long categoryId) {
-        Category category = mCategoryDataSource.getCategory(categoryId);
-        mView.onLoadedCategory(category);
+        mCategoryService.getCategory(categoryId, new CategoryService.OnLoadedCategoryListener() {
+            @Override
+            public void onLoadedCategory(Category category) {
+                mView.onLoadedCategory(category);
+            }
+        });
     }
 
 }

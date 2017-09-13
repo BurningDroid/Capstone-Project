@@ -7,8 +7,12 @@ import com.youknow.timeisgold.data.Activity;
  */
 
 public interface MainContractor {
-    interface View {}
+    interface View {
+        void loadCategoryDetails(Activity activity);
+    }
     interface Presenter {
-        Activity getRunningActivity();
+        void getRunningActivity();
+
+        void signOut();
     }
 }

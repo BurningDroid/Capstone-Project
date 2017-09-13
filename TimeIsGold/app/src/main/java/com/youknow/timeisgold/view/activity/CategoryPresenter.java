@@ -1,9 +1,11 @@
 package com.youknow.timeisgold.view.activity;
 
 import com.youknow.timeisgold.Injection;
+import com.youknow.timeisgold.R;
+import com.youknow.timeisgold.data.Activity;
 import com.youknow.timeisgold.data.Category;
-import com.youknow.timeisgold.data.source.ActivityDataSource;
-import com.youknow.timeisgold.data.source.CategoryDataSource;
+import com.youknow.timeisgold.service.ActivityService;
+import com.youknow.timeisgold.service.CategoryService;
 
 import android.content.Context;
 
@@ -19,8 +21,8 @@ public class CategoryPresenter implements CategoryContract.Presenter {
 
     private CategoryContract.View mView;
     private Context mContext;
-    private CategoryDataSource mCategoryDataSource;
-    private ActivityDataSource mActivityDataSource;
+    private CategoryService mCategoryService;
+    private ActivityService mActivityService;
 
     private CategoryPresenter(Context context) {
         mContext = context;
@@ -37,18 +39,32 @@ public class CategoryPresenter implements CategoryContract.Presenter {
     @Override
     public void setView(CategoryContract.View view) {
         mView = view;
-        mCategoryDataSource = Injection.provideCategoryDataSource(mContext);
-        mActivityDataSource = Injection.provideActivityDataSource(mContext);
+        mCategoryService = Injection.provideCategoryService(mContext);
+        mActivityService = Injection.provideActivityService(mContext);
     }
 
     @Override
-    public List<Category> getAllCategory() {
-        return mCategoryDataSource.getAllCategory();
+    public void getAllCategory() {
+        mCategoryService.getAllCategory(new CategoryService.OnLoadedCategoriesListener() {
+            @Override
+            public void onLoadedCategories(List<Category> categories) {
+                mView.loadCategories(categories);
+            }
+        });
     }
 
     @Override
-    public boolean hasRunningActivity() {
-        return mActivityDataSource.getRunningActivity() != null;
+    public void hasRunningActivity(final Category category) {
+        mActivityService.getRunningActivity(new ActivityService.OnLoadedActivityListener() {
+            @Override
+            public void onLoadedActivity(Activity activity) {
+                if (activity == null) {
+                    mView.loadCategoryDetails(category);
+                } else {
+                    mView.showMessage(mContext.getString(R.string.there_is_an_already_running_activity));
+                }
+            }
+        });
     }
 
 }

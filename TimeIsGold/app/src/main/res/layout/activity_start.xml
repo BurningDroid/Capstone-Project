@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/big_ben"
-        tools:context="com.youknow.timeisgold.view.start.StartActivity">
+        tools:context="com.youknow.timeisgold.view.auth.AuthActivity">
 
     <TextView
             android:id="@+id/tv_welcome"

@@ -6,6 +6,7 @@ import com.youknow.timeisgold.data.Category;
 import com.youknow.timeisgold.data.History;
 import com.youknow.timeisgold.data.source.ActivityDataSource;
 import com.youknow.timeisgold.data.source.CategoryDataSource;
+import com.youknow.timeisgold.service.ActivityService;
 
 import android.content.Context;
 
@@ -22,8 +23,8 @@ public class HistoryPresenter implements HistoryContract.Presenter {
 
     private HistoryContract.View mView;
     private Context mContext;
+    private ActivityService mActivityService;
     private CategoryDataSource mCategoryDataSource;
-    private ActivityDataSource mActivityDataSource;
 
     private HistoryPresenter(Context context) {
         mContext = context;
@@ -41,27 +42,22 @@ public class HistoryPresenter implements HistoryContract.Presenter {
     public void setView(HistoryContract.View view) {
         mView = view;
         mCategoryDataSource = Injection.provideCategoryDataSource(mContext);
-        mActivityDataSource = Injection.provideActivityDataSource(mContext);
+        mActivityService = Injection.provideActivityService(mContext);
     }
 
     @Override
-    public List<History> getAllHistory() {
-        List<Activity> activityList = mActivityDataSource.getAllActivity();
-        List<History> histories = new ArrayList<>();
-
-        for (Activity activity : activityList) {
-            Category category = mCategoryDataSource.getCategory(activity.getCategoryId());
-            History history = new History(activity);
-            history.setCategory(category);
-            histories.add(history);
-        }
-
-        return histories;
+    public void getAllHistory() {
+        mActivityService.getAllHistory(new ActivityService.OnLoadedHistoriesListener() {
+            @Override
+            public void onLoadedHistories(List<History> histories) {
+                mView.onLoadedHistories(histories);
+            }
+        });
     }
 
     @Override
     public void clearHistory() {
-        mActivityDataSource.deleteActivity();
+        mActivityService.deleteActivities();
         mView.showEmptyHistory();
     }
 }

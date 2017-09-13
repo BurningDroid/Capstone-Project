@@ -22,7 +22,8 @@ public class Category implements Parcelable {
     public Category() {
     }
 
-    public Category(String name, int color, int icon, Type type) {
+    public Category(long id, String name, int color, int icon, Type type) {
+        this.id = id;
         this.name = name;
         this.color = color;
         this.icon = icon;

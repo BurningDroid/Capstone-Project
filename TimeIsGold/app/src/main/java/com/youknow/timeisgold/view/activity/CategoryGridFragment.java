@@ -85,8 +85,7 @@ public class CategoryGridFragment extends Fragment implements CategoryContract.V
     @Override
     public void onStart() {
         super.onStart();
-        List<Category> categoryList = mPresenter.getAllCategory();
-        mAdapter.setCategoryList(categoryList);
+        mPresenter.getAllCategory();
 
         if (mLayoutManagerSavedState != null) {
             Log.d(TAG, "[TIG] onStart - onRestoreInstanceState");
@@ -116,14 +115,24 @@ public class CategoryGridFragment extends Fragment implements CategoryContract.V
 
     @Override
     public void onClickCategory(Category category) {
-        if (mPresenter.hasRunningActivity()) {
-            Toast.makeText(getContext(), getString(R.string.there_is_an_already_running_activity), Toast.LENGTH_SHORT).show();
-        } else {
-            Intent intent = new Intent(getContext(), CategoryDetailsActivity.class);
-            intent.putExtra(getString(R.string.key_category), category);
-            Log.d(TAG, "[TIG] onClickCategory: " + category);
-            startActivity(intent);
-        }
+        mPresenter.hasRunningActivity(category);
     }
 
+    @Override
+    public void loadCategories(List<Category> categories) {
+        mAdapter.setCategoryList(categories);
+    }
+
+    @Override
+    public void loadCategoryDetails(Category category) {
+        Intent intent = new Intent(getContext(), CategoryDetailsActivity.class);
+        intent.putExtra(getString(R.string.key_category), category);
+        Log.d(TAG, "[TIG] loadCategoryDetails: " + category);
+        startActivity(intent);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
 }

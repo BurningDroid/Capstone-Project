@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".view.start.StartActivity"
+                android:name=".view.auth.AuthActivity"
                 android:screenOrientation="portrait"
                 android:theme="@style/Theme.AppCompat.NoActionBar" />
 

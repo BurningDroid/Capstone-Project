@@ -15,9 +15,9 @@ import com.youknow.timeisgold.utils.SharedPrefUtil;
 import com.youknow.timeisgold.view.about.AboutFragment;
 import com.youknow.timeisgold.view.activity.CategoryGridFragment;
 import com.youknow.timeisgold.view.activity.details.CategoryDetailsActivity;
+import com.youknow.timeisgold.view.auth.AuthActivity;
 import com.youknow.timeisgold.view.history.HistoryFragment;
 import com.youknow.timeisgold.view.settings.SettingsFragment;
-import com.youknow.timeisgold.view.start.StartActivity;
 import com.youknow.timeisgold.view.statistics.StatisticsFragment;
 
 import android.content.Intent;
@@ -78,19 +78,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .build();
 
         if (NOT_INITIALIZED == SharedPrefUtil.getInstance(this).isInitialized()) {
-            startActivity(new Intent(this, StartActivity.class));
+            startActivity(new Intent(this, AuthActivity.class));
             finish();
             return;
         }
 
-        Activity activity = mPresenter.getRunningActivity();
-        if (activity != null) {
-            Intent intent = new Intent(this, CategoryDetailsActivity.class);
-            intent.putExtra(getString(R.string.key_activity), activity);
-            startActivity(intent);
-            finish();
-            return;
-        }
+        mPresenter.getRunningActivity();
 
         setSupportActionBar(mToolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -105,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             btnSignInOut.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(MainActivity.this, StartActivity.class));
+                    startActivity(new Intent(MainActivity.this, AuthActivity.class));
                     finish();
                 }
             });
@@ -114,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             btnSignInOut.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    mPresenter.signOut();
                     mAuth.signOut();
                     Auth.GoogleSignInApi.signOut(mGoogleApiClient);
                     recreate();
@@ -124,9 +118,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             TextView tvName = (TextView) headerLayout.findViewById(R.id.tv_name);
             tvName.setText(user.getDisplayName());
         }
-
-        mNavigationView.getMenu().getItem(1).setChecked(true);
-        onNavigationItemSelected(mNavigationView.getMenu().getItem(1));
     }
 
     @Override
@@ -187,5 +178,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    @Override
+    public void loadCategoryDetails(Activity activity) {
+        Intent intent = new Intent(this, CategoryDetailsActivity.class);
+        intent.putExtra(getString(R.string.key_activity), activity);
+        startActivity(intent);
+        finish();
+        return;
     }
 }

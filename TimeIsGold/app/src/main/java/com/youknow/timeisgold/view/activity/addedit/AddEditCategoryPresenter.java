@@ -3,7 +3,7 @@ package com.youknow.timeisgold.view.activity.addedit;
 import com.youknow.timeisgold.Injection;
 import com.youknow.timeisgold.R;
 import com.youknow.timeisgold.data.Category;
-import com.youknow.timeisgold.data.source.CategoryDataSource;
+import com.youknow.timeisgold.service.CategoryService;
 
 import android.content.Context;
 
@@ -17,7 +17,7 @@ public class AddEditCategoryPresenter implements AddEditCategoryContract.Present
 
     private Context mContext;
     private AddEditCategoryContract.View mView;
-    private CategoryDataSource mCategoryDataSource;
+    private CategoryService mCategoryService;
 
     private AddEditCategoryPresenter() {
 
@@ -35,24 +35,24 @@ public class AddEditCategoryPresenter implements AddEditCategoryContract.Present
     public void setView(AddEditCategoryContract.View view) {
         mContext = (Context) view;
         mView = view;
-        mCategoryDataSource = Injection.provideCategoryDataSource(mContext);
+        mCategoryService = Injection.provideCategoryService(mContext);
     }
 
     @Override
     public void createCategory(Category category) {
-        mCategoryDataSource.createCategory(category);
+        mCategoryService.createCategory(category);
         mView.finish(mContext.getString(R.string.category_is_saved));
     }
 
     @Override
     public void updateCategory(Category category) {
-        mCategoryDataSource.updateCategory(category);
+        mCategoryService.updateCategory(category);
         mView.finish(mContext.getString(R.string.category_is_saved));
     }
 
     @Override
     public void deleteCategory(Category category) {
-        mCategoryDataSource.deleteCategory(category);
+        mCategoryService.deleteCategory(category);
         mView.finish(mContext.getString(R.string.delete_category_done));
     }
 }

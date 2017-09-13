@@ -11,13 +11,15 @@ import java.util.List;
 public interface HistoryContract {
     interface View {
         void showEmptyHistory();
+
+        void onLoadedHistories(List<History> histories);
     }
 
     interface Presenter {
 
         void setView(View view);
 
-        List<History> getAllHistory();
+        void getAllHistory();
 
         void clearHistory();
 

@@ -80,12 +80,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View, H
     @Override
     public void onStart() {
         super.onStart();
-        List<History> historyList = mPresenter.getAllHistory();
-        if (historyList.isEmpty()) {
-            showEmptyHistory();
-        } else {
-            mAdapter.setHistoryList(historyList);
-        }
+        mPresenter.getAllHistory();
     }
 
     @Override
@@ -98,5 +93,14 @@ public class HistoryFragment extends Fragment implements HistoryContract.View, H
         mRvHistory.setVisibility(View.GONE);
         mIvEmptyInfo.setVisibility(View.VISIBLE);
         mTvEmptyInfo.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onLoadedHistories(List<History> histories) {
+        if (histories.isEmpty()) {
+            showEmptyHistory();
+        } else {
+            mAdapter.setHistoryList(histories);
+        }
     }
 }

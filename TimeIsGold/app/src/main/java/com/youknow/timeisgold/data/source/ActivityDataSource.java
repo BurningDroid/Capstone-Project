@@ -16,9 +16,7 @@ public interface ActivityDataSource {
 
     Activity getActivity(long id);
 
-    void deleteActivity(long id);
-
-    void deleteActivity();
+    void deleteActivities();
 
     Activity getRunningActivity();
 
