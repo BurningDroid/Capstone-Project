@@ -41,12 +41,17 @@ public class FirebaseActivityDataSource {
     }
 
     public void saveActivity(String userId, Activity activity) {
-        Log.d(TAG, "[TIG][datasource][local] saveActivity - " + activity.getId());
+        Log.d(TAG, "[TIG][datasource][remote] saveActivity - " + activity.getId());
         mRef.child(userId).child(String.valueOf(activity.getId())).setValue(activity);
     }
 
+    public void deleteActivity(String userId, long activityId) {
+        Log.d(TAG, "[TIG][datasource][remote] deleteActivity: " + activityId);
+        mRef.child(userId).child(String.valueOf(activityId)).removeValue();
+    }
+
     public void deleteActivities(String userId) {
-        Log.d(TAG, "[TIG] deleteActivities");
+        Log.d(TAG, "[TIG][datasource][remote] deleteActivities");
         mRef.child(userId).removeValue();
     }
 
@@ -64,7 +69,7 @@ public class FirebaseActivityDataSource {
                 }
 
                 if (callback != null) {
-                    Log.d(TAG, "[TIG] getAllActivity - size: " + activities.size());
+                    Log.d(TAG, "[TIG][datasource][remote] getAllActivity - size: " + activities.size());
                     callback.onLoadedActivities(activities);
                 }
             }
@@ -75,4 +80,5 @@ public class FirebaseActivityDataSource {
             }
         });
     }
+
 }

@@ -74,7 +74,7 @@
             app:layout_constraintRight_toRightOf="@+id/et_desc"/>
 
     <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_add_activity"
+            android:id="@+id/fab_save_activity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="32dp"

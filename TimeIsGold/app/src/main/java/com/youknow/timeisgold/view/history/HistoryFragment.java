@@ -3,7 +3,9 @@ package com.youknow.timeisgold.view.history;
 
 import com.youknow.timeisgold.R;
 import com.youknow.timeisgold.data.History;
+import com.youknow.timeisgold.view.history.addedit.AddEditHistoryActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -27,6 +30,8 @@ import butterknife.ButterKnife;
  */
 public class HistoryFragment extends Fragment implements HistoryContract.View, HistoryAdapter.HistoryListener {
 
+    @BindView(R.id.progress_bar)
+    ProgressBar mProgressBar;
     @BindView(R.id.iv_empty_info)
     ImageView mIvEmptyInfo;
     @BindView(R.id.tv_empty_info)
@@ -34,6 +39,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View, H
     @BindView(R.id.rv_history)
     RecyclerView mRvHistory;
     HistoryAdapter mAdapter;
+
     private HistoryContract.Presenter mPresenter;
 
     public HistoryFragment() {
@@ -55,6 +61,8 @@ public class HistoryFragment extends Fragment implements HistoryContract.View, H
 
         mAdapter = new HistoryAdapter(this);
         mRvHistory.setAdapter(mAdapter);
+
+        mProgressBar.setVisibility(View.VISIBLE);
         return root;
     }
 
@@ -85,7 +93,9 @@ public class HistoryFragment extends Fragment implements HistoryContract.View, H
 
     @Override
     public void onClickHistory(History history) {
-
+        Intent intent = new Intent(getContext(), AddEditHistoryActivity.class);
+        intent.putExtra(getString(R.string.key_history), history);
+        startActivity(intent);
     }
 
     @Override
@@ -97,6 +107,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View, H
 
     @Override
     public void onLoadedHistories(List<History> histories) {
+        mProgressBar.setVisibility(View.GONE);
         if (histories.isEmpty()) {
             showEmptyHistory();
         } else {

@@ -44,8 +44,8 @@ public class ManualInputFragment extends Fragment implements ManualInputContract
     TextView mTvEndDate;
     @BindView(R.id.tv_end_time)
     TextView mTvEndTime;
-    @BindView(R.id.fab_add_activity)
-    FloatingActionButton mFabAddActivity;
+    @BindView(R.id.fab_save_activity)
+    FloatingActionButton mFabSaveActivity;
 
     ManualInputContract.Presenter mPresenter;
     Category mCategory;
@@ -172,7 +172,7 @@ public class ManualInputFragment extends Fragment implements ManualInputContract
         dialog.show();
     }
 
-    @OnClick(R.id.fab_add_activity)
+    @OnClick(R.id.fab_save_activity)
     public void onClickAddActivity() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(sYear, sMonth, sDay, sHour, sMin);

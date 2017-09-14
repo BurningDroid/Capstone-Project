@@ -20,9 +20,13 @@ public interface ActivityService {
 
     void getAllActivity(OnLoadedActivitiesListener callback);
 
+    void deleteActivity(long activityId);
+
     void deleteActivities();
 
     void getAllHistory(OnLoadedHistoriesListener callback);
+
+    void getActivity(long activityId, OnLoadedActivityListener callback);
 
     interface OnLoadedActivityListener {
         void onLoadedActivity(Activity activity);

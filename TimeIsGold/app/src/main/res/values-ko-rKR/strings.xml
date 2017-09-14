@@ -42,5 +42,8 @@
     <string name="error_incorrect_time">시작 시간을 활동이 끝나기 전으로 변경하십시오.</string>
     <string name="action_clear_all">모두 삭제</string>
     <string name="delete_activity_confirm_message">모든 기록을 삭제합니다, 계속 하시겠습니까?</string>
+    <string name="delete_history_confirm_message">해당 기록을 삭제합니다, 계속 하시겠습니까?</string>
     <string name="there_are_no_history">기록이 존재하지 않습니다</string>
+    <string name="update_complete_message">성공적으로 수정되었습니다!</string>
+    <string name="delete_complete_message">성공적으로 삭제되었습니다!</string>
 </resources>

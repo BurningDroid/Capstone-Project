@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".view.history.addedit.AddEditHistoryActivity">
+
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <android.support.constraint.ConstraintLayout
+            android:id="@+id/header"
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:elevation="4dp">
+
+        <ImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_category_eating"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/tv_category_name" />
+
+        <TextView
+                android:id="@+id/tv_category_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="32sp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
+                style="@style/Base.TextAppearance.AppCompat.Title"
+                tools:text="@string/work"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <EditText
+                android:id="@+id/et_desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:inputType="text"
+                android:maxLines="1"
+                android:hint="@string/summary"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+        <TextView
+                android:id="@+id/label_start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="@string/start_time"
+                app:layout_constraintTop_toBottomOf="@+id/et_desc"
+                app:layout_constraintLeft_toLeftOf="@+id/et_desc" />
+
+        <TextView
+                android:id="@+id/tv_start_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="32dp"
+                style="@style/Base.TextAppearance.AppCompat.Title"
+                tools:text="2017-09-10"
+                app:layout_constraintTop_toBottomOf="@+id/label_start_time"
+                app:layout_constraintRight_toLeftOf="@+id/tv_start_time"/>
+
+        <TextView
+                android:id="@+id/tv_start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Base.TextAppearance.AppCompat.Title"
+                tools:text="22:00"
+                app:layout_constraintTop_toTopOf="@+id/tv_start_date"
+                app:layout_constraintRight_toRightOf="@+id/et_desc"/>
+
+        <TextView
+                android:id="@+id/label_end_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/end_time"
+                app:layout_constraintTop_toBottomOf="@+id/tv_start_date"
+                app:layout_constraintLeft_toLeftOf="@+id/label_start_time"/>
+
+        <TextView
+                android:id="@+id/tv_end_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="32dp"
+                style="@style/Base.TextAppearance.AppCompat.Title"
+                tools:text="2017-09-10"
+                app:layout_constraintTop_toBottomOf="@+id/label_end_time"
+                app:layout_constraintRight_toLeftOf="@+id/tv_end_time"/>
+
+        <TextView
+                android:id="@+id/tv_end_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Base.TextAppearance.AppCompat.Title"
+                tools:text="22:00"
+                app:layout_constraintTop_toTopOf="@+id/tv_end_date"
+                app:layout_constraintRight_toRightOf="@+id/et_desc"/>
+
+        <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_update_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="32dp"
+                android:src="@drawable/ic_save"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+    </android.support.constraint.ConstraintLayout>
+
+</LinearLayout>

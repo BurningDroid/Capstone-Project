@@ -21,7 +21,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -100,7 +99,7 @@ public class AddEditCategoryActivity extends AppCompatActivity implements AddEdi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.add_edit_category_option_menu, menu);
+        getMenuInflater().inflate(R.menu.delete_option_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

@@ -70,6 +70,11 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
+    public void getActivity(long activityId, OnLoadedActivityListener callback) {
+        callback.onLoadedActivity(mLocalActivityDataSource.getActivity(activityId));
+    }
+
+    @Override
     public void getRunningActivity(OnLoadedActivityListener callback) {
         callback.onLoadedActivity(mLocalActivityDataSource.getRunningActivity());
     }
@@ -82,6 +87,16 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public void getAllActivity(OnLoadedActivitiesListener callback) {
         callback.onLoadedActivities(mLocalActivityDataSource.getAllActivity());
+    }
+
+    @Override
+    public void deleteActivity(long activityId) {
+        mLocalActivityDataSource.deleteActivity(activityId);
+
+        if (mUserService.isAuthenticated()) {
+            String userId = mUserService.getUserId();
+            mRemoteActivityDataSource.deleteActivity(userId, activityId);
+        }
     }
 
     @Override

@@ -79,6 +79,15 @@ public class LocalActivityDataSource implements ActivityDataSource {
     }
 
     @Override
+    public void deleteActivity(long activityId) {
+        Log.d(TAG, "[TIG][datasource][local] deleteActivity: " + activityId);
+
+        String clause = ActivityContract.Activities._ID + " = ?";
+        String[] args = new String[] {String.valueOf(activityId)};
+        mContext.getContentResolver().delete(ActivityContract.Activities.buildDirUri(), clause, args);
+    }
+
+    @Override
     public void deleteActivities() {
         mContext.getContentResolver().delete(ActivityContract.Activities.buildDirUri(), null, null);
     }
