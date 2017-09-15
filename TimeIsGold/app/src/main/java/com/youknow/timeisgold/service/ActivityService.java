@@ -16,6 +16,10 @@ public interface ActivityService {
 
     void getRunningActivity(OnLoadedActivityListener callback);
 
+    void getActivity(long activityId, OnLoadedActivityListener callback);
+
+    void getActivities(long startDate, OnLoadedActivitiesListener callback);
+
     void getActivities(long categoryId, long startDate, OnLoadedActivitiesListener callback);
 
     void getAllActivity(OnLoadedActivitiesListener callback);
@@ -26,7 +30,7 @@ public interface ActivityService {
 
     void getAllHistory(OnLoadedHistoriesListener callback);
 
-    void getActivity(long activityId, OnLoadedActivityListener callback);
+    void getHistories(long startDate, OnLoadedHistoriesListener callback);
 
     interface OnLoadedActivityListener {
         void onLoadedActivity(Activity activity);

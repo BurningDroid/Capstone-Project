@@ -79,42 +79,30 @@ public class LocalActivityDataSource implements ActivityDataSource {
     }
 
     @Override
-    public void deleteActivity(long activityId) {
-        Log.d(TAG, "[TIG][datasource][local] deleteActivity: " + activityId);
+    public List<Activity> getActivities(long startDate) {
+        List<Activity> activityList = new ArrayList<>();
 
-        String clause = ActivityContract.Activities._ID + " = ?";
-        String[] args = new String[] {String.valueOf(activityId)};
-        mContext.getContentResolver().delete(ActivityContract.Activities.buildDirUri(), clause, args);
-    }
-
-    @Override
-    public void deleteActivities() {
-        mContext.getContentResolver().delete(ActivityContract.Activities.buildDirUri(), null, null);
-    }
-
-    @Override
-    public Activity getRunningActivity() {
-        Activity activity = null;
-        String clause = ActivityContract.Activities.IS_RUNNING + " = ?";
-        String[] args = new String[]{"1"};
+        String clause = ActivityContract.Activities.IS_RUNNING + " = ? AND " + ActivityContract.Activities.START_TIME + " >= ?";
+        String[] args = new String[]{"0", String.valueOf(startDate)};
         Cursor cursor = mContext.getContentResolver().query(ActivityContract.Activities.buildDirUri(), null, clause, args, null);
         if (cursor != null && cursor.getCount() > 0) {
-            cursor.moveToFirst();
-            activity = new Activity();
-            activity.setId(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities._ID)));
-            boolean isRunning = cursor.getInt(cursor.getColumnIndex(ActivityContract.Activities.IS_RUNNING)) == 0 ? false : true;
-            activity.setRunning(isRunning);
-            activity.setStartTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.START_TIME)));
-            activity.setEndTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.END_TIME)));
-            activity.setRelStartTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.REL_START_TIME)));
-            activity.setRelEndTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.REL_END_TIME)));
-            activity.setRelElapsedTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.REL_ELAPSED_TIME)));
-            activity.setDesc(cursor.getString(cursor.getColumnIndex(ActivityContract.Activities.DESC)));
-            activity.setCategoryId(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.CATEGORY_ID)));
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                Activity activity = new Activity();
+                activity.setId(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities._ID)));
+                boolean isRunning = cursor.getInt(cursor.getColumnIndex(ActivityContract.Activities.IS_RUNNING)) == 0 ? false : true;
+                activity.setRunning(isRunning);
+                activity.setStartTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.START_TIME)));
+                activity.setEndTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.END_TIME)));
+                activity.setRelStartTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.REL_START_TIME)));
+                activity.setRelEndTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.REL_END_TIME)));
+                activity.setRelElapsedTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.REL_ELAPSED_TIME)));
+                activity.setDesc(cursor.getString(cursor.getColumnIndex(ActivityContract.Activities.DESC)));
+                activity.setCategoryId(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.CATEGORY_ID)));
+                activityList.add(activity);
+            }
         }
 
-        Log.d(TAG, "[TIG] getRunningActivity - " + activity);
-        return activity;
+        return activityList;
     }
 
     @Override
@@ -138,7 +126,6 @@ public class LocalActivityDataSource implements ActivityDataSource {
                 activity.setDesc(cursor.getString(cursor.getColumnIndex(ActivityContract.Activities.DESC)));
                 activity.setCategoryId(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.CATEGORY_ID)));
                 activityList.add(activity);
-                Log.d(TAG, "[TIG] getActivities - " + activity);
             }
         }
 
@@ -172,6 +159,45 @@ public class LocalActivityDataSource implements ActivityDataSource {
         }
 
         return activityList;
+    }
+
+    @Override
+    public void deleteActivity(long activityId) {
+        Log.d(TAG, "[TIG][datasource][local] deleteActivity: " + activityId);
+
+        String clause = ActivityContract.Activities._ID + " = ?";
+        String[] args = new String[]{String.valueOf(activityId)};
+        mContext.getContentResolver().delete(ActivityContract.Activities.buildDirUri(), clause, args);
+    }
+
+    @Override
+    public void deleteActivities() {
+        mContext.getContentResolver().delete(ActivityContract.Activities.buildDirUri(), null, null);
+    }
+
+    @Override
+    public Activity getRunningActivity() {
+        Activity activity = null;
+        String clause = ActivityContract.Activities.IS_RUNNING + " = ?";
+        String[] args = new String[]{"1"};
+        Cursor cursor = mContext.getContentResolver().query(ActivityContract.Activities.buildDirUri(), null, clause, args, null);
+        if (cursor != null && cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            activity = new Activity();
+            activity.setId(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities._ID)));
+            boolean isRunning = cursor.getInt(cursor.getColumnIndex(ActivityContract.Activities.IS_RUNNING)) == 0 ? false : true;
+            activity.setRunning(isRunning);
+            activity.setStartTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.START_TIME)));
+            activity.setEndTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.END_TIME)));
+            activity.setRelStartTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.REL_START_TIME)));
+            activity.setRelEndTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.REL_END_TIME)));
+            activity.setRelElapsedTime(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.REL_ELAPSED_TIME)));
+            activity.setDesc(cursor.getString(cursor.getColumnIndex(ActivityContract.Activities.DESC)));
+            activity.setCategoryId(cursor.getLong(cursor.getColumnIndex(ActivityContract.Activities.CATEGORY_ID)));
+        }
+
+        Log.d(TAG, "[TIG] getRunningActivity - " + activity);
+        return activity;
     }
 
     private ContentValues getValueActivity(Activity activity) {

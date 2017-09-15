@@ -21,7 +21,7 @@ public class DateTimeUtil {
     public static final SimpleDateFormat DATE_FORMAT_SHORT = new SimpleDateFormat("MM/dd");
     public static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm:ss");
     public static final SimpleDateFormat TIME_FORMAT_SHORT = new SimpleDateFormat("HH:mm");
-    public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
+    public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.#");
 
     public static String getElapsedTime(long elapsedTime) {
         long hh, mm, ss;

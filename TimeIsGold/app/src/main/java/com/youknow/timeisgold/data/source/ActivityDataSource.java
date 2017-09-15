@@ -16,14 +16,16 @@ public interface ActivityDataSource {
 
     Activity getActivity(long id);
 
+    List<Activity> getActivities(long startDate);
+
+    List<Activity> getActivities(long categoryId, long startDate);
+
+    List<Activity> getAllActivity();
+
     void deleteActivity(long activityId);
 
     void deleteActivities();
 
     Activity getRunningActivity();
-
-    List<Activity> getActivities(long categoryId, long startDate);
-
-    List<Activity> getAllActivity();
 
 }

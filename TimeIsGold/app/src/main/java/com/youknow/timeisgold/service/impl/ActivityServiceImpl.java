@@ -75,6 +75,11 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
+    public void getActivities(long startDate, OnLoadedActivitiesListener callback) {
+        callback.onLoadedActivities(mLocalActivityDataSource.getActivities(startDate));
+    }
+
+    @Override
     public void getRunningActivity(OnLoadedActivityListener callback) {
         callback.onLoadedActivity(mLocalActivityDataSource.getRunningActivity());
     }
@@ -114,19 +119,36 @@ public class ActivityServiceImpl implements ActivityService {
         getAllActivity(new OnLoadedActivitiesListener() {
             @Override
             public void onLoadedActivities(List<Activity> activities) {
-                List<History> histories = new ArrayList<>();
-
-                for (Activity activity : activities) {
-                    Category category = mCategoryDataSource.getCategory(activity.getCategoryId());
-                    History history = new History(activity);
-                    history.setCategory(category);
-                    histories.add(history);
-                }
-
+                List<History> histories = convertToHistory(activities);
                 Log.d(TAG, "[TIG] getAllHistory - size: " + histories.size());
                 callback.onLoadedHistories(histories);
             }
         });
+    }
+
+    @Override
+    public void getHistories(long startDate, final OnLoadedHistoriesListener callback) {
+        getActivities(startDate, new OnLoadedActivitiesListener() {
+            @Override
+            public void onLoadedActivities(List<Activity> activities) {
+                List<History> histories = convertToHistory(activities);
+                Log.d(TAG, "[TIG] getHistories - size: " + histories.size());
+                callback.onLoadedHistories(histories);
+            }
+        });
+    }
+
+    private List<History> convertToHistory(List<Activity> activities) {
+        List<History> histories = new ArrayList<>();
+
+        for (Activity activity : activities) {
+            Category category = mCategoryDataSource.getCategory(activity.getCategoryId());
+            History history = new History(activity);
+            history.setCategory(category);
+            histories.add(history);
+        }
+
+        return histories;
     }
 
 }
