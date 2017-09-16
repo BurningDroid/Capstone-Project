@@ -116,12 +116,12 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public void getAllHistory(final OnLoadedHistoriesListener callback) {
-        getAllActivity(new OnLoadedActivitiesListener() {
+        mLocalActivityDataSource.getAllHistory(new OnLoadedHistoriesListener(){
+
             @Override
-            public void onLoadedActivities(List<Activity> activities) {
-                List<History> histories = convertToHistory(activities);
-                Log.d(TAG, "[TIG] getAllHistory - size: " + histories.size());
+            public void onLoadedHistories(List<History> histories) {
                 callback.onLoadedHistories(histories);
+                Log.d(TAG, "[TIG] getAllHistory - size: " + histories.size());
             }
         });
     }

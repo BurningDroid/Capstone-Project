@@ -1,8 +1,10 @@
 package com.youknow.timeisgold.data.source.local;
 
 import com.youknow.timeisgold.data.Activity;
+import com.youknow.timeisgold.data.History;
 import com.youknow.timeisgold.data.database.ActivityContract;
 import com.youknow.timeisgold.data.source.ActivityDataSource;
+import com.youknow.timeisgold.service.ActivityService;
 
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -13,6 +15,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Aaron on 31/08/2017.
@@ -198,6 +201,22 @@ public class LocalActivityDataSource implements ActivityDataSource {
 
         Log.d(TAG, "[TIG] getRunningActivity - " + activity);
         return activity;
+    }
+
+    @Override
+    public void getAllHistory(ActivityService.OnLoadedHistoriesListener callback) {
+        List<History> histories = new ArrayList<>();
+        FetchHistoryTask fetchHistoryTask = new FetchHistoryTask(mContext);
+        try {
+            histories = fetchHistoryTask.execute().get();
+            callback.onLoadedHistories(histories);
+        } catch (InterruptedException e) {
+            Log.e(TAG, "[TIG] getAllActivity: " + e.getMessage());
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            Log.e(TAG, "[TIG] getAllActivity: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private ContentValues getValueActivity(Activity activity) {

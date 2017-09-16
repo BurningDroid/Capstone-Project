@@ -1,6 +1,7 @@
 package com.youknow.timeisgold.data.source;
 
 import com.youknow.timeisgold.data.Activity;
+import com.youknow.timeisgold.service.ActivityService;
 
 import java.util.List;
 
@@ -28,4 +29,5 @@ public interface ActivityDataSource {
 
     Activity getRunningActivity();
 
+    void getAllHistory(ActivityService.OnLoadedHistoriesListener callback);
 }
