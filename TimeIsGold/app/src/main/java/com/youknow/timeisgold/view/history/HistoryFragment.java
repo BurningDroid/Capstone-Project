@@ -3,12 +3,17 @@ package com.youknow.timeisgold.view.history;
 
 import com.youknow.timeisgold.R;
 import com.youknow.timeisgold.data.History;
+import com.youknow.timeisgold.data.database.ActivityContract;
 import com.youknow.timeisgold.view.history.addedit.AddEditHistoryActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,7 +33,9 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HistoryFragment extends Fragment implements HistoryContract.View, HistoryAdapter.HistoryListener {
+public class HistoryFragment extends Fragment implements HistoryContract.View, HistoryAdapter.HistoryListener, LoaderManager.LoaderCallbacks<Cursor> {
+
+    private static final String TAG = HistoryFragment.class.getSimpleName();
 
     @BindView(R.id.progress_bar)
     ProgressBar mProgressBar;
@@ -52,6 +59,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View, H
         mPresenter = HistoryPresenter.getInstance(getContext());
         mPresenter.setView(this);
         setHasOptionsMenu(true);
+        getLoaderManager().initLoader(0, null, this);
     }
 
     @Override
@@ -86,12 +94,6 @@ public class HistoryFragment extends Fragment implements HistoryContract.View, H
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        mPresenter.getAllHistory();
-    }
-
-    @Override
     public void onClickHistory(History history) {
         Intent intent = new Intent(getContext(), AddEditHistoryActivity.class);
         intent.putExtra(getString(R.string.key_history), history);
@@ -106,12 +108,24 @@ public class HistoryFragment extends Fragment implements HistoryContract.View, H
     }
 
     @Override
-    public void onLoadedHistories(List<History> histories) {
-        mProgressBar.setVisibility(View.GONE);
-        if (histories.isEmpty()) {
-            showEmptyHistory();
-        } else {
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        String clause = ActivityContract.Activities.IS_RUNNING + " = ?";
+        String[] selectionArgs = new String[]{"0"};
+        return new CursorLoader(getContext(), ActivityContract.Activities.buildDirUri(), null, clause, selectionArgs, ActivityContract.Activities.START_TIME + " DESC");
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        if (data != null && data.getCount() > 0) {
+            List<History> histories = mPresenter.convertToHistory(data);
             mAdapter.setHistoryList(histories);
+            mProgressBar.setVisibility(View.GONE);
         }
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
     }
 }

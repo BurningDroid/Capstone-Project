@@ -2,6 +2,8 @@ package com.youknow.timeisgold.view.history;
 
 import com.youknow.timeisgold.data.History;
 
+import android.database.Cursor;
+
 import java.util.List;
 
 /**
@@ -9,19 +11,17 @@ import java.util.List;
  */
 
 public interface HistoryContract {
+
     interface View {
         void showEmptyHistory();
-
-        void onLoadedHistories(List<History> histories);
     }
 
     interface Presenter {
 
         void setView(View view);
 
-        void getAllHistory();
-
         void clearHistory();
 
+        List<History> convertToHistory(Cursor data);
     }
 }
