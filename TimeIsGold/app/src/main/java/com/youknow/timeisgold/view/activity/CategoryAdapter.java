@@ -17,7 +17,7 @@ import java.util.List;
  * Created by Aaron on 02/09/2017.
  */
 
-class CategoryAdapter extends android.support.v7.widget.RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
+public class CategoryAdapter extends android.support.v7.widget.RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
 
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
@@ -75,7 +75,7 @@ class CategoryAdapter extends android.support.v7.widget.RecyclerView.Adapter<Cat
         notifyDataSetChanged();
     }
 
-    interface CategoryListener {
+    public interface CategoryListener {
         void onClickCategory(Category category);
     }
 
