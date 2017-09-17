@@ -12,12 +12,10 @@ import com.bumptech.glide.request.RequestOptions;
 import com.youknow.timeisgold.R;
 import com.youknow.timeisgold.data.Activity;
 import com.youknow.timeisgold.utils.SharedPrefUtil;
-import com.youknow.timeisgold.view.about.AboutFragment;
 import com.youknow.timeisgold.view.activity.CategoryGridFragment;
 import com.youknow.timeisgold.view.activity.details.CategoryDetailsActivity;
 import com.youknow.timeisgold.view.auth.AuthActivity;
 import com.youknow.timeisgold.view.history.HistoryFragment;
-import com.youknow.timeisgold.view.settings.SettingsFragment;
 import com.youknow.timeisgold.view.statistics.StatisticsFragment;
 
 import android.content.Intent;
@@ -159,10 +157,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragment = CategoryGridFragment.newInstance();
         } else if (id == R.id.nav_history) {
             fragment = new HistoryFragment();
-        } else if (id == R.id.nav_settings) {
-            fragment = new SettingsFragment();
-        } else if (id == R.id.nav_about) {
-            fragment = new AboutFragment();
         }
 
         if (fragment != null) {

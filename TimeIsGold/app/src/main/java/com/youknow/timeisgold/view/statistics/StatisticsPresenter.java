@@ -58,6 +58,11 @@ public class StatisticsPresenter implements StatisticsContract.Presenter {
     public void getActivities(int day) {
         Log.d(TAG, "[TIG] getActivities: " + day);
         Calendar calendar = Calendar.getInstance();
+        int yy = calendar.get(Calendar.YEAR);
+        int MM = calendar.get(Calendar.MONTH);
+        int dd = calendar.get(Calendar.DAY_OF_MONTH);
+        calendar.set(yy, MM, dd, 0, 0, 0);
+
         day *= -1;
         calendar.add(Calendar.DATE, day);
         long startDate = calendar.getTimeInMillis();

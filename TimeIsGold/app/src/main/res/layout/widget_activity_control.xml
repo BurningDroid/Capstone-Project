@@ -16,7 +16,7 @@
             android:src="@drawable/ic_category_work"/>
 
     <TextView
-            android:id="@+id/tv_category_name"
+            android:id="@+id/collapsing_toolbar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"

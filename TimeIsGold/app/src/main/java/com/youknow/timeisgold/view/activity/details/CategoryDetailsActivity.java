@@ -8,6 +8,7 @@ import com.youknow.timeisgold.view.activity.addedit.AddEditCategoryActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.*;
 import android.support.v4.view.PagerAdapter;
@@ -17,7 +18,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
@@ -32,12 +32,10 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
 
     @BindView(R.id.iv_icon)
     ImageView mIvIcon;
-    @BindView(R.id.tv_category_name)
-    TextView mTvCategoryName;
+    @BindView(R.id.collapsing_toolbar)
+    CollapsingToolbarLayout mCollapsingToolbar;
     @BindView(R.id.iv_favorite)
     ImageView mIvFavorite;
-    @BindView(R.id.header)
-    ConstraintLayout mHeader;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     ActionBar mActionBar;
@@ -127,8 +125,8 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
         int favorite = category.isFavorite() ? R.drawable.ic_favorite : R.drawable.ic_no_favorite;
         mIvFavorite.setImageResource(favorite);
         mIvIcon.setImageResource(category.getIcon());
-        mTvCategoryName.setText(category.getName());
-        mHeader.setBackgroundColor(category.getColor());
+        mCollapsingToolbar.setTitle(category.getName());
+        mCollapsingToolbar.setBackgroundColor(category.getColor());
         mToolbar.setBackgroundColor(category.getColor());
     }
 

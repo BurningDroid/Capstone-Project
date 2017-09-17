@@ -37,7 +37,7 @@ public class WidgetReceiver extends BroadcastReceiver {
         final RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_activity_control);
         views.setInt(R.id.widget_container, "setBackgroundColor", category.getColor());
         views.setImageViewResource(R.id.iv_icon, category.getIcon());
-        views.setTextViewText(R.id.tv_category_name, category.getName());
+        views.setTextViewText(R.id.collapsing_toolbar, category.getName());
 
         mActivityService.getRunningActivity(new ActivityService.OnLoadedActivityListener() {
             @Override

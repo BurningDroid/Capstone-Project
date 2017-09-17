@@ -92,7 +92,7 @@ public class CategoryAdapter extends android.support.v7.widget.RecyclerView.Adap
             super(itemView);
             bg = itemView;
             ivIcon = (ImageView) itemView.findViewById(R.id.iv_category_icon);
-            tvName = (TextView) itemView.findViewById(R.id.tv_category_name);
+            tvName = (TextView) itemView.findViewById(R.id.collapsing_toolbar);
             tvType = (TextView) itemView.findViewById(R.id.tv_category_type);
             ivFavorite = (ImageView) itemView.findViewById(R.id.iv_favorite);
 

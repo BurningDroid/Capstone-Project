@@ -44,7 +44,7 @@ public class ActivityControlWidget extends AppWidgetProvider {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_activity_control);
             views.setInt(R.id.widget_container, "setBackgroundColor", category.getColor());
             views.setImageViewResource(R.id.iv_icon, category.getIcon());
-            views.setTextViewText(R.id.tv_category_name, category.getName());
+            views.setTextViewText(R.id.collapsing_toolbar, category.getName());
             views.setImageViewResource(R.id.iv_control, R.drawable.ic_circle_start);
 
             Intent receiverIntent = new Intent(context, WidgetReceiver.class);
@@ -55,7 +55,7 @@ public class ActivityControlWidget extends AppWidgetProvider {
 
             Intent activityIntent = new Intent(context, MainActivity.class);
             PendingIntent activityPi = PendingIntent.getActivity(context, 0, activityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            views.setOnClickPendingIntent(R.id.tv_category_name, activityPi);
+            views.setOnClickPendingIntent(R.id.collapsing_toolbar, activityPi);
 
             // Instruct the widget manager to update the widget
             appWidgetManager.updateAppWidget(appWidgetId, views);

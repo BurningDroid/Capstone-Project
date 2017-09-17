@@ -4,10 +4,8 @@ import com.youknow.timeisgold.R;
 import com.youknow.timeisgold.data.Activity;
 import com.youknow.timeisgold.data.Category;
 import com.youknow.timeisgold.utils.DateTimeUtil;
-import com.youknow.timeisgold.view.activity.details.starter.StarterFragment;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -42,7 +40,7 @@ public class StopActivityDialog extends DialogFragment {
         TextView tvStartTime = (TextView) rootView.findViewById(R.id.tv_start_time);
         TextView tvEndTime = (TextView) rootView.findViewById(R.id.tv_end_time);
         TextView tvElapsedTime = (TextView) rootView.findViewById(R.id.tv_elapsed_time);
-        TextView tvCategoryName = (TextView) rootView.findViewById(R.id.tv_category_name);
+        TextView tvCategoryName = (TextView) rootView.findViewById(R.id.collapsing_toolbar);
 
         tvStartTime.setText(getString(R.string.started_at, DateTimeUtil.DATE_TIME_FORMAT.format(activity.getStartTime())));
         tvEndTime.setText(getString(R.string.ended_at, DateTimeUtil.DATE_TIME_FORMAT.format(activity.getEndTime())));

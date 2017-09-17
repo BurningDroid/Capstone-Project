@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -44,12 +45,10 @@ public class AddEditHistoryActivity extends AppCompatActivity implements AddEdit
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     ActionBar mActionBar;
-    @BindView(R.id.header)
-    ConstraintLayout mHeader;
     @BindView(R.id.iv_icon)
     ImageView mIvIcon;
-    @BindView(R.id.tv_category_name)
-    TextView mTvCategoryName;
+    @BindView(R.id.collapsing_toolbar)
+    CollapsingToolbarLayout mCollapsingToolbarLayout;
     @BindView(R.id.et_desc)
     EditText mEtDesc;
     @BindView(R.id.tv_start_date)
@@ -101,17 +100,22 @@ public class AddEditHistoryActivity extends AppCompatActivity implements AddEdit
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_delete) {
-            Log.d(TAG, "[TIG] onOptionsItemSelected - delete history: " + mHistory);
-            AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                    .setTitle(getString(R.string.delete_history_confirm_message))
-                    .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            mPresenter.deleteHistory(mHistory);
-                        }
-                    });
-            builder.show();
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            case R.id.action_delete:
+                Log.d(TAG, "[TIG] onOptionsItemSelected - delete history: " + mHistory);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                        .setTitle(getString(R.string.delete_history_confirm_message))
+                        .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mPresenter.deleteHistory(mHistory);
+                            }
+                        });
+                builder.show();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -210,9 +214,9 @@ public class AddEditHistoryActivity extends AppCompatActivity implements AddEdit
 
     private void setView() {
         mToolbar.setBackgroundColor(mHistory.getColor());
-        mHeader.setBackgroundColor(mHistory.getColor());
         mIvIcon.setImageResource(mHistory.getIcon());
-        mTvCategoryName.setText(mHistory.getName());
+        mCollapsingToolbarLayout.setTitle(mHistory.getName());
+        mCollapsingToolbarLayout.setBackgroundColor(mHistory.getColor());
         mEtDesc.setText(mHistory.getDesc());
 
         Calendar calendar = Calendar.getInstance();

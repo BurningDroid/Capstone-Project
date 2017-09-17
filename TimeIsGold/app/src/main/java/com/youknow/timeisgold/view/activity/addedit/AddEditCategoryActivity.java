@@ -6,6 +6,7 @@ import com.youknow.timeisgold.data.Type;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
@@ -19,7 +20,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,14 +33,12 @@ public class AddEditCategoryActivity extends AppCompatActivity implements AddEdi
     private static final String TAG = AddEditCategoryActivity.class.getSimpleName();
 
     ActionBar mActionBar;
-    @BindView(R.id.header)
-    LinearLayout mLinearLayout;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.iv_icon)
     ImageView mIvIcon;
-    @BindView(R.id.tv_category_name)
-    TextView mTvCategoryName;
+    @BindView(R.id.collapsing_toolbar)
+    CollapsingToolbarLayout mCollapsingToolbar;
     @BindView(R.id.et_category_name)
     EditText mEtCategoryName;
     @BindView(R.id.iv_category_color)
@@ -83,7 +81,7 @@ public class AddEditCategoryActivity extends AppCompatActivity implements AddEdi
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    mTvCategoryName.setText(v.getText().toString());
+                    mCollapsingToolbar.setTitle(v.getText().toString());
                     return true;
                 }
                 return false;
@@ -147,9 +145,9 @@ public class AddEditCategoryActivity extends AppCompatActivity implements AddEdi
     @Override
     public void colorSelected(int color) {
         mColor = color;
+        mCollapsingToolbar.setBackgroundColor(color);
         mIvCategoryColor.setColorFilter(color);
         mIvCategoryIconBg.setColorFilter(color);
-        mLinearLayout.setBackgroundColor(color);
         mToolbar.setBackgroundColor(color);
     }
 
@@ -177,7 +175,7 @@ public class AddEditCategoryActivity extends AppCompatActivity implements AddEdi
         categorySelected(mCategory.getIcon());
         colorSelected(mCategory.getColor());
         mEtCategoryName.setText(mCategory.getName());
-        mTvCategoryName.setText(mCategory.getName());
+        mCollapsingToolbar.setTitle(mCategory.getName());
         mSpnCategoryType.setSelection(mAdapter.getPosition(mCategory.getType()));
     }
 }

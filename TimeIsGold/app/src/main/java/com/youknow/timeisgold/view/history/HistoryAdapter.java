@@ -78,7 +78,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
             itemContainer = (ConstraintLayout) itemView.findViewById(R.id.item_container);
             ivCategoryIcon = (ImageView) itemView.findViewById(R.id.iv_category_icon);
             tvCategoryType = (TextView) itemView.findViewById(R.id.tv_category_type);
-            tvCategoryName = (TextView) itemView.findViewById(R.id.tv_category_name);
+            tvCategoryName = (TextView) itemView.findViewById(R.id.collapsing_toolbar);
             tvActivityDesc = (TextView) itemView.findViewById(R.id.tv_activity_desc);
             tvElapsedTime = (TextView) itemView.findViewById(R.id.tv_elapsed_time);
             tvTime = (TextView) itemView.findViewById(R.id.tv_time);

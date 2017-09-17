@@ -77,7 +77,7 @@ public class CategorySelectorActivity extends AppCompatActivity implements Categ
         RemoteViews views = new RemoteViews(getPackageName(), R.layout.widget_activity_control);
         views.setInt(R.id.widget_container, "setBackgroundColor", category.getColor());
         views.setImageViewResource(R.id.iv_icon, category.getIcon());
-        views.setTextViewText(R.id.tv_category_name, category.getName());
+        views.setTextViewText(R.id.collapsing_toolbar, category.getName());
         views.setImageViewResource(R.id.iv_control, R.drawable.ic_circle_start);
         Intent intent = new Intent(this, WidgetReceiver.class);
         intent.putExtra(getString(R.string.key_widget_id), mAppWidgetId);
