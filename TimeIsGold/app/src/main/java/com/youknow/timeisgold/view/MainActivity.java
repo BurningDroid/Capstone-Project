@@ -29,6 +29,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     GoogleApiClient mGoogleApiClient;
     MainContractor.Presenter mPresenter;
+    static Fragment fragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +118,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             TextView tvName = (TextView) headerLayout.findViewById(R.id.tv_name);
             tvName.setText(user.getDisplayName());
         }
+
+        if (fragment == null) {
+            onNavigationItemSelected(mNavigationView.getMenu().findItem(R.id.nav_start_activity));
+        }
     }
 
     @Override
@@ -131,7 +137,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        Fragment fragment = null;
 
         if (id == R.id.nav_today) {
             fragment = new StatisticsFragment();

@@ -15,6 +15,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -91,7 +92,7 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
-                break;
+                return true;
             case R.id.action_edit:
                 Intent intent = new Intent(this, AddEditCategoryActivity.class);
                 intent.putExtra(getString(R.string.key_category), mCategory);

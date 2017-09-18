@@ -111,7 +111,6 @@ public class LocalCategoryDataSource implements CategoryDataSource {
                 categories.add(category);
 
                 mCategoryMap.put(category.getId(), category);
-                Log.d(TAG, "[TIG][datasource][local] getAllCategory: " + category);
             }
         }
 
