@@ -46,5 +46,6 @@
     <string name="there_are_no_data">데이터가 존재하지 않습니다</string>
     <string name="update_complete_message">성공적으로 수정되었습니다!</string>
     <string name="delete_complete_message">성공적으로 삭제되었습니다!</string>
-    <string name="statistics_header_past">It is the time you used in the past %1$d days.</string>
+    <string name="statistics_header_past">지난 %1$d일 동안 사용한 시간 이력입니다.</string>
+    <string name="statistics_header_today">오늘 사용한 시간 이력입니다</string>
 </resources>

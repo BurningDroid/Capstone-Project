@@ -30,9 +30,9 @@ public class DateTimeUtil {
         ss = ((elapsedTime - hh * 60 * 60 * 1000) - mm * 60 * 1000) / 1000;
 
         if (hh == 0) {
-            return mm + " min " + ss + "sec";
+            return mm + "min " + ss + "sec";
         } else {
-            return hh + " hour " + mm + " min " + ss + "sec";
+            return hh + "hour " + mm + "min " + ss + "sec";
         }
     }
 
@@ -42,9 +42,9 @@ public class DateTimeUtil {
         mm = (elapsedTime - hh * 60 * 60 * 1000) / 1000 / 60;
 
         if (hh == 0) {
-            return mm + " min";
+            return mm + "min";
         } else {
-            return hh + " hour " + mm + " min";
+            return hh + "hour " + mm + "min";
         }
     }
 
