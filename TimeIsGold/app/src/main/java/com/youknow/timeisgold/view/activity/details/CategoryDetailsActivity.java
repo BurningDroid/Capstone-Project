@@ -54,8 +54,6 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
         setContentView(R.layout.activity_category_details);
         ButterKnife.bind(this);
 
-        setTitle("");
-
         mPresenter = CategoryDetailsPresenter.getInstance(this);
         mPresenter.setView(this);
 

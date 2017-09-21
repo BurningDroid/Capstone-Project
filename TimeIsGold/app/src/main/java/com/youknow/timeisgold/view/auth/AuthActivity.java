@@ -123,10 +123,8 @@ public class AuthActivity extends AppCompatActivity implements GoogleApiClient.O
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "[TIG] signInWithCredential:failure", task.getException());
-                            Toast.makeText(AuthActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AuthActivity.this, getString(R.string.auth_failed), Toast.LENGTH_SHORT).show();
                         }
-
-                        // ...
                     }
                 });
     }

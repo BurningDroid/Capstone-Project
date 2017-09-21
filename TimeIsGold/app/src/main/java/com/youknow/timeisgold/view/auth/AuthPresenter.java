@@ -3,6 +3,7 @@ package com.youknow.timeisgold.view.auth;
 import com.google.firebase.auth.FirebaseUser;
 
 import com.youknow.timeisgold.Injection;
+import com.youknow.timeisgold.R;
 import com.youknow.timeisgold.data.User;
 import com.youknow.timeisgold.service.UserService;
 import com.youknow.timeisgold.utils.SharedPrefUtil;
@@ -35,7 +36,7 @@ public class AuthPresenter implements AuthContract.Presenter {
             @Override
             public void done() {
                 SharedPrefUtil.getInstance(mContext).initialize();
-                mView.authComplete("Welcome " + user.getName());
+                mView.authComplete(mContext.getString(R.string.welcome_user, user.getName()));
             }
         });
     }

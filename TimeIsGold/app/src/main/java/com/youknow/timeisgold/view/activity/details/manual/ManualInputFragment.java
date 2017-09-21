@@ -125,7 +125,7 @@ public class ManualInputFragment extends Fragment implements ManualInputContract
                 sYear = year;
                 sMonth = month;
                 sDay = dayOfMonth;
-                mTvStartDate.setText(year + "-" + String.format("%02d", (month + 1)) + "-" + String.format("%02d", dayOfMonth));
+                mTvStartDate.setText(getString(R.string.date_format, year, String.format("%02d", (month + 1)), String.format("%02d", dayOfMonth)));
             }
         }, DateTimeUtil.getCurrentYear(), DateTimeUtil.getCurrentMonth(), DateTimeUtil.getCurrentDay());
         dialog.show();
@@ -138,7 +138,7 @@ public class ManualInputFragment extends Fragment implements ManualInputContract
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 sHour = hourOfDay;
                 sMin = minute;
-                mTvStartTime.setText(String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute));
+                mTvStartTime.setText(getString(R.string.time_format_short, String.format("%02d", hourOfDay), String.format("%02d", minute)));
             }
         }, DateTimeUtil.getCurrentHour(), DateTimeUtil.getCurrentMinute(), true);
         dialog.show();
@@ -153,7 +153,7 @@ public class ManualInputFragment extends Fragment implements ManualInputContract
                 eYear = year;
                 eMonth = month;
                 eDay = dayOfMonth;
-                mTvEndDate.setText(year + "-" + String.format("%02d", (month + 1)) + "-" + String.format("%02d", dayOfMonth));
+                mTvEndDate.setText(getString(R.string.date_format, year, String.format("%02d", (month + 1)), String.format("%02d", dayOfMonth)));
             }
         }, DateTimeUtil.getCurrentYear(), DateTimeUtil.getCurrentMonth(), DateTimeUtil.getCurrentDay());
         dialog.show();
@@ -166,7 +166,7 @@ public class ManualInputFragment extends Fragment implements ManualInputContract
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 eHour = hourOfDay;
                 eMin = minute;
-                mTvEndTime.setText(String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute));
+                mTvEndTime.setText(getString(R.string.time_format_short, String.format("%02d", hourOfDay), String.format("%02d", minute)));
             }
         }, DateTimeUtil.getCurrentHour(), DateTimeUtil.getCurrentMinute(), true);
         dialog.show();
@@ -192,7 +192,7 @@ public class ManualInputFragment extends Fragment implements ManualInputContract
         activity.setStartTime(sTime);
         activity.setEndTime(eTime);
         activity.setRelElapsedTime(eTime - sTime);
-        Toast.makeText(getContext(), "Elapsed Time: " + DateTimeUtil.getElapsedTime(eTime - sTime), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), getString(R.string.elapsed_time, DateTimeUtil.getElapsedTime(eTime - sTime)), Toast.LENGTH_SHORT).show();
         mPresenter.createNewActivity(activity);
     }
 

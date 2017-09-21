@@ -24,6 +24,7 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_marginBottom="16dp"
+                android:contentDescription="@string/desc_profile"
                 app:layout_constraintLeft_toLeftOf="@+id/tv_name"
                 app:layout_constraintBottom_toTopOf="@+id/tv_name" />
 
@@ -76,13 +77,14 @@
                 <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:layout_marginLeft="16dp"
-                        android:src="@drawable/ic_view_day" />
+                        android:layout_marginStart="16dp"
+                        android:src="@drawable/ic_view_day"
+                        android:contentDescription="@string/desc_statistics_today"/>
 
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="48dp"
+                        android:layout_marginStart="48dp"
                         android:layout_gravity="center"
                         android:text="@string/today"
                         android:textColor="@color/colorPrimaryDark" />
@@ -98,13 +100,14 @@
                 <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:layout_marginLeft="16dp"
-                        android:src="@drawable/ic_view_day" />
+                        android:layout_marginStart="16dp"
+                        android:src="@drawable/ic_view_day"
+                        android:contentDescription="@string/desc_statistics_yesterday"/>
 
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="48dp"
+                        android:layout_marginStart="48dp"
                         android:layout_gravity="center"
                         android:text="@string/yesterday"
                         android:textColor="@color/colorPrimaryDark" />
@@ -120,13 +123,14 @@
                 <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:layout_marginLeft="16dp"
-                        android:src="@drawable/ic_view_week" />
+                        android:layout_marginStart="16dp"
+                        android:src="@drawable/ic_view_week"
+                        android:contentDescription="@string/desc_statistics_week"/>
 
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="48dp"
+                        android:layout_marginStart="48dp"
                         android:layout_gravity="center"
                         android:text="@string/week"
                         android:textColor="@color/colorPrimaryDark" />
@@ -142,13 +146,14 @@
                 <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:layout_marginLeft="16dp"
-                        android:src="@drawable/ic_view_month" />
+                        android:layout_marginStart="16dp"
+                        android:src="@drawable/ic_view_month"
+                        android:contentDescription="@string/desc_statistics_month"/>
 
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="48dp"
+                        android:layout_marginStart="48dp"
                         android:layout_gravity="center"
                         android:text="@string/month"
                         android:textColor="@color/colorPrimaryDark" />
@@ -170,13 +175,14 @@
                 <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:layout_marginLeft="16dp"
-                        android:src="@drawable/ic_add_activity" />
+                        android:layout_marginStart="16dp"
+                        android:src="@drawable/ic_add_activity"
+                        android:contentDescription="@string/desc_start_activity"/>
 
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="48dp"
+                        android:layout_marginStart="48dp"
                         android:layout_gravity="center"
                         android:text="@string/start_activity"
                         android:textColor="@color/colorPrimaryDark" />
@@ -193,13 +199,14 @@
                 <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:layout_marginLeft="16dp"
-                        android:src="@drawable/ic_activity_history" />
+                        android:layout_marginStart="16dp"
+                        android:src="@drawable/ic_activity_history"
+                        android:contentDescription="@string/desc_history"/>
 
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="48dp"
+                        android:layout_marginStart="48dp"
                         android:layout_gravity="center"
                         android:text="@string/history"
                         android:textColor="@color/colorPrimaryDark" />

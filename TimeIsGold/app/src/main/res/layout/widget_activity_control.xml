@@ -13,7 +13,8 @@
             android:layout_weight="1"
             android:layout_margin="8dp"
             android:layout_gravity="center"
-            android:src="@drawable/ic_category_work"/>
+            android:src="@drawable/ic_category_work"
+            android:contentDescription="@string/desc_category_icon"/>
 
     <TextView
             android:id="@+id/collapsing_toolbar"
@@ -37,6 +38,7 @@
             android:layout_weight="1"
             android:layout_margin="8dp"
             android:layout_gravity="center"
-            android:src="@drawable/ic_start"/>
+            android:src="@drawable/ic_start"
+            android:contentDescription="@string/desc_activity_control"/>
 
 </LinearLayout>

@@ -21,6 +21,7 @@
             android:layout_gravity="center"
             android:src="@drawable/ic_info"
             android:visibility="gone"
+            android:contentDescription="@string/desc_empty_contents"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"

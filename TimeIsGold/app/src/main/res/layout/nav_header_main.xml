@@ -17,6 +17,7 @@
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_marginBottom="8dp"
+            android:contentDescription="@string/desc_profile"
             app:layout_constraintBottom_toTopOf="@+id/tv_name"/>
 
     <Button

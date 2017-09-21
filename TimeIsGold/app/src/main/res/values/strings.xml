@@ -67,5 +67,23 @@
     <string name="delete_complete_message">Delete is done!</string>
     <string name="statistics_header_past">It is the time you used in the past %1$d days.</string>
     <string name="statistics_header_today">It is the time you are using today.</string>
+    <string name="elapsed_time">Elapsed Time: %1$s</string>
+    <string name="auth_failed">Authentication failed.</string>
+    <string name="time_format_short" translatable="false">%1$s:%2$s</string>
+    <string name="date_format" translatable="false">%1$d-%2$s-%3$s</string>
+    <string name="welcome_user">Welcome %1$s</string>
+    <string name="desc_category_icon">Category Icon</string>
+    <string name="desc_category_color">Category Color</string>
+    <string name="desc_category_icon_bg">Category Icon Background</string>
+    <string name="desc_category_favorite">Category Favorite</string>
+    <string name="desc_empty_contents">There are no data.</string>
+    <string name="desc_profile">User Profile Image</string>
+    <string name="desc_statistics_today">Statistics Today</string>
+    <string name="desc_statistics_yesterday">Statistics Yesterday</string>
+    <string name="desc_statistics_week">Statistics Week</string>
+    <string name="desc_statistics_month">Statistics Month</string>
+    <string name="desc_start_activity">Start Activity</string>
+    <string name="desc_history">History</string>
+    <string name="desc_activity_control">Activity Control</string>
 
 </resources>

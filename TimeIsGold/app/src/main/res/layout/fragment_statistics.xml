@@ -41,6 +41,7 @@
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:layout_gravity="center"
+                    android:contentDescription="@string/desc_empty_contents"
                     android:src="@drawable/ic_info" />
 
             <TextView

@@ -141,7 +141,7 @@ public class AddEditHistoryActivity extends AppCompatActivity implements AddEdit
                 sYear = year;
                 sMonth = month;
                 sDay = dayOfMonth;
-                mTvStartDate.setText(year + "-" + String.format("%02d", (month + 1)) + "-" + String.format("%02d", dayOfMonth));
+                mTvStartDate.setText(getString(R.string.date_format, year, String.format("%02d", (month + 1)), String.format("%02d", dayOfMonth)));
             }
         }, DateTimeUtil.getCurrentYear(), DateTimeUtil.getCurrentMonth(), DateTimeUtil.getCurrentDay());
         dialog.show();
@@ -154,7 +154,7 @@ public class AddEditHistoryActivity extends AppCompatActivity implements AddEdit
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 sHour = hourOfDay;
                 sMin = minute;
-                mTvStartTime.setText(String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute));
+                mTvStartTime.setText(getString(R.string.time_format_short, String.format("%02d", hourOfDay), String.format("%02d", minute)));
             }
         }, DateTimeUtil.getCurrentHour(), DateTimeUtil.getCurrentMinute(), true);
         dialog.show();
@@ -169,7 +169,7 @@ public class AddEditHistoryActivity extends AppCompatActivity implements AddEdit
                 eYear = year;
                 eMonth = month;
                 eDay = dayOfMonth;
-                mTvEndDate.setText(year + "-" + String.format("%02d", (month + 1)) + "-" + String.format("%02d", dayOfMonth));
+                mTvEndDate.setText(getString(R.string.date_format, year, String.format("%02d", (month + 1)), String.format("%02d", dayOfMonth)));
             }
         }, DateTimeUtil.getCurrentYear(), DateTimeUtil.getCurrentMonth(), DateTimeUtil.getCurrentDay());
         dialog.show();
@@ -182,7 +182,7 @@ public class AddEditHistoryActivity extends AppCompatActivity implements AddEdit
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 eHour = hourOfDay;
                 eMin = minute;
-                mTvEndTime.setText(String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute));
+                mTvEndTime.setText(getString(R.string.time_format_short, String.format("%02d", hourOfDay), String.format("%02d", minute)));
             }
         }, DateTimeUtil.getCurrentHour(), DateTimeUtil.getCurrentMinute(), true);
         dialog.show();
@@ -196,9 +196,6 @@ public class AddEditHistoryActivity extends AppCompatActivity implements AddEdit
 
         calendar.set(eYear, eMonth, eDay, eHour, eMin);
         long eTime = calendar.getTimeInMillis();
-
-        Log.d(TAG, "[TIG] onClickUpdateHistory - sTime: " + sTime + ", " + sYear + "-" + sMonth + "-" + sDay + " " + sHour + ":" + sMin);
-        Log.d(TAG, "[TIG] onClickUpdateHistory - eTime: " + eTime + ", " + eYear + "-" + eMonth + "-" + eDay + " " + eHour + ":" + eMin);
 
         if (sTime > eTime) {
             Toast.makeText(this, getString(R.string.error_incorrect_time), Toast.LENGTH_SHORT).show();

@@ -48,4 +48,20 @@
     <string name="delete_complete_message">성공적으로 삭제되었습니다!</string>
     <string name="statistics_header_past">지난 %1$d일 동안 사용한 시간 이력입니다.</string>
     <string name="statistics_header_today">오늘 사용한 시간 이력입니다</string>
+    <string name="elapsed_time">수행 시간: %1$s</string>
+    <string name="auth_failed">인증 실패.</string>
+    <string name="welcome_user">%1$s님 환영합니다!</string>
+    <string name="desc_category_icon">카테고리 아이콘</string>
+    <string name="desc_category_color">카테고리 색상</string>
+    <string name="desc_category_icon_bg">카테고리 아이콘 배경</string>
+    <string name="desc_category_favorite">즐겨찾는 카테고리</string>
+    <string name="desc_empty_contents">데이터가 존재하지 않습니다.</string>
+    <string name="desc_profile">사용자 프로필 이미지</string>
+    <string name="desc_statistics_today">통계 정보 - 오늘</string>
+    <string name="desc_statistics_yesterday">통계 정보 - 어제</string>
+    <string name="desc_statistics_week">통계 정보 - 일주일</string>
+    <string name="desc_statistics_month">통계 정보 - 한달</string>
+    <string name="desc_start_activity">활동 시작</string>
+    <string name="desc_history">이력</string>
+    <string name="desc_activity_control">활동 제어</string>
 </resources>
