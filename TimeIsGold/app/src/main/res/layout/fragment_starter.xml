@@ -55,6 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="32dp"
-                android:src="@drawable/ic_start" />
+                android:src="@drawable/ic_start"
+                android:contentDescription="@string/desc_operate"/>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

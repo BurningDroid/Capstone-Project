@@ -139,6 +139,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="32dp"
             android:src="@drawable/ic_save"
+            android:contentDescription="@string/desc_update_history"
             app:layout_anchor="@id/collapsing_toolbar"
             app:layout_anchorGravity="right|bottom|end"/>
 

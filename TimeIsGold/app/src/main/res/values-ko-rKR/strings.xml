@@ -64,4 +64,9 @@
     <string name="desc_start_activity">활동 시작</string>
     <string name="desc_history">이력</string>
     <string name="desc_activity_control">활동 제어</string>
+    <string name="desc_save_category">카테고리 저장</string>
+    <string name="desc_update_history">이력 업데이트</string>
+    <string name="desc_operate">활동 제어</string>
+    <string name="desc_save_activity">활동 저장</string>
+    <string name="desc_add_category">카테고리 추가</string>
 </resources>

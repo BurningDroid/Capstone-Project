@@ -85,5 +85,10 @@
     <string name="desc_start_activity">Start Activity</string>
     <string name="desc_history">History</string>
     <string name="desc_activity_control">Activity Control</string>
+    <string name="desc_save_category">Save Category</string>
+    <string name="desc_update_history">Update History</string>
+    <string name="desc_operate">Activity Operate</string>
+    <string name="desc_save_activity">Save Activity</string>
+    <string name="desc_add_category">Add Category</string>
 
 </resources>

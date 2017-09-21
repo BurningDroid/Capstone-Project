@@ -89,6 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="32dp"
                 android:layout_gravity="center"
+                android:contentDescription="@string/desc_save_activity"
                 android:src="@drawable/ic_save" />
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>
