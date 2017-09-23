@@ -45,10 +45,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     FirebaseAuth mAuth;
 
+    @Nullable
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+    @Nullable
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawer;
+    @Nullable
     @BindView(R.id.nav_view)
     NavigationView mNavigationView;
 

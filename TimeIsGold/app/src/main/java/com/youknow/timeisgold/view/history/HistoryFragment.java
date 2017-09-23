@@ -15,6 +15,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -102,6 +103,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View, H
 
     @Override
     public void showEmptyHistory() {
+        mProgressBar.setVisibility(View.GONE);
         mRvHistory.setVisibility(View.GONE);
         mIvEmptyInfo.setVisibility(View.VISIBLE);
         mTvEmptyInfo.setVisibility(View.VISIBLE);
@@ -109,6 +111,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View, H
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        Log.d(TAG, "[TIG] onCreateLoader");
         String clause = ActivityContract.Activities.IS_RUNNING + " = ?";
         String[] selectionArgs = new String[]{"0"};
         return new CursorLoader(getContext(), ActivityContract.Activities.buildDirUri(), null, clause, selectionArgs, ActivityContract.Activities.START_TIME + " DESC");
@@ -117,15 +120,18 @@ public class HistoryFragment extends Fragment implements HistoryContract.View, H
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if (data != null && data.getCount() > 0) {
+            Log.d(TAG, "[TIG] onLoadFinished: " + data.getCount());
             List<History> histories = mPresenter.convertToHistory(data);
             mAdapter.setHistoryList(histories);
             mProgressBar.setVisibility(View.GONE);
+        } else {
+            Log.d(TAG, "[TIG] onLoadFinished - data is empty");
+            showEmptyHistory();
         }
-
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-
+        Log.d(TAG, "[TIG] onLoaderReset");
     }
 }

@@ -91,6 +91,7 @@ public class LocalCategoryDataSource implements CategoryDataSource {
 
     @Override
     public List<Category> getAllCategory() {
+        Log.d(TAG, "[TIG] getAllCategory()");
         String[] args = new String[]{String.valueOf(0)};
         String clause = CategoryContract.Categories.IS_DELETED + " = ?";
         List<Category> categories = new ArrayList<>();
@@ -110,6 +111,7 @@ public class LocalCategoryDataSource implements CategoryDataSource {
                 category.setDeleted(false);
                 categories.add(category);
 
+                Log.d(TAG, "[TIG] getAllCategory: " + category);
                 mCategoryMap.put(category.getId(), category);
             }
         }
