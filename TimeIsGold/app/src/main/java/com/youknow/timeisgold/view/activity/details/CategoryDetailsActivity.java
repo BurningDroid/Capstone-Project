@@ -120,6 +120,10 @@ public class CategoryDetailsActivity extends AppCompatActivity implements Catego
 
     @Override
     public void onLoadedCategory(Category category) {
+        if (category == null) {
+            return;
+        }
+
         mCategory = category;
         int favorite = category.isFavorite() ? R.drawable.ic_favorite : R.drawable.ic_no_favorite;
         mIvFavorite.setImageResource(favorite);

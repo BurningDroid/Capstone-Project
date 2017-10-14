@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "455248362640-iebif78bi83t0571rpavq11pc4cfjro8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.youknow.timeisgold",
+            "certificate_hash": "4e937ed6c267bad080ada7901fd7e15fedb15b46"
+          }
+        },
+        {
           "client_id": "455248362640-i18p6quurp4overmbqgointfjnjqi8h9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
